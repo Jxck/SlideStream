@@ -9,7 +9,10 @@
   <link rel="stylesheet" href="public/stylesheets/deck.core.css" type="text/css">
   
   <!-- Any other extension CSS files go here. -->
-  
+  <link rel="stylesheet" id="style-theme-link" href="public/themes/style/swiss.css">
+  <link rel="stylesheet" id="transition-theme-link" href="public/themes/transition/horizontal-slide.css">
+  <link rel="stylesheet" id="shjs-link" href="http://shjs.sourceforge.net/sh_style.css">
+
   <!-- Replace path with correct path to Modernizr file. -->
   <script src="public/javascripts/modernizr.custom.js"></script>
 </head>
@@ -22,18 +25,36 @@
   <p>block rxckin beats</p>
 </section>
 
+
+<section class="slide">
+  <!-- Slide content HTML goes here! -->
+  <h2>This is second title</h2>
+  <p>Slides are just HTML elements with a class of <code>slide</code>.</p>
+  <pre id="demo" class="sh_javascript">
+console.log('hoge');
+  </pre>
+  <pre id="output" class="sh_sh"></pre>
+  <input id="execute" type="button" value="execute"></input>
+</section>
+
+
 <!-- Other extension HTML snippets go here, at the bottom of the deck container. -->
 
 <!-- Update these paths to point to the correct files. -->
 <script src="public/javascripts/jquery-1.6.4.min.js"></script>
 <script src="public/javascripts/deck.core.js"></script>
+<script src="http://shjs.sourceforge.net/sh_main.min.js"></script>
+<script src="http://shjs.sourceforge.net/lang/sh_javascript.min.js"></script>
+<script src="http://shjs.sourceforge.net/lang/sh_sh.min.js"></script>
 
 <!-- Add any other extension JS files here -->
-
+<script src="public/extensions/hash/deck.hash.js"></script>
 
 <!-- Initialize the deck. You can put this in an external file if desired. -->
 <script>
   $(function() {
+    sh_highlightDocument('lang/', '.js');
+    sh_highlightDocument('lang/', '.shell');
     $.deck('.slide');
   });
 </script>
