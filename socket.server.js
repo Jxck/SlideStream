@@ -1,6 +1,11 @@
-var log = console.log;
-var io = require('socket.io').listen(3000);
+var log = console.log
+  , io = require('socket.io')
+  , config = require('config')
+  ;
 
+var port = config.development.socket.port;
+
+io = io.listen(port);
 io.sockets.on('connection', function(socket) {
   socket.on('disconnect', function() {
     log('disconnected');

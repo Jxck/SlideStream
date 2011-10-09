@@ -1,0 +1,10 @@
+{
+  "static": {
+    "host": "",
+    "port": 80
+  },
+  "socket": {
+    "host": "",
+    "port": 3000
+  }
+}
