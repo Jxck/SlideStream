@@ -3,7 +3,7 @@ var log = console.log
   , config = require('config')
   , parseCookie = require('connect').utils.parseCookie
   , sessionStore = require('./static.server.js').sessionStore
-  , codeStream = require('./lib/codeStream');
+  , CodeStream = require('./lib/codeStream')
   ;
 
 var port = config.socket.port;
@@ -51,6 +51,9 @@ io.configure('development', function() {
   io.set('transports', ['websocket']);
 });
 
+var codeStream = new CodeStream('src/app.js')
+  , resultStream = new CodeStream('src/result');
+
 io.sockets.on('connection', function(socket) {
   socket.on('disconnect', function() {
     log('disconnected');
@@ -63,5 +66,9 @@ io.sockets.on('connection', function(socket) {
 
   codeStream.on('code', function(data) {
     socket.emit('code', data);
+  });
+
+  resultStream.on('code', function(data) {
+    socket.emit('result', data);
   });
 });

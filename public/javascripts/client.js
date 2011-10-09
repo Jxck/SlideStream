@@ -18,7 +18,11 @@ socket.on('connect', function() {
   });
 
   socket.on('code', function(data) {
-    codeRender(data);
+    codeRender('code', data);
+  });
+
+  socket.on('result', function(data) {
+    codeRender('result', data);
   });
 
   socket.on('disconnect', function() {
@@ -29,8 +33,9 @@ socket.on('connect', function() {
 $(function() {
 });
 
-function codeRender(data) {
-  var $code = $('#code');
-  $code.text(data);
+function codeRender(target, data) {
+  var $target = $('#' + target);
+  $target.text(data);
   sh_highlightDocument('lang/', '.js');
+  sh_highlightDocument('lang/', '.shell');
 }
