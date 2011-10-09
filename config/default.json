@@ -1,7 +1,7 @@
 {
   "static": {
     "host": "localhost",
-    "port": 3000
+    "port": 3001
   },
   "socket": {
     "host": "localhost",
