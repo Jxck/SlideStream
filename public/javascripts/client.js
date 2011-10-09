@@ -1,7 +1,7 @@
 var log = console.log.bind(console);
 // Client
-var host = location.host
-  , port = 3000
+var host = document.domain
+  , port = 4000
   , url = 'http://' + host + ':' + port;
 
 var socket = io.connect(url);
