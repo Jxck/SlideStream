@@ -7,6 +7,7 @@ files = [
   'static.server.js'
   'config/*'
   'public/javascripts/client.js'
+  'lib/*'
 ]
 
 exec "fixjsstyle #{ files.join ' ' }", (err, stdout, stderr)->
