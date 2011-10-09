@@ -3,6 +3,7 @@ var log = console.log
   , config = require('config')
   , parseCookie = require('connect').utils.parseCookie
   , sessionStore = require('./static.server.js').sessionStore
+  , codeStream = require('./lib/codeStream');
   ;
 
 var port = config.socket.port;
@@ -45,6 +46,7 @@ io.configure('production', function() {
   // ]);
 });
 
+
 io.configure('development', function() {
   io.set('transports', ['websocket']);
 });
@@ -58,5 +60,8 @@ io.sockets.on('connection', function(socket) {
     if (!socket.handshake.session.admin) return false;
     socket.broadcast.emit('go', to);
   });
-});
 
+  codeStream.on('code', function(data) {
+    socket.emit('code', data);
+  });
+});

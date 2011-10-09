@@ -13,13 +13,24 @@ socket.on('connect', function() {
     $.deck('go', to);
   });
 
+  $(document).bind('deck.change', function(event, from, to) {
+    if (from != to) socket.emit('go', to);
+  });
+
+  socket.on('code', function(data) {
+    codeRender(data);
+  });
+
   socket.on('disconnect', function() {
     log('disconnected');
   });
 });
 
 $(function() {
-  $(document).bind('deck.change', function(event, from, to) {
-    if (from != to) socket.emit('go', to);
-  });
 });
+
+function codeRender(data) {
+  var $code = $('#code');
+  $code.text(data);
+  sh_highlightDocument('lang/', '.js');
+}
