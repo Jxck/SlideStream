@@ -3,12 +3,14 @@ var express = require('express')
   , config = require('config')
   ;
 
+var MemoryStore = express.session.MemoryStore
+  , sessionStore =  module.exports.sessionStore = new MemoryStore();
 
 // defaults
 var host = config.static.host || 'localhost';
 var port = config.static.port || 3000;
 
-var app = module.exports = express.createServer();
+var app = module.exports.app = express.createServer();
 
 // Configuration
 
@@ -16,7 +18,10 @@ app.configure(function() {
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
-  app.use(express.session({ secret: config.secret.pass }));
+  app.use(express.session({
+    secret: config.secret.pass,
+    store: sessionStore
+  }));
   app.use(express.logger());
   app.use(app.router);
   app.use(express.static(__dirname));
@@ -52,5 +57,8 @@ app.post('/admin', function(req, res) {
   res.redirect('/index.html');
 });
 
-app.listen(port);
-console.log('Express server listening on port %d in %s mode', app.address().port, app.settings.env);
+//if(require.main === module) {
+  app.listen(port);
+  console.log('Express server listening on port %d in %s mode'
+              , app.address().port, app.settings.env);
+//}
