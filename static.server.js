@@ -16,9 +16,10 @@ app.configure(function() {
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
-  app.use(express.session({ secret: 'your secret here' }));
+  app.use(express.session({ secret: config.secret.pass }));
+  app.use(express.logger());
   app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
+  app.use(express.static(__dirname));
 });
 
 app.configure('development', function() {
@@ -31,7 +32,7 @@ app.configure('production', function() {
 
 // Routes
 app.get('/', function(req, res) {
-  res.send(req.session.admin || false);
+  res.redirect('/index.html');
 });
 
 app.get('/admin', function(req, res) {
@@ -45,10 +46,10 @@ app.get('/admin', function(req, res) {
 app.post('/admin', function(req, res) {
   req.session.admin = false;
   if (req.body.user === config.secret.user &&
-     req.body.pass === config.secret.pass) {
+      req.body.pass === config.secret.pass) {
     req.session.admin = true;
   }
-  res.redirect('/');
+  res.redirect('/index.html');
 });
 
 app.listen(port);
