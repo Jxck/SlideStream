@@ -5,5 +5,7 @@
   , "dependencies": {
       "express": "2.4.6"
     , "socket.io": "0.8.5"
+    , "connect": "1.7.1"
+    , "config": "0.4.3"
   }
 }
