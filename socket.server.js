@@ -54,6 +54,8 @@ io.configure('development', function() {
 var codeStream = new CodeStream('src/app.js')
   , resultStream = new CodeStream('src/result');
 
+codeStream.readCode();
+resultStream.readResult();
 io.sockets.on('connection', function(socket) {
   socket.on('disconnect', function() {
     log('disconnected');
@@ -65,10 +67,10 @@ io.sockets.on('connection', function(socket) {
   });
 
   codeStream.on('code', function(data) {
-    socket.emit('code', data);
+    socket.volatile.emit('code', data);
   });
 
   resultStream.on('code', function(data) {
-    socket.emit('result', data);
+    socket.volatile.emit('result', data);
   });
 });

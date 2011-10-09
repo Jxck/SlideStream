@@ -22,6 +22,7 @@ socket.on('connect', function() {
   });
 
   socket.on('result', function(data) {
+    log(data);
     codeRender('result', data);
   });
 
