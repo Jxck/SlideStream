@@ -1,6 +1,7 @@
 var log = console.log;
 var express = require('express')
   , config = require('config')
+  , crypto = require('crypto')
   ;
 
 var MemoryStore = express.session.MemoryStore
@@ -11,6 +12,10 @@ var host = config.static.host || 'localhost';
 var port = config.static.port || 3000;
 
 var app = module.exports.app = express.createServer();
+
+function pass(pass) {
+  return crypto.createHash('sha1').update(pass).digest('hex');
+}
 
 // Configuration
 
@@ -51,7 +56,7 @@ app.get('/admin', function(req, res) {
 app.post('/admin', function(req, res) {
   req.session.admin = false;
   if (req.body.user === config.secret.user &&
-      req.body.pass === config.secret.pass) {
+      pass(req.body.pass) === config.secret.pass) {
     req.session.admin = true;
   }
   res.redirect('/index.html');
