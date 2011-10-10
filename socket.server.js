@@ -1,10 +1,10 @@
-var log = console.log
-  , io = require('socket.io')
-  , config = require('config')
-  , parseCookie = require('connect').utils.parseCookie
-  , sessionStore = require('./static.server.js').sessionStore
-  , CodeStream = require('./lib/codeStream')
-  ;
+var log = console.log,
+    io = require('socket.io'),
+    config = require('config'),
+    parseCookie = require('connect').utils.parseCookie,
+    sessionStore = require('./static.server.js').sessionStore,
+    CodeStream = require('./lib/codeStream');
+
 
 var port = config.socket.port;
 
@@ -51,8 +51,8 @@ io.configure('development', function() {
   io.set('transports', ['websocket']);
 });
 
-var codeStream = new CodeStream('lib/src/app.js')
-  , resultStream = new CodeStream('lib/result');
+var codeStream = new CodeStream('lib/src/app.js'),
+  resultStream = new CodeStream('lib/result');
 
 codeStream.readCode();
 resultStream.readResult();
