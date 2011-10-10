@@ -13,6 +13,8 @@
   <link rel="stylesheet" id="transition-theme-link" href="public/themes/transition/horizontal-slide.css">
   <link rel="stylesheet" id="shjs-link" href="http://shjs.sourceforge.net/sh_style.css">
 
+  <link rel="stylesheet" href="public/stylesheets/style.css" type="text/css">
+
   <!-- Replace path with correct path to Modernizr file. -->
   <script src="public/javascripts/modernizr.custom.js"></script>
 </head>
@@ -21,8 +23,7 @@
 <!-- Create any number of elements with class slide within the container -->
 <section class="slide">
   <!-- Slide content HTML goes here! -->
-  <h2>This is My title</h2>
-  <p>block rxckin beats</p>
+  <h1>Node.js for Begginer<p class="small">with Live Coding :)</p></h1>
 </section>
 
 <section class="slide">
@@ -68,28 +69,95 @@
 </section>
 
 <section class="slide">
-  <h2>What is Express?</h2>
-  <h3>Web Application Framework by <a href="http://twitter.com/tjholowaychuk">TJ</a></h3>
-  <ul>
-    <li>inspired by Sinatra</li>
-    <li>very lightweight</li>
-    <li>build on Connect middleware</li>
-    <li>standard in node</li>
-  </ul>
+  <h2>Install & Sckeleton</h2>
+  <h3>Install via npm</h3>
+  <pre id="code" class="sh_sh left">
+$ npm install -g express
+$ express -s sample
+$ cd sample && npm install
+  </pre>
+  <pre id="code" class="sh_sh right">
+$ tree
+├── app.js
+├── package.json
+├── public
+│   ├── images
+│   ├── javascripts
+│   └── stylesheets
+│       └── style.css
+└── views
+    ├── index.jade
+    └── layout.jade
+  </pre>
+</section>
+
+<section class="slide">
+  <h2>Start Express Server</h2>
+  <pre id="code" class="sh_sh">
+$ node app.js</pre>
+  <pre id="result" class="sh_sh"></pre>
+</section>
+
+<section class="slide">
+  <h2>Inside app.js</h2>
+  <pre id="code" class="sh_javascript">
+var express = require('express');
+var app = module.exports = express.createServer();
+
+app.configure(function(){
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(app.router);
+  app.use(express.static(__dirname + '/public'));
+});
+
+app.configure('development', function(){
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
+app.configure('production', function(){
+  app.use(express.errorHandler());
+});
+
+// Routes
+
+app.get('/', function(req, res){
+  res.render('index', {
+    title: 'Express'
+  });
+});
+
+app.listen(3000);
+console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+  </pre>
+</section>
+
+
+<section class="slide">
+  <h2>socket.io</h2>
+  <p>Slides are just HTML elements with a class of <code>slide</code>.</p>
+  <pre id="code" class="sh_javascript">
+var express = require('express');
+var app = module.exports = express.createServer();
+
+app.configure(function(){
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(app.router);
+  app.use(express.static(__dirname + '/public'));
+});
+  </pre>
+  <pre id="result" class="sh_sh"></pre>
 </section>
 
 <section class="slide">
   <h1>require('socket.io')</h1>
 </section>
 
-<section class="slide">
-  <h2>This is second title</h2>
-  <p>Slides are just HTML elements with a class of <code>slide</code>.</p>
-  <pre id="code" class="sh_javascript">
-console.log('hoge');
-  </pre>
-  <pre id="result" class="sh_sh"></pre>
-</section>
 
 <!-- Other extension HTML snippets go here, at the bottom of the deck container. -->
 

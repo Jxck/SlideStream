@@ -1,0 +1,23 @@
+.deck-container {
+    font-size: 170%;
+}
+
+h1 p.small {
+    font-size: 40%;
+    color: #aa1122;
+}
+
+pre.sh_javascript {
+    height: 18em;
+    overflow: scroll;
+}
+
+.slide .left {
+    width: 42%;
+    float: left;
+}
+
+.slide .right {
+    width: 42%;
+    float: right;
+}
