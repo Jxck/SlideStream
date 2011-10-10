@@ -7,8 +7,8 @@ h1 p.small {
     color: #aa1122;
 }
 
-pre.sh_javascript {
-    height: 18em;
+pre.sh_javascript, pre.sh_sh {
+    height: 12em;
     overflow: scroll;
 }
 
