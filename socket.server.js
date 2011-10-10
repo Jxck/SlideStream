@@ -52,7 +52,7 @@ io.configure('development', function() {
 });
 
 var codeStream = new CodeStream('lib/src/app.js')
-  , resultStream = new CodeStream('lib/src/result');
+  , resultStream = new CodeStream('lib/result');
 
 codeStream.readCode();
 resultStream.readResult();
