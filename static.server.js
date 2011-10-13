@@ -1,11 +1,11 @@
 var log = console.log;
 var express = require('express')
   , config = require('config')
-  , crypto = require('crypto')
-  ;
+  , crypto = require('crypto');
 
-var MemoryStore = express.session.MemoryStore
-  , sessionStore =  module.exports.sessionStore = new MemoryStore();
+
+var MemoryStore = express.session.MemoryStore,
+    sessionStore = module.exports.sessionStore = new MemoryStore();
 
 // defaults
 var host = config.static.host || 'localhost';

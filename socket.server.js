@@ -51,8 +51,8 @@ io.configure('development', function() {
   io.set('transports', ['websocket']);
 });
 
-var codeStream = new CodeStream('lib/src/app.js'),
-  resultStream = new CodeStream('lib/result');
+var codeStream = new CodeStream('lib/sample/app.js'),
+    resultStream = new CodeStream('lib/result');
 
 codeStream.readCode();
 resultStream.readResult();

@@ -1,8 +1,8 @@
 var log = console.log.bind(console);
 // Client
-var host = document.domain
-  , port = 4000
-  , url = 'http://' + host + ':' + port;
+var host = document.domain,
+    port = 4000,
+    url = 'http://' + host + ':' + port;
 
 var socket = io.connect(url);
 
