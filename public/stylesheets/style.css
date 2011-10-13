@@ -2,14 +2,30 @@
     font-size: 170%;
 }
 
+section.slide h1 {
+    font-size: 4em;
+}
+
+section.slide h2 {
+    margin: 0;
+    padding: 0;
+}
+
 h1 p.small {
     font-size: 40%;
     color: #aa1122;
 }
 
 pre.sh_javascript, pre.sh_sh {
-    height: 12em;
+    font-size: 60%;
     overflow: scroll;
+    height: 29em;
+}
+
+pre.full {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    height: 36em;
 }
 
 .slide .left {

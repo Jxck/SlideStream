@@ -11,7 +11,7 @@
   <!-- Any other extension CSS files go here. -->
   <link rel="stylesheet" id="style-theme-link" href="public/themes/style/swiss.css">
   <link rel="stylesheet" id="transition-theme-link" href="public/themes/transition/horizontal-slide.css">
-  <link rel="stylesheet" id="shjs-link" href="http://shjs.sourceforge.net/sh_style.css">
+  <link rel="stylesheet" id="shjs-link" href="public/stylesheets/sh_style.css">
 
   <link rel="stylesheet" href="public/stylesheets/style.css" type="text/css">
 
@@ -97,8 +97,7 @@ $ tree
 </section>
 
 <section class="slide">
-  <h2>Inside app.js</h2>
-  <pre id="code" class="sh_javascript">
+  <pre id="code" class="sh_javascript full">
 var express = require('express');
 var app = module.exports = express.createServer();
 
@@ -132,6 +131,14 @@ console.log("Express server listening on port %d in %s mode", app.address().port
   </pre>
 </section>
 
+<section class="slide">
+  <h1>require('socket.io')</h1>
+</section>
+
+<section class="slide">
+  <h2>What's Socket.IO</h2>
+  <p>You can see it later from Guillermo !</p>
+</section>
 
 <section class="slide">
   <h2>socket.io</h2>
@@ -149,22 +156,16 @@ app.configure(function(){
   app.use(express.static(__dirname + '/public'));
 });
   </pre>
-  <pre id="result" class="sh_sh"></pre>
 </section>
-
-<section class="slide">
-  <h1>require('socket.io')</h1>
-</section>
-
 
 <!-- Other extension HTML snippets go here, at the bottom of the deck container. -->
 
 <!-- Update these paths to point to the correct files. -->
 <script src="public/javascripts/jquery-1.6.4.min.js"></script>
 <script src="public/javascripts/deck.core.js"></script>
-<script src="http://shjs.sourceforge.net/sh_main.min.js"></script>
-<script src="http://shjs.sourceforge.net/lang/sh_javascript.min.js"></script>
-<script src="http://shjs.sourceforge.net/lang/sh_sh.min.js"></script>
+<script src="public/javascripts/sh_main.min.js"></script>
+<script src="public/javascripts/sh_javascript.min.js"></script>
+<script src="public/javascripts/sh_sh.min.js"></script>
 
 <!-- Add any other extension JS files here -->
 <script src="public/extensions/hash/deck.hash.js"></script>
