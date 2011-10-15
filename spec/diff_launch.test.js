@@ -15,7 +15,15 @@ describe('make_patch', function() {
 });
 
 describe('apply_patch', function() {
+  var patch;
+  beforeEach(function() {
+    patch = make_patch('asdf', 'adf');
+  });
   it('should pass', function() {
     expect(apply_patch).toBeTruthy();
+  });
+  it('should return original text', function() {
+    var original = apply_patch('adf', patch);
+    expect(original).toBeTruthy();
   });
 });
