@@ -27,3 +27,16 @@ describe('apply_patch', function() {
     expect(original).toBeTruthy();
   });
 });
+
+describe('usecase', function() {
+  var old_text, new_text;
+  beforeEach(function() {
+    old_text = 'google diff match patch';
+    new_text = 'google daff match patch';
+  });
+  it('should success', function() {
+    var patch = make_patch(old_text, new_text);
+    var result = apply_patch(old_text, patch);
+    expect(result).toEqual(new_text);
+  });
+});
