@@ -1,14 +1,21 @@
 if (typeof window === 'undefined') {
   // for jasmine-node
-  var text2patch = require('../lib/diff_launch');
+  var make_patch = require('../lib/diff_launch').make_patch;
+  var apply_patch = require('../lib/diff_launch').apply_patch;
 }
 
-describe('jasmine-node', function() {
+describe('make_patch', function() {
   it('should pass', function() {
-    expect(text2patch).toBeTruthy();
+    expect(make_patch).toBeTruthy();
   });
   it('should return patch_text', function() {
-    var patch = text2patch('asdf', 'adf');
+    var patch = make_patch('asdf', 'adf');
     expect(patch).toBeTruthy();
+  });
+});
+
+describe('apply_patch', function() {
+  it('should pass', function() {
+    expect(apply_patch).toBeTruthy();
   });
 });
