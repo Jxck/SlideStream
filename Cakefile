@@ -6,8 +6,9 @@ files = [
   'socket.server.js'
   'static.server.js'
   'config/*'
-  'public/javascripts/client.js'
   'lib/*'
+  'public/javascripts/client.js'
+  'spec/diff_launch.test.js'
 ]
 
 exec "fixjsstyle #{ files.join ' ' }", (err, stdout, stderr)->
