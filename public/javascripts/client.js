@@ -19,12 +19,11 @@ socket.on('connect', function() {
   });
 
   socket.on('code', function(data) {
-    codeRender('code', data);
+    buildResult('code', data);
   });
 
   socket.on('result', function(data) {
     resultCache.push(data);
-    log('readline', resultCache);
     codeRender('result', resultCache.join(''));
   });
 
@@ -39,17 +38,15 @@ $(function() {
 function codeRender(target, data) {
   var $target = $('#' + target);
   $target.text(data);
-  sh_highlightDocument('lang/', '.js');
-  sh_highlightDocument('lang/', '.shell');
+  if (target === 'code') sh_highlightDocument('lang/', '.js');
+  if (target === 'result') sh_highlightDocument('lang/', '.shell');
 }
 
+var codeCache = '';
 function buildResult(target, patch) {
-  var $target = $('#' + target);
-  var old_text = $target.text();
+  var old_text = codeCache;
   var result = apply_patch(old_text, patch);
+  codeCache = result;
   codeRender(target, result);
-
-log('old_text', old_text);
-log('result', result);
-log('result', patch);
+log('result', patch.length);
 }

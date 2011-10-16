@@ -70,8 +70,13 @@ io.sockets.on('connection', function(socket) {
     socket.broadcast.emit('go', to);
   });
 
+var codeCache = '';
+var make_patch = require('./lib/diff_launch').make_patch;
+
   codeStream.on('code', function(data) {
-    socket.volatile.emit('code', data);
+    var patch = make_patch(codeCache, data);
+    codeCache = data;
+    socket.volatile.emit('code', patch);
   });
 
   socket.on('readline', function(data) {
