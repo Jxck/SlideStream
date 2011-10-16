@@ -74,7 +74,6 @@ io.sockets.on('connection', function(socket) {
   });
 
   socket.on('readline', function(data) {
-    log('server', data);
     socket.volatile.emit('result', data);
     socket.volatile.broadcast.emit('result', data);
   });
