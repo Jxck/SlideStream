@@ -73,6 +73,8 @@ io.sockets.on('connection', function(socket) {
   resultStream.on('code', function(data) {
     var patch = make_patch(resultCache, data);
     resultCache = data;
+    if (patch === '') return false;
     socket.volatile.emit('result', patch);
+    socket.volatile.broadcast.emit('result', patch);
   });
 });

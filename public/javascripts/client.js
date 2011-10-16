@@ -2,8 +2,7 @@ var log = console.log.bind(console);
 // Client
 var host = document.domain,
     port = 4000,
-    url = 'http://' + host + ':' + port,
-    resultCache = '';
+    url = 'http://' + host + ':' + port;
 
 var socket = io.connect(url);
 
@@ -23,9 +22,8 @@ socket.on('connect', function() {
   });
 
   socket.on('result', function(patch) {
-    var result = apply_patch(resultCache, patch);
-    resultCache = result;
-    codeRender('result', result);
+log('result', patch);
+    codeRender('result', patch);
   });
 
   socket.on('disconnect', function() {
@@ -36,9 +34,13 @@ socket.on('connect', function() {
 $(function() {
 });
 
-function codeRender(target, data) {
+function codeRender(target, patch) {
   var $target = $('#' + target);
-  $target.text(data);
+  var old_text = $target.text();
+log('old_text', old_text);
+  var result = apply_patch(old_text, patch);
+log('result', result);
+  $target.text(result);
   sh_highlightDocument('lang/', '.js');
   sh_highlightDocument('lang/', '.shell');
 }
