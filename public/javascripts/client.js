@@ -17,13 +17,12 @@ socket.on('connect', function() {
     if (from != to) socket.emit('go', to);
   });
 
-  socket.on('code', function(patch) {
+  socket.on('code', function(data) {
     codeRender('code', data);
   });
 
   socket.on('result', function(patch) {
-log('result', patch);
-    codeRender('result', patch);
+    buildResult('result', patch);
   });
 
   socket.on('disconnect', function() {
@@ -34,13 +33,20 @@ log('result', patch);
 $(function() {
 });
 
-function codeRender(target, patch) {
+function codeRender(target, data) {
   var $target = $('#' + target);
-  var old_text = $target.text();
-log('old_text', old_text);
-  var result = apply_patch(old_text, patch);
-log('result', result);
-  $target.text(result);
+  $target.text(data);
   sh_highlightDocument('lang/', '.js');
   sh_highlightDocument('lang/', '.shell');
+}
+
+function buildResult(target, patch) {
+  var $target = $('#' + target);
+  var old_text = $target.text();
+  var result = apply_patch(old_text, patch);
+  codeRender(target, result);
+
+log('old_text', old_text);
+log('result', result);
+log('result', patch);
 }

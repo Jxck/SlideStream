@@ -50,17 +50,20 @@ io.configure('development', function() {
   io.set('transports', ['websocket']);
 });
 
-var codeStream = new CodeStream('lib/sample/app.js'),
+var codeStream = new CodeStream('./sample/app.js'),
     resultStream = new CodeStream('lib/result'),
     resultCache = '';
 
+// start to read files
 codeStream.readCode();
 resultStream.readResult();
+
 io.sockets.on('connection', function(socket) {
   socket.on('disconnect', function() {
     log('disconnected');
   });
 
+  // move slide by admin
   socket.on('go', function(to) {
     if (!socket.handshake.session.admin) return false;
     socket.broadcast.emit('go', to);
