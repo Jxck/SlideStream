@@ -39,4 +39,10 @@ describe('usecase', function() {
     var result = apply_patch(old_text, patch);
     expect(result).toEqual(new_text);
   });
+  it('empty case', function() {
+    old_text = '';
+    var patch = make_patch(old_text, new_text);
+    var result = apply_patch(old_text, patch);
+    expect(result).toEqual(new_text);
+  });
 });
