@@ -1,4 +1,4 @@
-{
+module.exports = {
   "static": {
     "host": "",
     "port": 80
@@ -6,5 +6,9 @@
   "socket": {
     "host": "",
     "port": 4000
+  },
+  "secret": {
+    "user": "Jxck",
+    "pass": "31f30ddbcb1bf8446576f0e64aa4c88a9f055e3c"
   }
 }

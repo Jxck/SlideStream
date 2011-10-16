@@ -1,8 +1,8 @@
 var log = console.log;
-var express = require('express')
-  , config = require('config')
-  , crypto = require('crypto');
-
+var express = require('express'),
+    env = process.env.NODE_ENV,
+    config = require('./config/' + (env ? env : 'default') + '.json'),
+    crypto = require('crypto');
 
 var MemoryStore = express.session.MemoryStore,
     sessionStore = module.exports.sessionStore = new MemoryStore();

@@ -1,6 +1,7 @@
 var log = console.log,
     io = require('socket.io'),
-    config = require('config'),
+    env = process.env.NODE_ENV,
+    config = require('./config/' + (env ? env : 'default') + '.json'),
     parseCookie = require('connect').utils.parseCookie,
     sessionStore = require('./static.server.js').sessionStore,
     CodeStream = require('./lib/codeStream'),
