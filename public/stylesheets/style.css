@@ -23,6 +23,11 @@ section.slide h2 {
     padding: 0;
 }
 
+section.slide strong {
+    font-family: monospace;
+    color: #f0a;
+}
+
 pre.sh_javascript, pre.sh_sh {
     font-size: 60%;
     overflow: scroll;
