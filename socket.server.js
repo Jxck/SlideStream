@@ -3,11 +3,10 @@ var log = console.log,
     config = require('config'),
     parseCookie = require('connect').utils.parseCookie,
     sessionStore = require('./static.server.js').sessionStore,
-    CodeStream = require('./lib/codeStream');
-
+    CodeStream = require('./lib/codeStream'),
+    make_patch = require('./lib/diff_launch').make_patch;
 
 var port = config.socket.port;
-
 
 io = io.listen(port);
 
@@ -52,7 +51,8 @@ io.configure('development', function() {
 });
 
 var codeStream = new CodeStream('lib/sample/app.js'),
-    resultStream = new CodeStream('lib/result');
+    resultStream = new CodeStream('lib/result'),
+    resultCache = '';
 
 codeStream.readCode();
 resultStream.readResult();
@@ -71,6 +71,8 @@ io.sockets.on('connection', function(socket) {
   });
 
   resultStream.on('code', function(data) {
-    socket.volatile.emit('result', data);
+    var patch = make_patch(resultCache, data);
+    resultCache = data;
+    socket.volatile.emit('result', patch);
   });
 });
