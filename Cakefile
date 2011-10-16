@@ -14,3 +14,7 @@ files = [
 exec "fixjsstyle #{ files.join ' ' }", (err, stdout, stderr)->
   throw err if err
   log stdout + stderr
+
+exec "rm -rf lib/sample", (err, stdout, stderr)->
+  throw err if err
+  log stdout + stderr
