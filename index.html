@@ -11,10 +11,12 @@
   <!-- Any other extension CSS files go here. -->
   <link rel="stylesheet" id="style-theme-link" href="public/themes/style/neon.css">
   <link rel="stylesheet" id="transition-theme-link" href="public/themes/transition/horizontal-slide.css">
+
   <link rel="stylesheet" id="shjs-link" href="public/stylesheets/sh_style.css">
 
   <link rel="stylesheet" href="public/stylesheets/style.css" type="text/css">
-
+  <link rel="stylesheet" id="transition-theme-link" href="public/extensions/status/deck.status.css">
+  <link rel="stylesheet" id="transition-theme-link" href="public/extensions/menu/deck.menu.css">
   <!-- Replace path with correct path to Modernizr file. -->
   <script src="public/javascripts/modernizr.custom.js"></script>
 </head>
@@ -157,17 +159,25 @@ console.log("Express server listening on port %d in %s mode", app.address().port
 </section>
 
 <!-- Other extension HTML snippets go here, at the bottom of the deck container. -->
+<p class="deck-status">
+  <span class="deck-status-current"></span>
+  /
+  <span class="deck-status-total"></span>
+</p>
 
 <!-- Update these paths to point to the correct files. -->
 <script src="public/javascripts/jquery-1.6.4.min.js"></script>
 <script src="public/javascripts/deck.core.js"></script>
+
+<!-- Add any other extension JS files here -->
+<script src="public/extensions/hash/deck.hash.js"></script>
+<script src="public/extensions/menu/deck.menu.js"></script>
+<script src="public/extensions/status/deck.status.js"></script>
+
 <script src="public/javascripts/sh_main.min.js"></script>
 <script src="public/javascripts/sh_javascript.min.js"></script>
 <script src="public/javascripts/sh_sh.min.js"></script>
 <script src="public/javascripts/diff_match_patch.js"></script>
-
-<!-- Add any other extension JS files here -->
-<script src="public/extensions/hash/deck.hash.js"></script>
 <script src="http://localhost:4000/socket.io/socket.io.js"></script>
 <script src="lib/diff_launch.js"></script>
 <script src="public/javascripts/client.js"></script>
