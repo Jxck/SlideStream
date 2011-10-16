@@ -2,7 +2,8 @@ var log = console.log.bind(console);
 // Client
 var host = document.domain,
     port = 4000,
-    url = 'http://' + host + ':' + port;
+    url = 'http://' + host + ':' + port,
+    resultCache = [];
 
 var socket = io.connect(url);
 
@@ -21,8 +22,10 @@ socket.on('connect', function() {
     codeRender('code', data);
   });
 
-  socket.on('result', function(patch) {
-    buildResult('result', patch);
+  socket.on('result', function(data) {
+    resultCache.push(data);
+    log('readline', resultCache);
+    codeRender('result', resultCache.join(''));
   });
 
   socket.on('disconnect', function() {

@@ -27,7 +27,9 @@ io.configure(function() {
         }
       });
     } else {
-      return callback('Cookie dosen\'t found', false);
+      return callback(null, true);
+      // socket.io-client from node process dosen't has cookie
+      // return callback('Cookie dosen\'t found', false);
     }
   });
 });
@@ -73,11 +75,9 @@ io.sockets.on('connection', function(socket) {
     socket.volatile.emit('code', data);
   });
 
-  resultStream.on('code', function(data) {
-    var patch = make_patch(resultCache, data);
-    resultCache = data;
-    if (patch === '') return false;
-    socket.volatile.emit('result', patch);
-    socket.volatile.broadcast.emit('result', patch);
+  socket.on('readline', function(data) {
+    log('server', data);
+    socket.volatile.emit('result', data);
+    socket.volatile.broadcast.emit('result', data);
   });
 });
