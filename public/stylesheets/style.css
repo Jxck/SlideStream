@@ -2,18 +2,25 @@
     font-size: 170%;
 }
 
+.deck-container a, .deck-container a:hover, .deck-container a:focus, .deck-container a:active, .deck-container a:visited {
+    font-family: monospace;
+    color: orange
+}
+
 section.slide h1 {
     font-size: 4em;
+    color: #f0a;
+    text-shadow: 0 0 50px #f0a, 0 0 3px #fff;
+}
+
+section.slide h1 p.small {
+    font-size: 40%;
+    color: white;
 }
 
 section.slide h2 {
     margin: 0;
     padding: 0;
-}
-
-h1 p.small {
-    font-size: 40%;
-    color: #aa1122;
 }
 
 pre.sh_javascript, pre.sh_sh {
@@ -37,3 +44,24 @@ pre.full {
     width: 42%;
     float: right;
 }
+
+
+/* over write sh_javascript */
+pre.sh_sourceCode {
+  background-color: black;
+  color: white;
+  font-style: normal;
+  font-weight: normal;
+}
+
+pre.sh_sourceCode .sh_keyword { color: orange; }           /* language keywords */
+pre.sh_sourceCode .sh_string { color: lime; font-family: monospace; font-weight: bold;}        /* strings and chars */
+pre.sh_sourceCode .sh_comment { color: fuchsia; font-style: italic; }         /* comments */
+pre.sh_sourceCode .sh_number { color: yellow; }                             /* literal numbers */
+pre.sh_sourceCode .sh_symbol { color: white; }                            /* e.g., <, >, + */
+pre.sh_sourceCode .sh_function { color: aqua; font-weight: normal; }         /* function calls and declarations */
+pre.sh_sourceCode .sh_cbracket { color: white; }                              /* block brackets (e.g., {, }) */
+
+/* Predefined variables and functions (for instance glsl) */
+pre.sh_sourceCode .sh_predef_var { color: darkblue; }
+pre.sh_sourceCode .sh_predef_func { color: darkblue; font-weight: bold; }

@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="public/stylesheets/deck.core.css" type="text/css">
   
   <!-- Any other extension CSS files go here. -->
-  <link rel="stylesheet" id="style-theme-link" href="public/themes/style/swiss.css">
+  <link rel="stylesheet" id="style-theme-link" href="public/themes/style/neon.css">
   <link rel="stylesheet" id="transition-theme-link" href="public/themes/transition/horizontal-slide.css">
   <link rel="stylesheet" id="shjs-link" href="public/stylesheets/sh_style.css">
 
@@ -114,17 +114,45 @@
   <h2>socket.io</h2>
   <p>Slides are just HTML elements with a class of <code>slide</code>.</p>
   <pre class="sh_javascript">
+/**
+ * Module dependencies.
+ */
+
 var express = require('express');
+
 var app = module.exports = express.createServer();
+
+// Configuration
 
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  app.use(express.cookieParser());
+  app.use(express.session({ secret: 'your secret here' }));
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 });
+
+app.configure('development', function(){
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+});
+
+app.configure('production', function(){
+  app.use(express.errorHandler()); 
+});
+
+// Routes
+
+app.get('/', function(req, res){
+  res.render('index', {
+    title: 'Express'
+  });
+});
+
+app.listen(3000);
+console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
   </pre>
 </section>
 
