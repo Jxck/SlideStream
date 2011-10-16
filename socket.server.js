@@ -53,12 +53,10 @@ io.configure('development', function() {
 });
 
 var codeStream = new CodeStream('./sample/app.js'),
-    resultStream = new CodeStream('lib/result'),
     resultCache = '';
 
 // start to read files
 codeStream.readCode();
-resultStream.readResult();
 
 io.sockets.on('connection', function(socket) {
   socket.on('disconnect', function() {
