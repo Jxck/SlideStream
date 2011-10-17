@@ -16,6 +16,7 @@ section.slide h1 {
 section.slide h1 p.small {
     font-size: 40%;
     color: white;
+    text-shadow: 0 0 50px #fff, 0 0 2px #fff;
 }
 
 section.slide h2 {
@@ -23,9 +24,20 @@ section.slide h2 {
     padding: 0;
 }
 
+section.slide h3 {
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+    text-shadow: 0 0 14px #fff, 0 0 1.8px #fff;
+}
+
 section.slide strong {
     font-family: monospace;
     color: #f0a;
+}
+
+section.slide span.mono {
+    font-family: monospace;
 }
 
 pre.sh_javascript, pre.sh_sh {
@@ -35,9 +47,7 @@ pre.sh_javascript, pre.sh_sh {
 }
 
 pre.full {
-    margin-top: 1em;
-    margin-bottom: 1em;
-    height: 36em;
+    margin-bottom: 0.4em;
 }
 
 .slide .left {
@@ -59,13 +69,20 @@ pre.sh_sourceCode {
   font-weight: normal;
 }
 
-pre.sh_sourceCode .sh_keyword { color: orange; }           /* language keywords */
-pre.sh_sourceCode .sh_string { color: lime; font-family: monospace; font-weight: bold;}        /* strings and chars */
-pre.sh_sourceCode .sh_comment { color: fuchsia; font-style: italic; }         /* comments */
-pre.sh_sourceCode .sh_number { color: yellow; }                             /* literal numbers */
-pre.sh_sourceCode .sh_symbol { color: white; }                            /* e.g., <, >, + */
-pre.sh_sourceCode .sh_function { color: aqua; font-weight: normal; }         /* function calls and declarations */
-pre.sh_sourceCode .sh_cbracket { color: white; }                              /* block brackets (e.g., {, }) */
+/* language keywords */
+pre.sh_sourceCode .sh_keyword { color: orange; }
+/* strings and chars */
+pre.sh_sourceCode .sh_string { color: lime; font-family: monospace; font-weight: bold;}
+/* comments */
+pre.sh_sourceCode .sh_comment { color: fuchsia; font-style: italic; }
+/* literal numbers */
+pre.sh_sourceCode .sh_number { color: yellow; }
+/* e.g., <, >, + */
+pre.sh_sourceCode .sh_symbol { color: white; }
+/* function calls and declarations */
+pre.sh_sourceCode .sh_function { color: aqua; font-weight: normal; }
+/* block brackets (e.g., {, }) */
+pre.sh_sourceCode .sh_cbracket { color: white; }
 
 /* Predefined variables and functions (for instance glsl) */
 pre.sh_sourceCode .sh_predef_var { color: darkblue; }
