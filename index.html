@@ -48,9 +48,8 @@
   <ul>
     <li>about node.js app</li>
     <li>for very begginer</li>
-    <li>with realtime coding</li>
-    <li>building web app</li>
     <li>with <a href="http://socket.io">socket.io</a> & <a href="http://expressjs.com">express</a></li>
+    <li>in <strong>realtime</strong> coding</li>
     <li>everythigs on <a href="http://nodejs.org">Node.js</a> :)</li>
   </ul>
 </section>
@@ -65,58 +64,19 @@
   <ul>
     <li>inspired by Sinatra</li>
     <li>very lightweight</li>
-    <li>build on Connect middleware</li>
+    <li>build on Connect</li>
     <li>standard in node</li>
   </ul>
 </section>
 
-<!-- <section class="slide"> -->
-<!--   <h2>Install & Sckeleton</h2> -->
-<!--   <h3>Install via npm</h3> -->
-<!--   <pre class="sh_sh left"> -->
-<!-- $ npm install -g express -->
-<!-- $ express -s sample -->
-<!-- $ cd sample && npm install -->
-<!--   </pre> -->
-<!--   <pre class="sh_sh right"> -->
-<!-- $ tree -->
-<!-- ├── app.js -->
-<!-- ├── package.json -->
-<!-- ├── public -->
-<!-- │   ├── images -->
-<!-- │   ├── javascripts -->
-<!-- │   └── stylesheets -->
-<!-- │       └── style.css -->
-<!-- └── views -->
-<!--     ├── index.jade -->
-<!--     └── layout.jade -->
-<!--   </pre> -->
-<!-- </section> -->
-
 <section class="slide">
-  <h2>Install & Sckeleton</h2>
+  <h2>Install Express & Sckeleton</h2>
   <pre id="result" class="sh_sh"></pre>
 </section>
 
 <section class="slide">
-  <pre id="code" class="sh_javascript full">
-  </pre>
-</section>
-
-<section class="slide">
-  <h1>require('socket.io')</h1>
-</section>
-
-<section class="slide">
-  <h2>What's Socket.IO</h2>
-  <p>You can see it later from Guillermo !</p>
-</section>
-
-<section class="slide">
-  <h2>socket.io</h2>
-  <p>Slides are just HTML elements with a class of <code>slide</code>.</p>
-  <pre class="sh_javascript">
-/**
+  <h2>app.js</h2>
+  <pre id="code" class="sh_javascript full">/**
  * Module dependencies.
  */
 
@@ -155,8 +115,45 @@ app.get('/', function(req, res){
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+</pre>
+</section>
+
+<section class="slide">
+  <h1>require('socket.io')</h1>
+</section>
+
+<section class="slide">
+  <h2>What's Socket.IO</h2>
+  <h3>Module for Realtime Application by <a href="http://twitter.com/rauchg">Guillermo</a></h3>
+  <ul>
+    <li>Yes WebSocket but not only.</li>
+    <li>support <a href="http://socket.io/#browser-support">almost all browser</a></li>
+    <li>fxckin easy to use</li>
+  </ul>
+  <p>you can see more from <strong>Author</strong> !!</p>
+</section>
+
+<section class="slide">
+  <h2>chat cloud</h2>
+  <pre class="sh_javascript">
   </pre>
 </section>
+
+<section class="slide">
+  <h2>socket.io</h2>
+  <p>Slides are just HTML elements with a class of <code>slide</code>.</p>
+  <pre class="sh_javascript">
+  </pre>
+</section>
+
+<section class="slide">
+  <h1>anyone.on<br />('uncaughtQuestion?');</h1>
+</section>
+
+<section class="slide">
+  <h1>Jxck.on('end');<p class="small">console.log('<span class="mono"> thank you ;) </sapn>');</p></h1>
+</section>
+
 
 <!-- Other extension HTML snippets go here, at the bottom of the deck container. -->
 <p class="deck-status">
