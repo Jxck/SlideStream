@@ -66,12 +66,13 @@ io.sockets.on('connection', function(socket) {
 
   // move slide by admin
   socket.on('go', function(to) {
+    if (!socket.handshake.session) return false;
     if (!socket.handshake.session.admin) return false;
     socket.broadcast.emit('go', to);
   });
 
-var codeCache = '';
-var make_patch = require('./lib/diff_launch').make_patch;
+  var codeCache = '';
+  var make_patch = require('./lib/diff_launch').make_patch;
 
   codeStream.on('code', function(data) {
     var patch = make_patch(codeCache, data);

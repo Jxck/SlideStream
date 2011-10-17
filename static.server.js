@@ -20,6 +20,7 @@ function pass(pass) {
 // Configuration
 
 app.configure(function() {
+  app.use(express.favicon());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
