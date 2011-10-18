@@ -11,10 +11,16 @@ files = [
   'spec/diff_launch.test.js'
 ]
 
-exec "fixjsstyle #{ files.join ' ' }", (err, stdout, stderr)->
-  throw err if err
-  log stdout + stderr
+commands = [
+ "fixjsstyle #{ files.join ' ' }"
+ "rm -rf lib/sample"
+ "rm public/javascripts/deck.core.js && cp ../core/deck.core.js public/javascripts/"
+ "rm public/stylesheets/deck.core.css && cp ../core/deck.core.css public/stylesheets/"
+ "rm -rf public/extensions && cp -r ../extensions public/ "
+ "rm -rf public/themes && cp -r ../themes public/ "
+]
 
-exec "rm -rf lib/sample", (err, stdout, stderr)->
-  throw err if err
-  log stdout + stderr
+commands.map (command) ->
+  exec command, (err, stdout, stderr)->
+    throw err if err
+    log stdout + stderr
