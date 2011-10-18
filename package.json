@@ -2,9 +2,6 @@
   "name": "nodefest2011-slidestream"
   , "version": "0.0.1"
   , "private": true
-  , "engines": {
-      "node" : ">=0.4 <0.6"
-  }
   , "description": "slidestream for beginner session by Jxck @nodefest2011"
   , "author": {
       "name" : "Jxck"
