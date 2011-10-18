@@ -1,10 +1,10 @@
 module.exports = {
   "static": {
-    "host": "",
+    "host": "localhost",
     "port": 80
   },
   "socket": {
-    "host": "",
+    "host": "localhost",
     "port": 4000
   },
   "secret": {

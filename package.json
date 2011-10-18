@@ -18,6 +18,6 @@
       "coffee-script": "1.1.2"
   }
   , "scripts": {
-      "start": "node socket.server.js"
+      "start": "NODE_ENV=production node socket.server.js"
   }
 }
