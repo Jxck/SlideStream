@@ -4,7 +4,6 @@ var log = console.log,
     config = require('./config/' + (env ? env : 'default') + '.json'),
     parseCookie = require('connect').utils.parseCookie,
     sessionStore = require('./static.server.js').sessionStore,
-    CodeStream = require('./lib/codeStream'),
     make_patch = require('./lib/diff_launch').make_patch;
 
 var port = config.socket.port;
@@ -52,12 +51,8 @@ io.configure('development', function() {
   io.set('transports', ['websocket']);
 });
 
-var codeStream = new CodeStream('./sample/app.js'),
-    resultCache = '',
+var resultCache = '',
     codeCache = '';
-
-// start to read files
-codeStream.readCode();
 
 io.sockets.on('connection', function(socket) {
   socket.on('disconnect', function() {
@@ -71,10 +66,9 @@ io.sockets.on('connection', function(socket) {
     socket.broadcast.emit('go', to);
   });
 
-  codeStream.on('code', function(data) {
-    var patch = make_patch(codeCache, data);
-    codeCache = data;
-    socket.volatile.emit('code', patch);
+  socket.on('code', function(data) {
+    socket.volatile.emit('code', data);
+    socket.volatile.broadcast.emit('code', data);
   });
 
   socket.on('readline', function(data) {
