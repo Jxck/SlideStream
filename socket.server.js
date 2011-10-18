@@ -53,7 +53,8 @@ io.configure('development', function() {
 });
 
 var codeStream = new CodeStream('./sample/app.js'),
-    resultCache = '';
+    resultCache = '',
+    codeCache = '';
 
 // start to read files
 codeStream.readCode();
@@ -69,9 +70,6 @@ io.sockets.on('connection', function(socket) {
     if (!socket.handshake.session.admin) return false;
     socket.broadcast.emit('go', to);
   });
-
-  var codeCache = '';
-  var make_patch = require('./lib/diff_launch').make_patch;
 
   codeStream.on('code', function(data) {
     var patch = make_patch(codeCache, data);
