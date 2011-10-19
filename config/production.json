@@ -5,7 +5,7 @@ module.exports = {
   },
   "socket": {
     "host": "Jxck.no.de",
-    "port": 3000
+    "port": 80
   },
   "secret": {
     "user": "Jxck",
