@@ -1,14 +1,11 @@
 var log = console.log,
     io = require('socket.io'),
-    env = process.env.NODE_ENV,
-    config = require('./config/' + (env ? env : 'default') + '.json'),
     parseCookie = require('connect').utils.parseCookie,
+    app = require('./static.server.js').app,
     sessionStore = require('./static.server.js').sessionStore,
     make_patch = require('./lib/diff_launch').make_patch;
 
-var port = config.socket.port;
-
-io = io.listen(port);
+io = io.listen(app);
 
 io.configure(function() {
   io.set('authorization', function(handshakeData, callback) {
@@ -46,7 +43,6 @@ io.configure('production', function() {
   ]);
 });
 
-
 io.configure('development', function() {
   io.set('transports', ['websocket']);
 });
@@ -66,11 +62,13 @@ io.sockets.on('connection', function(socket) {
     socket.broadcast.emit('go', to);
   });
 
+  // realtime coding
   socket.on('code', function(data) {
     socket.volatile.emit('code', data);
     socket.volatile.broadcast.emit('code', data);
   });
 
+  // realtime commandline
   socket.on('readline', function(data) {
     socket.volatile.emit('result', data);
     socket.volatile.broadcast.emit('result', data);

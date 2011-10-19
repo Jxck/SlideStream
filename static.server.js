@@ -2,14 +2,11 @@ var log = console.log;
 var express = require('express'),
     env = process.env.NODE_ENV,
     config = require('./config/' + (env ? env : 'default') + '.json'),
-    crypto = require('crypto');
+    crypto = require('crypto'),
+    port = config.static.port;
 
 var MemoryStore = express.session.MemoryStore,
     sessionStore = module.exports.sessionStore = new MemoryStore();
-
-// defaults
-var host = config.static.host || 'localhost';
-var port = config.static.port || 3000;
 
 var app = module.exports.app = express.createServer();
 

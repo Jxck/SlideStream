@@ -1,11 +1,8 @@
 var log = console.log.bind(console);
 // Client
-var host = document.domain,
-    port = 4000,
-    url = 'http://' + host + ':' + port,
-    resultCache = [];
+var resultCache = [];
 
-var socket = io.connect(url);
+var socket = io.connect();
 
 socket.on('connect', function() {
   log('connect');
@@ -48,7 +45,7 @@ function codeRender(target, data) {
   $target.text(data);
   if (target === 'code') sh_highlightDocument('lang/', '.js');
   if (target === 'result') sh_highlightDocument('lang/', '.shell');
-};
+}
 
 var codeCache = '';
 function buildResult(target, patch) {
@@ -57,9 +54,9 @@ function buildResult(target, patch) {
   codeCache = result;
   codeRender(target, result);
 log('result', patch.length);
-};
+}
 
 function insertEmpty(target, html) {
   var $target = $('#' + target);
   $target.html(html);
-};
+}
