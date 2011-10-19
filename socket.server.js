@@ -73,4 +73,14 @@ io.sockets.on('connection', function(socket) {
     socket.volatile.emit('result', data);
     socket.volatile.broadcast.emit('result', data);
   });
+
+  socket.on('empty1', function(data) {
+    socket.volatile.emit('empty1', data);
+    socket.volatile.broadcast.emit('empty1', data);
+  });
+
+  socket.on('empty2', function(data) {
+    socket.volatile.emit('empty2', data);
+    socket.volatile.broadcast.emit('empty2', data);
+  });
 });

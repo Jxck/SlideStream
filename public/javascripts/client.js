@@ -57,6 +57,6 @@ log('result', patch.length);
 }
 
 function insertEmpty(target, html) {
-  var $target = $('#' + target);
+  var $target = $('section.' + target);
   $target.html(html);
 }
