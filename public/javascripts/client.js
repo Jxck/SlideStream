@@ -30,6 +30,14 @@ socket.on('connect', function() {
   socket.on('disconnect', function() {
     log('disconnected');
   });
+
+  socket.on('empty1', function(html) {
+    insertEmpty('empty1', html);
+  });
+
+  socket.on('empty2', function(html) {
+    insertEmpty('empty2', html);
+  });
 });
 
 $(function() {
@@ -40,7 +48,7 @@ function codeRender(target, data) {
   $target.text(data);
   if (target === 'code') sh_highlightDocument('lang/', '.js');
   if (target === 'result') sh_highlightDocument('lang/', '.shell');
-}
+};
 
 var codeCache = '';
 function buildResult(target, patch) {
@@ -49,4 +57,9 @@ function buildResult(target, patch) {
   codeCache = result;
   codeRender(target, result);
 log('result', patch.length);
-}
+};
+
+function insertEmpty(target, html) {
+  var $target = $('#' + target);
+  $target.html(html);
+};
