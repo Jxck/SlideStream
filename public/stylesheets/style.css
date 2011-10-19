@@ -43,23 +43,27 @@ section.slide span.mono {
 pre.sh_javascript, pre.sh_sh {
     font-size: 60%;
     overflow: scroll;
-    height: 29em;
+    height: 28em;
 }
 
 pre.full {
     margin-bottom: 0.4em;
 }
 
-.slide .left {
+section.slide .left {
     width: 42%;
     float: left;
 }
 
-.slide .right {
+section.slide .right {
     width: 42%;
     float: right;
 }
 
+section.slide iframe {
+    width:100%;
+    height:100%;
+}
 
 #icon {
     font-family: Chalkboard, comic sans MS;
