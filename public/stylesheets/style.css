@@ -40,14 +40,17 @@ section.slide span.mono {
     font-family: monospace;
 }
 
-pre.sh_javascript, pre.sh_sh {
+section pre.sh_javascript,section pre.sh_sh {
+    padding: 0.4em;
     font-size: 60%;
-    overflow: scroll;
-    height: 28em;
+    height: 100%;
+    overflow: auto;
 }
 
-pre.full {
-    margin-bottom: 0.4em;
+section pre.full {
+    font-size: 60%;
+    height: 100%;
+    overflow: auto;
 }
 
 section.slide .left {
@@ -61,8 +64,10 @@ section.slide .right {
 }
 
 section.slide iframe {
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 #icon {

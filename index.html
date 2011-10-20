@@ -84,7 +84,6 @@
 </section>
 
 <section class="slide">
-  <h2>app.js</h2>
   <pre id="code" class="sh_javascript full">/**
  * Module dependencies.
  */
@@ -107,11 +106,11 @@ app.configure(function(){
 });
 
 app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 app.configure('production', function(){
-  app.use(express.errorHandler()); 
+  app.use(express.errorHandler());
 });
 
 // Routes
@@ -154,7 +153,6 @@ console.log("Express server listening on port %d in %s mode", app.address().port
 
 <section class="slide">
   <h2>socket.io</h2>
-  <p>Slides are just HTML elements with a class of <code>slide</code>.</p>
   <pre class="sh_javascript">
   </pre>
 </section>
