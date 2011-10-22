@@ -63,9 +63,9 @@ io.sockets.on('connection', function(socket) {
   });
 
   // realtime coding
-  socket.on('code', function(data) {
-    socket.volatile.emit('code', data);
-    socket.volatile.broadcast.emit('code', data);
+  socket.on('app', function(data) {
+    socket.volatile.emit('app', data);
+    socket.volatile.broadcast.emit('app', data);
   });
 
   // realtime commandline

@@ -7,7 +7,7 @@ var resultCache = [];
 function codeRender(target, data) {
   var $target = $('#' + target);
   $target.text(data);
-  if (target === 'code') sh_highlightDocument('lang/', '.js');
+  if (target === 'app') sh_highlightDocument('lang/', '.js');
   if (target === 'result') sh_highlightDocument('lang/', '.shell');
 }
 
@@ -36,8 +36,8 @@ socket.on('connect', function() {
     if (from != to) socket.emit('go', to);
   });
 
-  socket.on('code', function(data) {
-    buildResult('code', data);
+  socket.on('app', function(data) {
+    buildResult('app', data);
   });
 
   socket.on('result', function(data) {
