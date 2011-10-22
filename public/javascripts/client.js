@@ -2,30 +2,36 @@ var log = console.log.bind(console);
 // Client
 var socket = io.connect();
 
-var resultCache = [];
+function render(target) {
+  this.target = target;
+  this.$target = $(target);
+  this.cache = '';
+};
 
-function codeRender(target, data) {
-  var $target = $('#' + target);
-  $target.text(data);
-  if (target === 'result') {
+render.prototype.codeRender = function(data) {
+  this.$target.text(this.cache);
+  if (this.target === '#result') {
     return sh_highlightDocument('lang/', '.shell');
   }
   sh_highlightDocument('lang/', '.js');
 }
 
-var codeCache = '';
-function buildResult(target, patch) {
-  var old_text = codeCache;
-  var result = patch !== 'empty'? apply_patch(old_text, patch) : '';
-  codeCache = result;
-  codeRender(target, result);
+render.prototype.htmlRender = function(html) {
+  this.$target.html(html);
+}
+
+render.prototype.buildResult = function(patch) {
+  var result = patch !== 'empty'? apply_patch(this.cache, patch) : '';
+  this.cache = result;
+  this.codeRender();
 log('result', patch.length);
 }
 
-function insertEmpty(target, html) {
-  var $target = $('section.' + target);
-  $target.html(html);
-}
+var appRender = new render('#app'),
+    socketserverRender = new render('#socketserver'),
+    resultRender = new render('#result'),
+    empty1Render = new render('#empty1'),
+    empty2Render = new render('#empty2');
 
 socket.on('connect', function() {
   log('connect');
@@ -39,16 +45,16 @@ socket.on('connect', function() {
   });
 
   socket.on('app', function(data) {
-    buildResult('app', data);
+    appRender.buildResult(data);
   });
 
   socket.on('socketserver', function(data) {
-    buildResult('socketserver', data);
+    socketserverRender.buildResult(data);
   });
 
   socket.on('result', function(data) {
-    resultCache.push(data);
-    codeRender('result', resultCache.join(''));
+    resultRender.cache += data;
+    resultRender.codeRender();
   });
 
   socket.on('disconnect', function() {
@@ -56,11 +62,11 @@ socket.on('connect', function() {
   });
 
   socket.on('empty1', function(html) {
-    insertEmpty('empty1', html);
+    empty1Render.htmlRender(html);
   });
 
   socket.on('empty2', function(html) {
-    insertEmpty('empty2', html);
+    empty2Render.htmlRender(html);
   });
 });
 
