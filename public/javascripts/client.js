@@ -6,7 +6,7 @@ function render(target) {
   this.target = target;
   this.$target = $(target);
   this.cache = '';
-};
+}
 
 render.prototype.codeRender = function(data) {
   this.$target.text(this.cache);
@@ -14,18 +14,18 @@ render.prototype.codeRender = function(data) {
     return sh_highlightDocument('lang/', '.shell');
   }
   sh_highlightDocument('lang/', '.js');
-}
+};
 
 render.prototype.htmlRender = function(html) {
   this.$target.html(html);
-}
+};
 
 render.prototype.buildResult = function(patch) {
-  var result = patch !== 'empty'? apply_patch(this.cache, patch) : '';
+  var result = patch !== 'empty' ? apply_patch(this.cache, patch) : '';
   this.cache = result;
   this.codeRender();
 log('result', patch.length);
-}
+};
 
 var appRender = new render('#app'),
     socketserverRender = new render('#socketserver'),
