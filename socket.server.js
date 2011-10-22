@@ -68,6 +68,12 @@ io.sockets.on('connection', function(socket) {
     socket.volatile.broadcast.emit('app', data);
   });
 
+  // realtime coding
+  socket.on('socketserver', function(data) {
+    socket.volatile.emit('socketserver', data);
+    socket.volatile.broadcast.emit('socketserver', data);
+  });
+
   // realtime commandline
   socket.on('readline', function(data) {
     socket.volatile.emit('result', data);

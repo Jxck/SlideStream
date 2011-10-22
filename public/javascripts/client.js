@@ -7,8 +7,10 @@ var resultCache = [];
 function codeRender(target, data) {
   var $target = $('#' + target);
   $target.text(data);
-  if (target === 'app') sh_highlightDocument('lang/', '.js');
-  if (target === 'result') sh_highlightDocument('lang/', '.shell');
+  if (target === 'result') {
+    return sh_highlightDocument('lang/', '.shell');
+  }
+  sh_highlightDocument('lang/', '.js');
 }
 
 var codeCache = '';
@@ -38,6 +40,10 @@ socket.on('connect', function() {
 
   socket.on('app', function(data) {
     buildResult('app', data);
+  });
+
+  socket.on('socketserver', function(data) {
+    buildResult('socketserver', data);
   });
 
   socket.on('result', function(data) {
