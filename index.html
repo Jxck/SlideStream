@@ -60,6 +60,18 @@
 </section>
 
 <section class="slide">
+  <h1>Dive into Node.js</h1>
+</section>
+
+<section class="slide">
+  <h2>preparing</h2>
+  <h3>install</h3>
+  <ul>
+    <li>install nave or nvm</li>
+  </ul>
+</section>
+
+<section class="slide">
   <h1>require('express')</h1>
 </section>
 
@@ -80,7 +92,50 @@
 
 <section class="slide">
   <h2>Install Express & Sckeleton</h2>
-  <pre id="result" class="sh_sh"></pre>
+  <pre id="result" class="sh_sh">
+Jxck$ npm install express -g
+/Users/jxck/.nvm/v0.4.11/bin/express -> /Users/jxck/.nvm/v0.4.11/lib/node_modules/express/bin/express
+express@2.4.7 /Users/jxck/.nvm/v0.4.11/lib/node_modules/express 
+├── mkdirp@0.0.7
+├── mime@1.2.4
+├── connect@1.7.1
+└── qs@0.3.1
+Jxck$ express sample
+create: sample
+create: sample/package.json
+create: sample/app.js
+create: sample/views
+create: sample/views/layout.jade
+create: sample/views/index.jade
+create: sample/public/javascripts
+create: sample/public/images
+create: sample/public/stylesheets
+create: sample/public/stylesheets/style.css
+Jxck$ tree sample
+sample
+├── app.js
+├── package.json
+├── public
+│   ├── images
+│   ├── javascripts
+│   └── stylesheets
+│       └── style.css
+└── views
+├── index.jade
+└── layout.jade
+5 directories, 5 files
+Jxck$ npm install
+express@2.4.7 ./node_modules/express 
+├── mkdirp@0.0.7
+├── mime@1.2.4
+├── connect@1.7.1
+└── qs@0.3.1
+jade@0.16.2 ./node_modules/jade 
+├── mkdirp@0.0.7
+└── commander@0.1.0
+Jxck$ node app.js
+Express server listening on port 3000 in development mode
+</pre>
 </section>
 
 <section class="slide">
@@ -91,6 +146,9 @@
 var express = require('express');
 
 var app = module.exports = express.createServer();
+
+var realtime = require('./realtime');
+realtime(app);
 
 // Configuration
 
@@ -126,6 +184,19 @@ console.log("Express server listening on port %d in %s mode", app.address().port
 </pre>
 </section>
 
+
+<section class="slide">
+  <h2>more example of routing</h2>
+  <h3>resource "Users"</h3>
+<pre class="sh_javascript">// routing for Users
+app.get('/users', function(req, res) { /* snip */ };
+app.post('/users', function(req, res) { /* snip */ };
+app.get('/users/:id', function(req, res) { /* snip */ };
+app.put('/user/:id', function(req, res) { /* snip */ };
+app.delete('/user/:id', function(req, res) { /* snip */ };
+</pre>
+</section>
+
 <section class="slide">
   <h1>require('socket.io')</h1>
 </section>
@@ -146,13 +217,95 @@ console.log("Express server listening on port %d in %s mode", app.address().port
 </section>
 
 <section class="slide">
-  <h2>chat cloud</h2>
+<pre class="sh_javascript full">// Server
+var io = require('socket.io')
+var log = console.log.bind(console);
+function realtime(app) {
+  io = io.listen(app);
+  io.sockets.on('connection', function (socket) {
+    log('connected');
+    socket.on('msg send', function (msg) {
+      socket.emit('msg push', msg);
+      socket.broadcast.emit('msg push', msg);
+    });
+    socket.on('disconnect', function() {
+      log('disconnected');
+    });
+  });
+}
+
+module.exports = function(app) {
+  realtime(app);
+}</pre>
+</section>
+
+<section class="slide">
+  <h3>view & client.js</h3>
+<pre class="sh_javascript left">// Client
+var socket = io.connect();
+var log = console.log.bind(console);
+socket.on('connect', function() {
+  log('connected');
+  socket.emit('msg send', 'data');
+  socket.on('msg push', function (msg) {
+    log(msg);
+  });
+});
+</pre>
+<pre class="sh_javascript right">
+!!!
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='/socket.io/socket.io.js')
+    script(src='/javascripts/sample.js')
+  body!= body
+</pre>
+</section>
+
+<section class="slide">
+  <h2>socket.io</h2>
   <pre class="sh_javascript">
   </pre>
 </section>
 
 <section class="slide">
-  <h2>socket.io</h2>
+  <h2>how to test?</h2>
+  <ul>
+    <li>Jasmine</li>
+    <li>NodeUnit</li>
+    <li>Expresso</li>
+    <li>Vows</li>
+    <li>etc</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Utility</h2>
+  <ul>
+    <li>node-inspector</li>
+    <li>node-dev</li>
+    <li>jake/cake</li>
+    <li>etc</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>You may use in the future</h2>
+  <ul>
+    <li>forever</li>
+    <li>Cluster</li>
+    <li>node-http-proxy</li>
+    <li>node-redis</li>
+    <li>hook.io</li>
+    <li>etc</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>reviewing</h2>
+  <h3>chat cloud</h3>
   <pre class="sh_javascript">
   </pre>
 </section>
@@ -170,10 +323,12 @@ console.log("Express server listening on port %d in %s mode", app.address().port
 </section>
 
 <section class="slide">
-  <h1>Jxck.on('end');<p class="small"><span class="mono">// thank you ;) </sapn></p></h1>
+  <h1>May the Node be with you</h1>
 </section>
 
-
+<section class="slide">
+  <h1>Jxck.on('end');<p class="small"><span class="mono">// thank you ;) </sapn></p></h1>
+</section>
 
 <!-- Other extension HTML snippets go here, at the bottom of the deck container. -->
 <p class="deck-status">
