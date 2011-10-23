@@ -25,6 +25,7 @@ section.slide h2 {
 }
 
 section.slide h3 {
+    font-size: 100%;
     margin: 0;
     padding: 0;
     font-family: monospace;
