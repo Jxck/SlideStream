@@ -62,6 +62,12 @@ io.sockets.on('connection', function(socket) {
     socket.broadcast.emit('go', to);
   });
 
+  // realtime commandline
+  socket.on('readline', function(data) {
+    socket.volatile.emit('result', data);
+    socket.volatile.broadcast.emit('result', data);
+  });
+
   // realtime coding
   socket.on('app', function(data) {
     socket.volatile.emit('app', data);
@@ -74,10 +80,10 @@ io.sockets.on('connection', function(socket) {
     socket.volatile.broadcast.emit('socketserver', data);
   });
 
-  // realtime commandline
-  socket.on('readline', function(data) {
-    socket.volatile.emit('result', data);
-    socket.volatile.broadcast.emit('result', data);
+  // realtime coding
+  socket.on('client', function(data) {
+    socket.volatile.emit('client', data);
+    socket.volatile.broadcast.emit('client', data);
   });
 
   socket.on('empty1', function(data) {

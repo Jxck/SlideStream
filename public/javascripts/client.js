@@ -30,6 +30,7 @@ log('result', patch.length);
 var appRender = new render('#app'),
     socketserverRender = new render('#socketserver'),
     resultRender = new render('#result'),
+    clientRender = new render('#client'),
     empty1Render = new render('#empty1'),
     empty2Render = new render('#empty2');
 
@@ -44,6 +45,11 @@ socket.on('connect', function() {
     if (from != to) socket.emit('go', to);
   });
 
+  socket.on('result', function(data) {
+    resultRender.cache += data;
+    resultRender.codeRender();
+  });
+
   socket.on('app', function(data) {
     appRender.buildResult(data);
   });
@@ -52,9 +58,8 @@ socket.on('connect', function() {
     socketserverRender.buildResult(data);
   });
 
-  socket.on('result', function(data) {
-    resultRender.cache += data;
-    resultRender.codeRender();
+  socket.on('client', function(data) {
+    clientRender.buildResult(data);
   });
 
   socket.on('disconnect', function() {
