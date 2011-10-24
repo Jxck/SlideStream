@@ -69,11 +69,39 @@
 </section>
 
 <section class="slide">
-  <h2>preparing</h2>
-  <h3>install</h3>
-  <ul>
-    <li>install nave or nvm</li>
-  </ul>
+  <h2>Start Hacking</h2>
+  <h3>install Node.js / Package</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Langage</th>
+        <th>env</th>
+        <th>package</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ruby</td>
+        <td>rvm</td>
+        <td>gem</td>
+      </tr>
+      <tr>
+        <td>Python</td>
+        <td>Virtualenv</td>
+        <td>PyPI</td>
+      </tr>
+      <tr>
+        <td>Perl</td>
+        <td>Perlbrew</td>
+        <td>CPAN</td>
+      </tr>
+      <tr>
+        <td><strong>Node</strong></td>
+        <td><a href="https://github.com/creationix/nvm">nvm</a> / <a href="https://github.com/isaacs/nave">nave</a></td>
+        <td><a href="https://github.com/isaacs/npm">npm</a></td>
+      </tr>
+    </tbody>
+  </table>
 </section>
 
 <section class="slide">
@@ -265,7 +293,7 @@ app.delete('/users/:id', function(req, res) {
 </section>
 
 <section class="slide frame">
-  <iframe id="socketio" src="http://socket.io">socket.io</iframe>
+  <iframe id="socketio" src="http://jxck.github.com/socket.io/">socket.io translated</iframe>
 </section>
 
 <section class="slide">
@@ -326,6 +354,7 @@ p Welcome to #{title}
 
 <section class="slide">
   <h2>how to test?</h2>
+  <h3>lots of testing framework</h3>
   <ul>
     <li>Jasmine</li>
     <li>NodeUnit</li>
@@ -341,6 +370,7 @@ p Welcome to #{title}
 
 <section class="slide">
   <h2>Utility</h2>
+  <h3>supports your develop</h3>
   <ul>
     <li>node-inspector</li>
     <li>node-dev</li>
@@ -350,7 +380,8 @@ p Welcome to #{title}
 </section>
 
 <section class="slide">
-  <h2>You may use in production</h2>
+  <h2>In production</h2>
+  <h3>You may use in future</h3>
   <ul>
     <li>forever</li>
     <li>Cluster</li>

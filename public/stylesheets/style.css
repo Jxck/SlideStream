@@ -70,6 +70,29 @@ section.slide iframe {
     padding: 0;
 }
 
+section.slide table,
+section.slide tr,
+section.slide th,
+section.slide td {
+    border: solid 4px #ccc;
+    font-size: 1.1em;
+    color: white;
+    padding: 0.4em 1em;
+}
+
+section.slide table {
+    width: 100%;
+    margin-top: 1em;
+    padding: 0.2em;
+}
+
+section.slide tr {
+    padding: 0.2em;
+    text-align: center;
+}
+
+
+
 #icon {
     font-family: Chalkboard, comic sans MS;
     color: white;
