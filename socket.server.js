@@ -85,6 +85,11 @@ io.sockets.on('connection', function(socket) {
     socket.volatile.broadcast.emit('client', data);
   });
 
+  socket.on('layout', function(data) {
+    socket.volatile.emit('layout', data);
+    socket.volatile.broadcast.emit('layout', data);
+  });
+
   socket.on('index', function(data) {
     socket.volatile.emit('index', data);
     socket.volatile.broadcast.emit('index', data);
