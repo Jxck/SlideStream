@@ -8,7 +8,7 @@ function render(target) {
   this.cache = '';
 }
 
-render.prototype.codeRender = function(data) {
+render.prototype.codeRender = function() {
   this.$target.text(this.cache);
   if (this.target === '#result') {
     return sh_highlightDocument('lang/', '.shell');
@@ -20,10 +20,14 @@ render.prototype.htmlRender = function(html) {
   this.$target.html(html);
 };
 
-render.prototype.buildResult = function(patch) {
-  var result = patch !== 'empty' ? apply_patch(this.cache, patch) : '';
-  this.cache = result;
+render.prototype.rawRender = function(rawdata) {
+  if(rawdata) this.cache = rawdata;
   this.codeRender();
+};
+
+render.prototype.patchRender = function(patch) {
+  var result = patch !== 'empty' ? apply_patch(this.cache, patch) : '';
+  this.rawRender(result);
 log('result', patch.length);
 };
 
@@ -39,6 +43,19 @@ var appRender = new render('#app'),
 socket.on('connect', function() {
   log('connect');
 
+  // initialize view source
+  // if network dosen't work
+  // slide shows default codes
+  // marked up in html.
+  appRender.rawRender('// app.js');
+  socketserverRender.rawRender('// socketserver.js');
+  resultRender.rawRender();
+  clientRender.rawRender('// public/javascripts/client.js');
+  layoutRender.rawRender('// views/layout.jade');
+  indexRender.rawRender('// views/index.jade');
+  empty1Render.rawRender();
+  empty2Render.rawRender();
+
   // move slide
   socket.on('go', function(to) {
     $.deck('go', to);
@@ -53,27 +70,23 @@ socket.on('connect', function() {
   });
 
   socket.on('app', function(data) {
-    appRender.buildResult(data);
+    appRender.patchRender(data);
   });
 
   socket.on('socketserver', function(data) {
-    socketserverRender.cache = data;
-    socketserverRender.codeRender();
+    socketserverRender.rawRender(data);
   });
 
   socket.on('client', function(data) {
-    clientRender.cache = data;
-    clientRender.codeRender();
+    clientRender.rawRender(data);
   });
 
   socket.on('layout', function(data) {
-    layoutRender.cache = data;
-    layoutRender.codeRender();
+    layoutRender.rawRender(data);
   });
 
   socket.on('index', function(data) {
-    indexRender.cache = data;
-    indexRender.codeRender();
+    indexRender.rawRender(data);
   });
 
   socket.on('disconnect', function() {
