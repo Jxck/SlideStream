@@ -80,10 +80,14 @@ io.sockets.on('connection', function(socket) {
     socket.volatile.broadcast.emit('socketserver', data);
   });
 
-  // realtime coding
   socket.on('client', function(data) {
     socket.volatile.emit('client', data);
     socket.volatile.broadcast.emit('client', data);
+  });
+
+  socket.on('index', function(data) {
+    socket.volatile.emit('index', data);
+    socket.volatile.broadcast.emit('index', data);
   });
 
   socket.on('empty1', function(data) {

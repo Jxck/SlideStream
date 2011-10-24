@@ -31,6 +31,7 @@ var appRender = new render('#app'),
     socketserverRender = new render('#socketserver'),
     resultRender = new render('#result'),
     clientRender = new render('#client'),
+    indexRender = new render('#index'),
     empty1Render = new render('#empty1'),
     empty2Render = new render('#empty2');
 
@@ -60,6 +61,11 @@ socket.on('connect', function() {
 
   socket.on('client', function(data) {
     clientRender.buildResult(data);
+  });
+
+  socket.on('index', function(data) {
+    indexRender.cache = data;
+    indexRender.codeRender();
   });
 
   socket.on('disconnect', function() {
