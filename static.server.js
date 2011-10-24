@@ -57,7 +57,7 @@ app.post('/admin', function(req, res) {
       pass(req.body.pass) === config.secret.pass) {
     req.session.admin = true;
   }
-  res.redirect('/index.html');
+  res.redirect('/nodefest2011.html');
 });
 
 //if(require.main === module) {
