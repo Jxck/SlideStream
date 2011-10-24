@@ -57,11 +57,13 @@ socket.on('connect', function() {
   });
 
   socket.on('socketserver', function(data) {
-    socketserverRender.buildResult(data);
+    socketserverRender.cache = data;
+    socketserverRender.codeRender();
   });
 
   socket.on('client', function(data) {
-    clientRender.buildResult(data);
+    clientRender.cache = data;
+    clientRender.codeRender();
   });
 
   socket.on('layout', function(data) {
