@@ -75,5 +75,6 @@ $(function() {
   var h2_height = $('h2').height();
   $('iframe').height(section_height);
   $('pre.sh_javascript, pre.sh_sh').height(section_height - h2_height * 2);
+  $('pre.half').height(section_height / 2.7);
   $('pre.full').height(section_height - h2_height / 2);
 });

@@ -193,12 +193,60 @@ console.log("Express server listening on port %d in %s mode", app.address().port
 <section class="slide">
   <h2>more example of routing</h2>
   <h3>resource "Users"</h3>
-<pre class="sh_javascript">// routing for Users
-app.get('/users', function(req, res) { /* snip */ };
-app.post('/users', function(req, res) { /* snip */ };
-app.get('/users/:id', function(req, res) { /* snip */ };
-app.put('/user/:id', function(req, res) { /* snip */ };
-app.delete('/user/:id', function(req, res) { /* snip */ };
+<pre class="sh_javascript left">
+// User Data
+var users = [{username: 'Jxck', email: 'sample@mail.com'}];
+
+app.get('/users', function(req, res) {
+  res.render('users/index', {
+    title: 'index',
+    users: users
+  });
+});
+
+app.get('/users/:id', function(req, res) {
+  res.render('users/show', {
+    title: 'show',
+    id: req.param('id'),
+    users: users[id]
+  });
+});
+
+app.put('/users/:id', function(req, res) {
+  users[req.param('id')] = {
+    username: req.param('username'),
+    email: req.param('email')
+  };
+  res.redirect('/users/');
+});
+</pre>
+<pre class="sh_javascript right">
+app.get('/users/new', function(req, res) {
+  res.render('users/new', {
+    title: 'new'
+  });
+});
+
+app.get('/users/:id/edit', function(req, res) {
+  res.render('users/edit', {
+    title: 'edit',
+    id: req.param('id'),
+    users: users[id]
+  });
+});
+
+app.post('/users', function(req, res) {
+  users.push({
+    username: req.param('username'),
+    email: req.param('email')
+  });
+  res.redirect('/users/');
+});
+
+app.delete('/users/:id', function(req, res) {
+  users.splice(req.param('id'), 1);
+  res.redirect('/users/');
+});
 </pre>
 </section>
 
@@ -266,6 +314,10 @@ html
     script(src='/socket.io/socket.io.js')
     script(src='/javascripts/sample.js')
   body!= body
+</pre>
+<pre id="layout" class="sh_javascript right half">
+h1= title
+p Welcome to #{title}
 </pre>
 </section>
 
