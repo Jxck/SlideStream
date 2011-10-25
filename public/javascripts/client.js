@@ -51,13 +51,11 @@ socket.on('connect', function() {
   // marked up in html.
   appRender.rawRender('// app.js');
   routesRender.rawRender('// routes/index.js');
-  socketserverRender.rawRender('// socketserver.js');
+  socketserverRender.rawRender('// server.js');
   resultRender.rawRender();
   clientRender.rawRender('// public/javascripts/client.js');
   layoutRender.rawRender('// views/layout.jade');
   indexRender.rawRender('// views/index.jade');
-  empty1Render.rawRender();
-  empty2Render.rawRender();
 
   // move slide
   socket.on('go', function(to) {

@@ -304,46 +304,8 @@ app.delete('/users/:id', function(req, res) {
 </section>
 
 <section class="slide">
-<pre id="socketserver" class="sh_javascript full">
-// socketserver
-var io = require('socket.io');
-
-module.exports = function(app) {
-  io = io.listen(app);
-
-  io.sockets.on('connection', function(socket) {
-    socket.on('msg send', function(data) {
-      socket.emit('msg push', data);
-      socket.broadcast.emit('msg push', data);
-    });
-  });
-};
-</pre>
-</section>
-
-<section class="slide">
-  <h3>view & client.js</h3>
-<pre id="client" class="sh_javascript left">
-// Client
-var socket = io.connect();
-
-$(function() {
-  var $msg = $('#msg')
-  ,   $ok = $('#ok')
-  ,   $display = $('#display')
-  ;
-
-  $ok.click(function() {
-    socket.emit('msg send', $msg.val());
-  });
-
-  socket.on('msg push', function(data) {
-    var $li = $('<li>').text(data);
-    $display.append($li);
-  });
-});
-</pre>
-<pre id="layout" class="sh_javascript right half">
+  <h3>layout.ejs & index.ejs</h3>
+<pre id="layout" class="sh_javascript left half">
 // layout.jade
 !!!
 html
@@ -363,6 +325,42 @@ p
   input(id="msg", type="text", name="msg")
   input(id="ok", type="button", value="ok")
 ul#display
+</pre>
+</section>
+
+<section class="slide">
+  <h3>sever.js & client.js</h3>
+<pre id="socketserver" class="sh_javascript left">
+// server.js
+var app = require('./app'),
+    io = require('socket.io');
+
+io.sockets.on('connect', function(socket) {
+  socket.on('msg send', function(data) {
+    socket.emit('msg push', data);
+    socket.broadcast.emit('msg push', data);
+  });
+});
+</pre>
+<pre id="socketserver" class="sh_javascript right">
+// Client
+var socket = io.connect();
+
+$(function() {
+  var $msg = $('#msg')
+  ,   $ok = $('#ok')
+  ,   $display = $('#display')
+  ;
+
+  $ok.click(function() {
+    socket.emit('msg send', $msg.val());
+  });
+
+  socket.on('msg push', function(data) {
+    var $li = $('<li>').text(data);
+    $display.append($li);
+  });
+});
 </pre>
 </section>
 
