@@ -172,16 +172,18 @@ Express server listening on port 3000 in development mode
 </section>
 
 <section class="slide">
-  <pre id="app" class="sh_javascript full">/**
+  <pre id="app" class="sh_javascript full">
+/**
  * Module dependencies.
  */
 
-var express = require('express');
+var express = require('express')
+  , routes = require('./routes')
 
 var app = module.exports = express.createServer();
 
-var realtime = require('./realtime');
-realtime(app);
+var socketserver = require('./socketserver');
+socketserver(app);
 
 // Configuration
 
@@ -190,27 +192,23 @@ app.configure(function(){
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.cookieParser());
-  app.use(express.session({ secret: 'your secret here' }));
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 });
 
 app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
 });
 
 app.configure('production', function(){
-  app.use(express.errorHandler());
+  app.use(express.errorHandler()); 
 });
 
 // Routes
 
-app.get('/', function(req, res){
-  res.render('index', {
-    title: 'Express'
-  });
-});
+app.get('/', routes.index);
+
+app.get('/foo', routes.foo);
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
@@ -298,54 +296,65 @@ app.delete('/users/:id', function(req, res) {
 </section>
 
 <section class="slide">
-<pre id="socketserver" class="sh_javascript full">// Server
-var io = require('socket.io')
-var log = console.log.bind(console);
-function realtime(app) {
-  io = io.listen(app);
-  io.sockets.on('connection', function (socket) {
-    log('connected');
-    socket.on('msg send', function (msg) {
-      socket.emit('msg push', msg);
-      socket.broadcast.emit('msg push', msg);
-    });
-    socket.on('disconnect', function() {
-      log('disconnected');
-    });
-  });
-}
+<pre id="socketserver" class="sh_javascript full">
+// socketserver
+var io = require('socket.io');
 
 module.exports = function(app) {
-  realtime(app);
-}</pre>
+  io = io.listen(app);
+
+  io.sockets.on('connection', function(socket) {
+    socket.on('msg send', function(data) {
+      socket.emit('msg push', data);
+      socket.broadcast.emit('msg push', data);
+    });
+  });
+};
+</pre>
 </section>
 
 <section class="slide">
   <h3>view & client.js</h3>
-<pre id="client" class="sh_javascript left">// Client
+<pre id="client" class="sh_javascript left">
+// Client
 var socket = io.connect();
-var log = console.log.bind(console);
-socket.on('connect', function() {
-  log('connected');
-  socket.emit('msg send', 'data');
-  socket.on('msg push', function (msg) {
-    log(msg);
+
+$(function() {
+  var $msg = $('#msg')
+  ,   $ok = $('#ok')
+  ,   $display = $('#display')
+  ;
+
+  $ok.click(function() {
+    socket.emit('msg send', $msg.val());
+  });
+
+  socket.on('msg push', function(data) {
+    var $li = $('<li>').text(data);
+    $display.append($li);
   });
 });
 </pre>
 <pre id="layout" class="sh_javascript right half">
+// layout.jade
 !!!
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    script(src='/socket.io/socket.io.js')
-    script(src='/javascripts/sample.js')
+    link(rel="stylesheet", href="/stylesheets/style.css")
+    script(src="http://code.jquery.com/jquery-1.6.4.js")
+    script(src="/socket.io/socket.io.js")
+    script(src="/javascripts/client.js")
   body!= body
 </pre>
 <pre id="index" class="sh_javascript right half">
+// index.jade
 h1= title
 p Welcome to #{title}
+p
+  input(id="msg", type="text", name="msg")
+  input(id="ok", type="button", value="ok")
+ul#display
 </pre>
 </section>
 
