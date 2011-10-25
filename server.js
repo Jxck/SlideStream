@@ -64,38 +64,38 @@ io.sockets.on('connection', function(socket) {
 
   // realtime commandline
   socket.on('readline', function(data) {
-    socket.volatile.emit('result', data);
+//    socket.volatile.emit('result', data);
     socket.volatile.broadcast.emit('result', data);
   });
 
   // realtime coding
   socket.on('app', function(data) {
-    socket.volatile.emit('app', data);
+//    socket.volatile.emit('app', data);
     socket.volatile.broadcast.emit('app', data);
   });
 
   socket.on('routes', function(data) {
-    socket.volatile.emit('routes', data);
+//    socket.volatile.emit('routes', data);
     socket.volatile.broadcast.emit('routes', data);
   });
 
   socket.on('socketserver', function(data) {
-    socket.volatile.emit('socketserver', data);
+//    socket.volatile.emit('socketserver', data);
     socket.volatile.broadcast.emit('socketserver', data);
   });
 
   socket.on('client', function(data) {
-    socket.volatile.emit('client', data);
+//    socket.volatile.emit('client', data);
     socket.volatile.broadcast.emit('client', data);
   });
 
   socket.on('layout', function(data) {
-    socket.volatile.emit('layout', data);
+//    socket.volatile.emit('layout', data);
     socket.volatile.broadcast.emit('layout', data);
   });
 
   socket.on('index', function(data) {
-    socket.volatile.emit('index', data);
+//    socket.volatile.emit('index', data);
     socket.volatile.broadcast.emit('index', data);
   });
 
