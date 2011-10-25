@@ -4,7 +4,7 @@ log = console.log
 task 'build', 'build scripts', (options) ->
   files = [
     'package.json'
-    'socket.server.js'
+    'server.js'
     'static.server.js'
     'config/*'
     'lib/*'
@@ -31,7 +31,7 @@ task 'demo', 'prepare for demo', (options) ->
     "rm -rf lib/sample"
     "rm -rf sample"
     "express sample"
-    "touch sample/socketserver.js"
+    "touch sample/server.js"
     "touch sample/public/javascripts/client.js"
     "touch sample/question1"
     "touch sample/question2"
