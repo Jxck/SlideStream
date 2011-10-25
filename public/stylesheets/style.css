@@ -55,13 +55,15 @@ section pre.full {
 }
 
 section.slide .left {
-    width: 42%;
+    width: 48%;
     float: left;
+    margin-right: 0;
 }
 
 section.slide .right {
-    width: 42%;
+    width: 48%;
     float: right;
+    margin-left: 0;
 }
 
 section.slide iframe {

@@ -184,14 +184,12 @@ var express = require('express')
 
 var app = module.exports = express.createServer();
 
-var socketserver = require('./socketserver');
-socketserver(app);
-
 // Configuration
 
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
+  app.use(express.favicon());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
@@ -210,21 +208,19 @@ app.configure('production', function(){
 
 app.get('/', routes.index);
 
-app.get('/foo', routes.foo);
-
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 </pre>
   <pre id="routes" class="sh_javascript">
-/*
- * GET home page.
- */
-
 exports.index = function(req, res){
   res.render('index', { title: 'Express' })
-};</pre>
-</section>
+};
 
+exports.foo = function(req, res){
+  res.render('index', { title: 'Foo' })
+};
+</pre>
+</section>
 
 <section class="slide">
   <h2>sample routing</h2>
@@ -294,9 +290,9 @@ app.delete('/users/:id', function(req, res) {
   <h2>What's Socket.IO</h2>
   <h3>Module for Realtime Application by <a href="http://twitter.com/rauchg">Guillermo</a></h3>
   <ul>
-    <li>Yes WebSocket but not only.</li>
+    <li>Yes <strong>WebSocket</strong> but not only.</li>
     <li>support <a href="http://socket.io/#browser-support">almost all browser</a></li>
-    <li>fxckin easy to use</li>
+    <li>very easy to use</li>
   </ul>
   <p>you can see more from <strong>Author</strong> !!</p>
 </section>
@@ -344,7 +340,7 @@ io.sockets.on('connect', function(socket) {
   });
 });
 </pre>
-<pre id="socketserver" class="sh_javascript right">
+<pre id="client" class="sh_javascript right">
 // Client
 var socket = io.connect();
 
@@ -368,6 +364,19 @@ $(function() {
 
 <section class="slide frame">
   <iframe id="socketio-entry" src="http://d.hatena.ne.jp/Jxck/20110730/1312042603">socket.io entory</iframe>
+</section>
+
+<section class="slide">
+  <h2>DataBase ?</h2>
+  <h3>Almost of All you want</h3>
+  <ul>
+    <li>MongoDB</li>
+    <li>CouchDB</li>
+    <li>Redis</li>
+    <li>MySQL</li>
+    <li>PostgreSQL</li>
+    <li>etc</li>
+  </ul>
 </section>
 
 <section class="slide">
@@ -406,6 +415,19 @@ $(function() {
     <li>node-http-proxy</li>
     <li>node-redis</li>
     <li>hook.io</li>
+    <li>etc</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Hosting ?</h2>
+  <h3>Node on the Cloud</h3>
+  <ul>
+    <li>Joyent</li>
+    <li>Heroku</li>
+    <li>Cloud Foundary</li>
+    <li>DotCloud</li>
+    <li><strong>NEW</strong> <a href="https://node-ninja.com/">Node-Ninja</a></li>
     <li>etc</li>
   </ul>
 </section>
