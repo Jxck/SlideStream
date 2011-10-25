@@ -74,6 +74,11 @@ io.sockets.on('connection', function(socket) {
     socket.volatile.broadcast.emit('app', data);
   });
 
+  socket.on('routes', function(data) {
+    socket.volatile.emit('routes', data);
+    socket.volatile.broadcast.emit('routes', data);
+  });
+
   socket.on('socketserver', function(data) {
     socket.volatile.emit('socketserver', data);
     socket.volatile.broadcast.emit('socketserver', data);

@@ -172,7 +172,7 @@ Express server listening on port 3000 in development mode
 </section>
 
 <section class="slide">
-  <pre id="app" class="sh_javascript full">
+  <pre id="app" class="sh_javascript">
 /**
  * Module dependencies.
  */
@@ -213,6 +213,14 @@ app.get('/foo', routes.foo);
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 </pre>
+  <pre id="routes" class="sh_javascript">
+/*
+ * GET home page.
+ */
+
+exports.index = function(req, res){
+  res.render('index', { title: 'Express' })
+};</pre>
 </section>
 
 
