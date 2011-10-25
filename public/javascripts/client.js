@@ -21,8 +21,8 @@ render.prototype.htmlRender = function(html) {
 };
 
 render.prototype.rawRender = function(rawdata) {
-  if(rawdata) this.cache = rawdata;
-  if(rawdata === '') this.cache = '';
+  if (rawdata) this.cache = rawdata;
+  if (rawdata === '') this.cache = '';
   this.codeRender();
 };
 
