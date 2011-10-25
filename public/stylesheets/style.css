@@ -28,6 +28,7 @@ section.slide h3 {
     margin: 0;
     padding: 0;
     font-family: monospace;
+    font-size: 1.3em;
     text-shadow: 0 0 14px #fff, 0 0 1.8px #fff;
 }
 

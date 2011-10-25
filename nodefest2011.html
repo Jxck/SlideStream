@@ -219,7 +219,8 @@ console.log("Express server listening on port %d in %s mode", app.address().port
 
 
 <section class="slide">
-  <h2>routing - resource "Users"</h2>
+  <h2>sample routing</h2>
+  <h3>resource "Users"</h3>
 <pre class="sh_javascript left">
 // User Data
 var users = [{username: 'Jxck', email: 'sample@mail.com'}];
@@ -239,6 +240,15 @@ app.get('/users/:id', function(req, res) {
   });
 });
 
+app.get('/users/:id/edit', function(req, res) {
+  res.render('users/edit', {
+    title: 'edit',
+    id: req.param('id'),
+    users: users[id]
+  });
+});
+</pre>
+<pre class="sh_javascript right">
 app.put('/users/:id', function(req, res) {
   users[req.param('id')] = {
     username: req.param('username'),
@@ -246,19 +256,10 @@ app.put('/users/:id', function(req, res) {
   };
   res.redirect('/users/');
 });
-</pre>
-<pre class="sh_javascript right">
+
 app.get('/users/new', function(req, res) {
   res.render('users/new', {
     title: 'new'
-  });
-});
-
-app.get('/users/:id/edit', function(req, res) {
-  res.render('users/edit', {
-    title: 'edit',
-    id: req.param('id'),
-    users: users[id]
   });
 });
 
