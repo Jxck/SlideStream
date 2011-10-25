@@ -94,8 +94,9 @@ socket.on('connect', function() {
     indexRender.rawRender(data);
   });
 
-  socket.on('disconnect', function() {
-    log('disconnected');
+  socket.on('review', function(data) {
+    var $li = $('<li>').text(data);
+    $('#review').append($li);
   });
 
   socket.on('empty1', function(html) {
@@ -104,6 +105,10 @@ socket.on('connect', function() {
 
   socket.on('empty2', function(html) {
     empty2Render.htmlRender(html);
+  });
+
+  socket.on('disconnect', function() {
+    log('disconnected');
   });
 });
 

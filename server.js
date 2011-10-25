@@ -99,6 +99,11 @@ io.sockets.on('connection', function(socket) {
     socket.volatile.broadcast.emit('index', data);
   });
 
+  socket.on('review', function(data) {
+    socket.volatile.emit('review', data);
+    socket.volatile.broadcast.emit('review', data);
+  });
+
   // realtime questions
   socket.on('empty1', function(data) {
     socket.volatile.emit('empty1', data);
