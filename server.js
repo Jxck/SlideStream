@@ -70,8 +70,8 @@ io.sockets.on('connection', function(socket) {
 
   // realtime coding
   socket.on('app', function(data) {
-//    socket.volatile.emit('app', data);
-    socket.volatile.broadcast.emit('app', data);
+    socket.volatile.emit('app', data);
+//    socket.volatile.broadcast.emit('app', data);
   });
 
   socket.on('routes', function(data) {
