@@ -13,7 +13,7 @@ render.prototype.codeRender = function() {
   if (this.target === '#result') {
     return sh_highlightDocument('lang/', '.shell');
   }
-//  sh_highlightDocument('lang/', '.js');
+  sh_highlightDocument('lang/', '.js');
 };
 
 render.prototype.htmlRender = function(html) {
