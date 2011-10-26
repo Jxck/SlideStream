@@ -71,7 +71,7 @@ socket.on('connect', function() {
   });
 
   socket.on('app', function(data) {
-    appRender.patchRender(data);
+    appRender.rawRender(data);
   });
 
   socket.on('routes', function(data) {
