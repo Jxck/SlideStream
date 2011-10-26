@@ -5,8 +5,9 @@ var express = require('express'),
     crypto = require('crypto'),
     port = config.static.port;
 
-var MemoryStore = express.session.MemoryStore,
-    sessionStore = module.exports.sessionStore = new MemoryStore();
+var RedisStore = require('connect-redis')(express),
+    // MemoryStore = express.session.MemoryStore,
+    sessionStore = module.exports.sessionStore = new RedisStore();
 
 var app = module.exports.app = express.createServer();
 
