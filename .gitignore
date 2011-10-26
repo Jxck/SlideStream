@@ -5,3 +5,6 @@ test.js
 result
 sample
 compleat
+compiler.jar
+public/javascripts/client.min.js
+public/javascripts/deck.compiled.js
