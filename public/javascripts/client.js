@@ -50,7 +50,7 @@ render.prototype.rawRender = function(rawdata) {
 // };
 
 var appRender = new render('#app'),
-//    routesRender = new render('#routes'),
+    routesRender = new render('#routes'),
     socketserverRender = new render('#socketserver'),
     resultRender = new render('#result'),
     clientRender = new render('#client'),
@@ -67,7 +67,7 @@ socket.on('connect', function() {
   // slide shows default codes
   // marked up in html.
   appRender.rawRender('// app.js');
-//  routesRender.rawRender('// routes/index.js');
+  routesRender.rawRender('// routes/index.js');
   socketserverRender.rawRender('// server.js');
   resultRender.rawRender();
   clientRender.rawRender('// public/javascripts/client.js');
@@ -92,7 +92,7 @@ socket.on('connect', function() {
   });
 
   socket.on('routes', function(data) {
-//    routesRender.rawRender(data);
+    routesRender.rawRender(data);
   });
 
   socket.on('socketserver', function(data) {
@@ -136,6 +136,6 @@ $(function() {
   $('pre.sh_javascript, pre.sh_sh').height(section_height - h2_height * 2);
   $('pre.half').height(section_height / 2.7);
   $('pre.full').height(section_height - h2_height / 2);
-  // $('#app').height(section_height * 0.7);
-  // $('#routes').height(section_height * 0.2);
+  $('#app').height(section_height * 0.7);
+  $('#routes').height(section_height * 0.2);
 });

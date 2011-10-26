@@ -211,15 +211,15 @@ app.get('/', routes.index);
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 </pre>
-<!--   <pre id="routes" class="sh_javascript"> -->
-<!-- exports.index = function(req, res){ -->
-<!--   res.render('index', { title: 'Express' }) -->
-<!-- }; -->
+  <pre id="routes" class="sh_javascript">
+exports.index = function(req, res){
+  res.render('index', { title: 'Express' })
+};
 
-<!-- exports.foo = function(req, res){ -->
-<!--   res.render('index', { title: 'Foo' }) -->
-<!-- }; -->
-<!-- </pre> -->
+exports.foo = function(req, res){
+  res.render('index', { title: 'Foo' })
+};
+</pre>
 </section>
 
 <section class="slide">
