@@ -37,10 +37,12 @@ io.configure('production', function() {
   io.set('transports', [
     'websocket'
   , 'flashsocket'
-  , 'htmlfile'
   , 'xhr-polling'
+  , 'htmlfile'
   , 'jsonp-polling'
   ]);
+  io.set('browser client minification', true);
+  io.set('browser client gzip', true);
 });
 
 io.configure('development', function() {
