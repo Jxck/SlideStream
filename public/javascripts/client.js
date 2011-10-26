@@ -8,12 +8,29 @@ function render(target) {
   this.cache = '';
 }
 
+render.prototype.higlight = function() {
+  this.cache = this.cache
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"(.*?)"/g, '<span class="sh_string">\"$1\"</span>')
+    .replace(/'(.*?)'/g, '<span class="sh_string">\'$1\'</span>')
+    .replace(/(var|function|static|true|false)/g, '<span class=sh_keyword>$1</span>')
+    .replace(/([A-Za-z0-9]*?)\(/g, '<span class=sh_function>$1</span>(')
+    .replace(/\/\/(.*)/g, '<span class="sh_comment">//$1</span>')
+    .replace(/\/\*\*(.*)/g, '<span class="sh_comment">/**$1</span>')
+    .replace(/\*(.*)/g, '<span class="sh_comment">* $1</span>')
+    .replace(/(\d{2,4}?)/g, '<span class="sh_number">$1</span>')
+;
+
+};
+
 render.prototype.codeRender = function() {
-  this.$target.text(this.cache);
+  this.higlight();
+  this.$target.html(this.cache);
   if (this.target === '#result') {
     return sh_highlightDocument('lang/', '.shell');
   }
-  sh_highlightDocument('lang/', '.js');
+//  sh_highlightDocument('lang/', '.js');
 };
 
 render.prototype.htmlRender = function(html) {
