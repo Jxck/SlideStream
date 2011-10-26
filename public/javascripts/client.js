@@ -26,11 +26,11 @@ render.prototype.rawRender = function(rawdata) {
   this.codeRender();
 };
 
-render.prototype.patchRender = function(patch) {
-  var result = patch !== 'empty' ? apply_patch(this.cache, patch) : '';
-  this.rawRender(result);
-log('result', patch.length);
-};
+// render.prototype.patchRender = function(patch) {
+//   var result = patch !== 'empty' ? apply_patch(this.cache, patch) : '';
+//   this.rawRender(result);
+// log('result', patch.length);
+// };
 
 var appRender = new render('#app'),
 //    routesRender = new render('#routes'),
