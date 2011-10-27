@@ -49,11 +49,14 @@ io.configure('development', function() {
   io.set('transports', ['websocket']);
 });
 
-var resultCache = '',
-    codeCache = '';
+var viewer = 0;
 
 io.sockets.on('connection', function(socket) {
+  viewer++;
+  socket.broadcast.emit('viewer', viewer);
   socket.on('disconnect', function() {
+    viewer > 2 ? viewer--: false;
+    socket.broadcast.emit('viewer', viewer);
     log('disconnected');
   });
 

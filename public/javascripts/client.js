@@ -136,6 +136,10 @@ socket.on('connect', function() {
     empty2Render.htmlRender(html);
   });
 
+  socket.on('viewer', function(num) {
+    $('span.deck-status-viewer').text('(' + num + ')');
+  });
+
   socket.on('disconnect', function() {
     log('disconnected');
   });
