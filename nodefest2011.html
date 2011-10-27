@@ -308,8 +308,8 @@ app.delete('/users/:id', function(req, res) {
 </section>
 
 <section class="slide">
-  <h3>layout.ejs &amp; index.ejs</h3>
-<pre id="layout" class="sh_javascript left half">
+  <h3>layout.jade &amp; index.jade</h3>
+<pre id="layout" class="sh_javascript left">
 // layout.jade
 !!!
 html
@@ -321,7 +321,7 @@ html
     script(src="/javascripts/client.js")
   body!= body
 </pre>
-<pre id="index" class="sh_javascript right half">
+<pre id="index" class="sh_javascript right">
 // index.jade
 h1= title
 p Welcome to #{title}
