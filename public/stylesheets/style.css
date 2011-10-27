@@ -32,6 +32,10 @@ section.slide h3 {
     text-shadow: 0 0 14px #fff, 0 0 1.8px #fff;
 }
 
+section.slide h3 small {
+    font-size: 60%;
+}
+
 section.slide strong {
     font-family: monospace;
     color: #f0a;
