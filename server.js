@@ -111,3 +111,7 @@ io.sockets.on('connection', function(socket) {
     socket.volatile.broadcast.emit('empty2', data);
   });
 });
+
+process.on('uncaughtException', function (err) {
+  console.error('uncoughtException: ' + err);
+});
