@@ -8,28 +8,40 @@ function render(target) {
   this.cache = '';
 }
 
-render.prototype.higlight = function() {
+render.prototype.higlightJS = function() {
   this.cache = this.cache
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
     .replace(/"(.*?)"/g, '<span class="sh_string">\"$1\"</span>')
     .replace(/'(.*?)'/g, '<span class="sh_string">\'$1\'</span>')
     .replace(/(var|function|static|true|false)/g, '<span class=sh_keyword>$1</span>')
     .replace(/([A-Za-z0-9]*?)\(/g, '<span class=sh_function>$1</span>(')
-    .replace(/\/\/(.*)/g, '<span class="sh_comment">//$1</span>')
+    .replace(/^\/\/(.*)/g, '<span class="sh_comment">//$1</span>')
+    .replace(/[^:]\/\/(.*)/g, '<span class="sh_comment">//$1</span>')
     .replace(/\/\*\*(.*)/g, '<span class="sh_comment">/**$1</span>')
     .replace(/\*(.*)/g, '<span class="sh_comment">* $1</span>')
     .replace(/(\d{2,4}?)/g, '<span class="sh_number">$1</span>')
-;
+    ;
+};
 
+render.prototype.higlightBash = function() {
+  this.cache = this.cache
+//    .replace(/([a-zA-Z0-9]*@\d\.\d\.\d)/g, '<span class="sh_number">$1</span>')
+    .replace(/(ls|cd|tree|rm|\sexpress\s|npm|\snode\s)/g, '<span class=sh_keyword>$1</span>')
+    .replace(/(create)/g, '<span class=sh_number>$1</span>')
+    .replace(/(Jxck\$)/g, '<span class=sh_function>$1</span>')
+    .replace(/(\d{2,4}?)/g, '<span class="sh_number">$1</span>')
+    ;
 };
 
 render.prototype.codeRender = function() {
-  this.higlight();
-  this.$target.html(this.cache);
   if (this.target === '#result') {
-    return sh_highlightDocument('lang/', '.shell');
+    this.higlightBash();
+  } else {
+    this.higlightJS();
   }
+  this.$target.html(this.cache);
+//  return sh_highlightDocument('lang/', '.shell');
 //  sh_highlightDocument('lang/', '.js');
 };
 
@@ -69,7 +81,7 @@ socket.on('connect', function() {
   appRender.rawRender('// app.js');
   routesRender.rawRender('// routes/index.js');
   socketserverRender.rawRender('// server.js');
-  resultRender.rawRender();
+  resultRender.rawRender('');
   clientRender.rawRender('// public/javascripts/client.js');
   layoutRender.rawRender('// views/layout.jade');
   indexRender.rawRender('// views/index.jade');
