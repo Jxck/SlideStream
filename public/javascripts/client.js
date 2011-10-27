@@ -30,7 +30,7 @@ render.prototype.higlightBash = function() {
     .replace(/(ls|cd|tree|rm|\sexpress\s|npm|\snode\s)/g, '<span class=sh_keyword>$1</span>')
     .replace(/(create)/g, '<span class=sh_number>$1</span>')
     .replace(/(Jxck\$)/g, '<span class=sh_function>$1</span>')
-    .replace(/(\d{2,4}?)/g, '<span class="sh_number">$1</span>')
+    .replace(/(\d{3,4}?)/g, '<span class="sh_number">$1</span>')
     ;
 };
 
