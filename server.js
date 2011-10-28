@@ -73,27 +73,27 @@ io.sockets.on('connection', function(socket) {
   });
 
   // realtime coding
-  socket.on('app', function(data) {
+  socket.on('appStream000', function(data) {
     socket.volatile.broadcast.emit('app', data);
   });
 
-  socket.on('routes', function(data) {
+  socket.on('routesStream000', function(data) {
     socket.volatile.broadcast.emit('routes', data);
   });
 
-  socket.on('socketserver', function(data) {
+  socket.on('socketserverStream000', function(data) {
     socket.volatile.broadcast.emit('socketserver', data);
   });
 
-  socket.on('client', function(data) {
+  socket.on('clientStream000', function(data) {
     socket.volatile.broadcast.emit('client', data);
   });
 
-  socket.on('layout', function(data) {
+  socket.on('layoutStream000', function(data) {
     socket.volatile.broadcast.emit('layout', data);
   });
 
-  socket.on('index', function(data) {
+  socket.on('indexStream000', function(data) {
     socket.volatile.broadcast.emit('index', data);
   });
 
@@ -103,11 +103,11 @@ io.sockets.on('connection', function(socket) {
   });
 
   // realtime questions
-  socket.on('empty1', function(data) {
+  socket.on('empty1Stream000', function(data) {
     socket.volatile.broadcast.emit('empty1', data);
   });
 
-  socket.on('empty2', function(data) {
+  socket.on('empty2Stream000', function(data) {
     socket.volatile.broadcast.emit('empty2', data);
   });
 });
