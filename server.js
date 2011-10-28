@@ -112,6 +112,6 @@ io.sockets.on('connection', function(socket) {
   });
 });
 
-process.on('uncaughtException', function (err) {
+process.on('uncaughtException', function(err) {
   console.error('uncoughtException: ' + err);
 });
