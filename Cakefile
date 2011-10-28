@@ -36,18 +36,18 @@ task 'build', 'build scripts', (options) ->
       log stdout + stderr
 
 
-task 'demo', 'prepare for demo', (options) ->
-  commands = [
-    "rm -rf lib/sample"
-    "rm -rf sample"
-    "express sample"
-    "touch sample/server.js"
-    "touch sample/public/javascripts/client.js"
-    "touch sample/question1"
-    "touch sample/question2"
-  ]
-  command = commands.join(' && ')
+# task 'demo', 'prepare for demo', (options) ->
+#   commands = [
+#     "rm -rf lib/sample"
+#     "rm -rf sample"
+#     "express sample"
+#     "touch sample/server.js"
+#     "touch sample/public/javascripts/client.js"
+#     "touch sample/question1"
+#     "touch sample/question2"
+#   ]
+#   command = commands.join(' && ')
 
-  exec command, (err, stdout, stderr)->
-    throw err if err
-    log stdout + stderr
+#   exec command, (err, stdout, stderr)->
+#     throw err if err
+#     log stdout + stderr
