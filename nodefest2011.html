@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Deck Skeleton</title>
+  <title>Nodefest2011 Node.js for Beginner</title>
   <meta name="viewport" content="width=1024, user-scalable=no">
   
   <!-- Replace path with correct path to deck.core.css. -->
@@ -28,7 +28,7 @@
 </section>
 
 <section class="slide">
-  <h1>Node.js for Begginer<p class="small">with Live Coding :)</p></h1>
+  <h1>Node.js for Beginner<p class="small">with Live Coding :)</p></h1>
 </section>
 
 <section class="slide">
@@ -56,7 +56,7 @@
 
 <section class="slide">
   <h2>Todays Goal</h2>
-  <h3>very beggining about node.js</h3>
+  <h3>very beginning about node.js</h3>
   <ul>
     <li>developing application</li>
     <li>for very begginer</li>
@@ -130,63 +130,29 @@
   <h2>Install Express &amp; Sckeleton</h2>
   <pre id="result" class="sh_sh">
 Jxck$ npm install express -g
-/Users/jxck/.nvm/v0.4.11/bin/express -> /Users/jxck/.nvm/v0.4.11/lib/node_modules/express/bin/express
-express@2.4.7 /Users/jxck/.nvm/v0.4.11/lib/node_modules/express 
-├── mkdirp@0.0.7
-├── mime@1.2.4
-├── connect@1.7.1
-└── qs@0.3.1
+/* outputs */
 Jxck$ express sample
-create: sample
-create: sample/package.json
-create: sample/app.js
-create: sample/views
-create: sample/views/layout.jade
-create: sample/views/index.jade
-create: sample/public/javascripts
-create: sample/public/images
-create: sample/public/stylesheets
-create: sample/public/stylesheets/style.css
+/* outputs */
 Jxck$ tree sample
-sample
-├── app.js
-├── package.json
-├── public
-│   ├── images
-│   ├── javascripts
-│   └── stylesheets
-│       └── style.css
-└── views
-├── index.jade
-└── layout.jade
-5 directories, 5 files
+/* outputs */
+Jxck$ cd sample
+/* outputs */
 Jxck$ npm install
-express@2.4.7 ./node_modules/express 
-├── mkdirp@0.0.7
-├── mime@1.2.4
-├── connect@1.7.1
-└── qs@0.3.1
-jade@0.16.2 ./node_modules/jade 
-├── mkdirp@0.0.7
-└── commander@0.1.0
+/* outputs */
 Jxck$ node app.js
-Express server listening on port 3000 in development mode
+/* outputs */
 </pre>
 </section>
 
 <section class="slide">
   <pre id="app" class="sh_javascript">
-/**
- * Module dependencies.
- */
-
+// Module dependencies.
 var express = require('express')
   , routes = require('./routes')
 
 var app = module.exports = express.createServer();
 
 // Configuration
-
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -206,13 +172,17 @@ app.configure('production', function(){
 });
 
 // Routes
-
 app.get('/', routes.index);
+app.get('/foo', routes.foo);
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 </pre>
+</section>
+
+<section class="slide">
   <pre id="routes" class="sh_javascript">
+// routes
 exports.index = function(req, res){
   res.render('index', { title: 'Express' })
 };
@@ -361,7 +331,7 @@ $(function() {
   });
 
   socket.on('msg push', function(data) {
-    var $li = $('<li>').text(data);
+    var $li = $('&lt;li&gt;').text(data);
     $display.append($li);
   });
 });
@@ -466,15 +436,19 @@ $(function() {
 
 <section class="slide">
   <section id="empty1">
-    // add code for here (to fill empty)
+    <h2>Question</h2>
+    <h3>Node.js と相性のいいストレージ層についてどう考えるか？<small>(How do you think about Strage-Tire of Node.js ?)</h3>
+    </br>
+    <p>Node では、基本的な DB サーバのクライアントは大体あります。しかし、スケーラビリティやデータ形式の関係から MongoDB は相性がいいと思います。<small>(Node.js supports almost of all famous DataBase client library. but I think MongoDB is very get along with Node.js because of Scalability & Data Format)</small></p>
+    <p>また、リアルタイムアプリではとにかく速度が求められることが多いので、 Redis のような高速な DB もセッションストレージなどでよく使われています。<small>(And Realtime Application needs "SPEED" anyway, So Redis often used in like SessionStrage Engine.)</small></p>
   </section>
 </section>
 
-<section class="slide">
-  <section id="empty2">
-    // add code for here (to fill empty)
-  </section>
-</section>
+<!-- <section class="slide"> -->
+<!--   <section id="empty2"> -->
+<!--     // add code for here (to fill empty) -->
+<!--   </section> -->
+<!-- </section> -->
 
 <section class="slide">
   <h1>May the Node be with you</h1>
@@ -486,7 +460,15 @@ $(function() {
 
 <section class="slide">
   <h2>review - send the msg</h2>
+  <p>(at conference, everyone wrote <strong>"socket.emit('review', 'something')"</strong> to browser-console and it broadcasts to everyone)</p>
   <ul id="review">
+    <li>they</li>
+    <li>pushed</li>
+    <li>'hoge'</li>
+    <li>or</li>
+    <li>'XXXX'</li>
+    <li>like</li>
+    <li>this :p</li>
   </ul>
 </section>
 
@@ -516,7 +498,7 @@ $(function() {
 <!-- <script src="public/javascripts/diff_match_patch.js"></script> -->
 <script src="/socket.io/socket.io.js"></script>
 <!-- <script src="lib/diff_launch.js"></script> -->
-<script src="public/javascripts/client.min.js"></script>
+<script src="public/javascripts/client.js"></script>
 
 <!-- Initialize the deck. You can put this in an external file if desired. -->
 <script>

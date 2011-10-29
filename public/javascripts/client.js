@@ -78,13 +78,13 @@ socket.on('connect', function() {
   // if network dosen't work
   // slide shows default codes
   // marked up in html.
-  appRender.rawRender('// app.js');
-  routesRender.rawRender('// routes/index.js');
-  socketserverRender.rawRender('// server.js');
-  resultRender.rawRender('');
-  clientRender.rawRender('// public/javascripts/client.js');
-  layoutRender.rawRender('// views/layout.jade');
-  indexRender.rawRender('// views/index.jade');
+  // appRender.rawRender('// app.js');
+  // routesRender.rawRender('// routes/index.js');
+  // socketserverRender.rawRender('// server.js');
+  // resultRender.rawRender('');
+  // clientRender.rawRender('// public/javascripts/client.js');
+  // layoutRender.rawRender('// views/layout.jade');
+  // indexRender.rawRender('// views/index.jade');
 
   // move slide
   socket.on('go', function(to) {
