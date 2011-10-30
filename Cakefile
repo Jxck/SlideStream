@@ -35,19 +35,46 @@ task 'build', 'build scripts', (options) ->
       throw err if err
       log stdout + stderr
 
+task 'demo', 'prepare for demo', (options) ->
+  commands = [
+    "rm -rf lib/sample"
+    "rm -rf sample"
+    "express sample"
+    "touch sample/server.js"
+    "touch sample/public/javascripts/client.js"
+    "touch sample/question1"
+    "touch sample/question2"
+  ]
+  command = commands.join(' && ')
 
-# task 'demo', 'prepare for demo', (options) ->
-#   commands = [
-#     "rm -rf lib/sample"
-#     "rm -rf sample"
-#     "express sample"
-#     "touch sample/server.js"
-#     "touch sample/public/javascripts/client.js"
-#     "touch sample/question1"
-#     "touch sample/question2"
-#   ]
-#   command = commands.join(' && ')
+  exec command, (err, stdout, stderr)->
+    throw err if err
+    log stdout + stderr
 
-#   exec command, (err, stdout, stderr)->
-#     throw err if err
-#     log stdout + stderr
+option '-p', '--page [page]'
+task 'pdf', 'build pdf', (options) ->
+  page = options.page.split('-')
+  if page.length == 2
+    f = page[0]
+    t = page[1]
+  else
+    f = 0
+    t = page[0]
+  log f,t
+  command = 'phantomjs'
+  script = 'rasterize.js'
+  width = 1366
+  height = 768
+  paperwidth = '48.77cm'
+  paperheight = '17.43cm'
+
+  log [f..t]
+  for i in [f..t]
+    log i
+    # url = "http://localhost:3001/nodefest2011.html#slide-#{i}"
+    # dest = 'pdf/' +  url.split('#')[1] + '.png'
+    # commands = [command, script, url, dest, width, height, paperwidth, paperheight].join(' ')
+    # log commands
+    # exec commands, (err, stdout, stderr)->
+    #   throw err if err
+    #   log stdout + stderr
