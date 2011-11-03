@@ -52,32 +52,48 @@ task 'demo', 'prepare for demo', (options) ->
     log stdout + stderr
 
 option '-p', '--page [page]'
+task 'png', 'build png', (options) ->
+  page = options.page
+  command = 'phantomjs'
+  script = 'rasterize.js'
+  uri = ''
+  width = 1366
+  height = 768
+  paperwidth = '48.77cm'
+  paperheight = '17.43cm'
+  commands = []
+
+  for i in [0..page]
+    uri = "http://localhost:3000/slide.html#slide-#{i}"
+    output = uri.split('#')[1] + '.png'
+    commands.push "#{command} #{script} #{uri} #{output} #{width} #{height} #{paperwidth} #{paperheight}"
+
+  build = (c) ->
+    exec c.shift() , (err, stdout, stderr)->
+      throw err if err
+      log stdout + stderr
+
+    if c.length isnt 0
+      setTimeout () ->
+        build(c)
+      , 1000
+  build(commands)
+
+
+option '-p', '--page [page]'
 task 'pdf', 'build pdf', (options) ->
-  slides = ""
-  for i in [0..36]
-    slides += " pdf/slide-#{i}.pdf"
-  commands =  "pdftk #{slides} cat output pdf/nodefest2011.pdf"
-  log commands
+  slides = []
+  page = options.page
+  for i in [0..page]
+    exec "echo 'sam2p slide-#{i}.png sliede-#{i}.pdf'" , (err, stdout, stderr)->
+      throw err if err
+      log stdout + stderr
+    slides.push "slide-#{i}.pdf"
+
+
+  slides = slides.join(' ')
+  commands =  "pdftk #{slides} cat output slide.pdf"
+
   exec commands, (err, stdout, stderr)->
     throw err if err
     log stdout + stderr
-  # page = options.page.split('-')
-  # if page.length == 2
-  #   f = page[0]
-  #   t = page[1]
-  # else
-  #   f = 0
-  #   t = page[0]
-  # log f,t
-  # command = 'phantomjs'
-  # script = 'rasterize.js'
-  # width = 1366
-  # height = 768
-  # paperwidth = '48.77cm'
-  # paperheight = '17.43cm'
-
-  # log [f..t]
-  # for i in [f..t]
-  #   log i
-    # url = "http://localhost:3001/nodefest2011.html#slide-#{i}"
-    # dest = 'pdf/' +  url.split('#')[1] + '.png'
