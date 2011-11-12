@@ -1,3 +1,6 @@
+/**
+ * diff_launch.test.js
+ */
 if (typeof window === 'undefined') {
   // for jasmine-node
   var make_patch = require('../lib/diff_launch').make_patch;
