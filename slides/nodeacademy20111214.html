@@ -296,6 +296,37 @@ CodeStream.prototype.readCode = function() {
 </section>
 
 <section class="slide">
+  <h2>Domein Specific minimal logic</h2>
+  <h3>(not stable, adding incrementaly..)</h3>
+<pre class="sh_javascript">
+render.prototype.higlightJS = function() {
+  this.cache = this.cache
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"(.*?)"/g, '<span class="sh_string">\"$1\"</span>')
+    .replace(/'(.*?)'/g, '<span class="sh_string">\'$1\'</span>')
+    .replace(/(var|function|static|true|false)/g, '<span class=sh_keyword>$1</span>')
+    .replace(/([A-Za-z0-9]*?)\(/g, '<span class=sh_function>$1</span>(')
+    .replace(/^\/\/(.*)/g, '<span class="sh_comment">//$1</span>')
+    .replace(/[^:]\/\/(.*)/g, '<span class="sh_comment">//$1</span>')
+    .replace(/\/\*\*(.*)/g, '<span class="sh_comment">/**$1</span>')
+    .replace(/\*(.*)/g, '<span class="sh_comment">* $1</span>')
+    .replace(/(\d{2,4}?)/g, '<span class="sh_number">$1</span>')
+    ;
+};
+
+render.prototype.higlightBash = function() {
+  this.cache = this.cache
+    .replace(/(ls|cd|tree|rm|\sexpress\s|npm|\snode\s)/g, '<span class=sh_keyword>$1</span>')
+    .replace(/(create)/g, '<span class=sh_number>$1</span>')
+    .replace(/(Jxck\$)/g, '<span class=sh_function>$1</span>')
+    .replace(/(\d{4}?)/g, '<span class="sh_number">$1</span>')
+    ;
+};
+</pre>
+</section>
+
+<section class="slide">
   <h2>CUP or I/O</h2>
   <h3>very important poin in Node.js & Realtime scene</h3>
   <ul class="left">
