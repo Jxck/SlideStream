@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Node Academy | "About SlideStream & Tips for Realtime"</title>
+  <meta name="viewport" content="width=1024, user-scalable=no">
+
+  <!-- Replace path with correct path to deck.core.css. -->
+  <link rel="stylesheet" href="../public/stylesheets/deck.core.css" type="text/css">
+
+  <!-- Any other extension CSS files go here. -->
+  <link rel="stylesheet" id="style-theme-link" href="../public/themes/style/neon.css">
+  <link rel="stylesheet" id="transition-theme-link" href="../public/themes/transition/horizontal-slide.css">
+
+  <link rel="stylesheet" id="shjs-link" href="../public/stylesheets/sh_style.css">
+
+  <link rel="stylesheet" href="../public/stylesheets/style.css" type="text/css">
+  <link rel="stylesheet" id="transition-theme-link" href="../public/extensions/status/deck.status.css">
+  <link rel="stylesheet" id="transition-theme-link" href="../public/extensions/menu/deck.menu.css">
+  <!-- Replace path with correct path to Modernizr file. -->
+  <script src="../public/javascripts/modernizr.custom.js"></script>
+</head>
+<body class="deck-container">
+
+<!-- Create any number of elements with class slide within the container -->
+<section class="slide">
+  <h1><a href="http://jxck.node-ninja.com">http://jxck.node-ninja.com</a></h1>
+</section>
+
+<section class="slide">
+  <h1>about SlideStream<p class="small">& Tips for Realtime Web App</p></h1>
+</section>
+
+<section class="slide">
+  <h1>This slide is Best optimized for Chrome &amp; FireFox<p class="small">should use them ;)</p></h1>
+</section>
+
+<section class="slide">
+  <!-- Slide content HTML goes here! -->
+  <p id="icon">Jack</p>
+</section>
+
+<section class="slide">
+  <h2>about me</h2>
+  <h3>Jxck</h3>
+  <ul>
+    <li>id: <strong>Jxck</strong></li>
+    <li>group: #nodejs_jp</li>
+    <li>twitter: <a href="http://twitter.com/Jxck_">Jxck_</a></li>
+    <li>blog: <a href="http://d.hatena.ne.jp/Jxck">http://d.hatena.ne.jp/Jxck</a></li>
+    <li>tumblr: <a href="http://jxck.tumblr.com/">http://jxck.tumblr.com/</a></li>
+    <li>love: music</li>
+    <li>writing node.js book now</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Todays Goal</h2>
+  <ul>
+    <li>What is SlideStream</li>
+    <li>Architecture of SlideStream</li>
+    <li>Performance of SlideStream</li>
+    <li>Experience of <strong><em>How to make it RealTime?</em></strong></li>
+    <li>Stream based Application</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h1>SlideStream</h1>
+</section>
+
+<section class="slide">
+  <h2>What is SlideStream ?</h2>
+  <h3>Realtime Streambased Slide tool</h3>
+  <ul>
+    <li>moving sync slide paging</li>
+    <li>realtime coding(codestream)</li>
+    <li>realtime executing(shellstream)</li>
+    <li>based on <a href="http://imakewebthings.github.com/deck.js">deck.js</a></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h1>Steal the TTY</h1>
+</section>
+
+<section class="slide">
+  <h1>How to sync slide paging ?</h1>
+</section>
+
+<section class="slide">
+  <h2>Authentication/Authorization</h2>
+  <pre class="sh_javascript left">
+// 1. Authentication in Express
+app.post('/admin', function(req, res) {
+  req.session.admin = false;
+  if (req.body.user === config.secret.user &&
+      pass(req.body.pass) === config.secret.pass) {
+    req.session.admin = true;
+  }
+  res.redirect('/nodefest2011.html');
+});
+</pre>
+  <pre class="sh_javascript right">
+// 2. Sharing session btw Express & Socket.IO
+io.set('authorization', function(handshakeData, callback) {
+  if (handshakeData.headers.cookie) {
+    var cookie = handshakeData.headers.cookie;
+    var sessionID = parseCookie(cookie)['connect.sid'];
+    // check the express session store
+    sessionStore.get(sessionID, function(err, session) {
+      if (err) {
+        // not found
+        callback(err.message, false);
+      } else {
+        // found
+        handshakeData.session = session;
+        callback(null, true);
+      }
+    });
+  } else {
+    return callback(null, true);
+    // socket.io-client from node process dosen't has cookie
+    // return callback('Cookie dosen\'t found', false);
+  }
+});
+  </pre>
+  <pre class="sh_javascript left">
+// 3. Authorization in Socket.IO checking handshake data
+// move slide only by admin
+socket.on('go', function(to) {
+  if (!socket.handshake.session) return false;
+  if (!socket.handshake.session.admin) return false;
+  socket.broadcast.emit('go', to);
+});
+  </pre>
+</section>
+
+<section class="slide">
+  <h2>practice</h2>
+  <ul>
+    <li>You can auth(enticate|orize) your Socket.IO connection</li>
+    <li>for that, first you authenticate your session(with Express)</li>
+    <li>Session store should be at global & crazy fast(= Redis)</li>
+    <li><strong>Auth(e|o) your connection is very important !!</strong></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Security Hole in crossdomain app</h2>
+<pre class="sh_javascript right">
+// lazy broadcasting server
+socket.on('review', function(data) {
+  socket.volatile.emit('review', data);
+  socket.volatile.broadcast.emit('review', data);
+});
+</pre>
+<pre class="sh_javascript left">
+// client
+socket.on('review', function(data) {
+  var $li = $('&lt;li&gt;').text(data);
+  $('#review').append($li);
+});
+</pre>
+<pre class="sh_javascript">
+// you can send dirty data to every client
+// from your console
+var socket = io.connect(/* path to server */);
+socket.emit('review', 'm@(^_^) pugya~~~');
+</pre>
+  <hr>
+  <ul>
+    <li>easy event name & careless broadcast became hole</li>
+    <li><strong>Auth(e|o) your connection is very important !!</strong></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h1>How to display console ?</h1>
+</section>
+
+<section class="slide">
+  <h2>console image</h2>
+  <h3>fake prompt with require('readline')</h3>
+  <pre id="console" class="sh_javascript">
+var readline = require('readline').createInterface(process.stdin, process.stdout);
+ ,  spawn = require('child_process').spawn,
+ ,  socket = require('socket.io-client')
+ ,  worker = null
+ ;
+rl.on('line', function(line) {
+  var lines = line.split(' ');
+  var command = lines.shift();
+  worker = spawn(command, lines);
+
+  worker.stdout.on('data', function(rawdata) {
+    console.log(data); // print to shell
+    socket.emit('line', data + '\n'); // send to socketserver
+  });
+});
+rl.setPrompt(prefix, prefix.length);
+rl.prompt();
+</pre>
+</section>
+
+<section class="slide">
+  <h1>How to display Editor ?</h1>
+</section>
+
+<style>
+  #asb {
+    margin-top: 30%;
+    font-size: 200%;
+  }
+</style>
+<section class="slide">
+  <h3 id="asb">(require 'auto-save-buffers)</br>
+(run-with-idle-timer <strong>0.1 t</strong> 'auto-save-buffers)</h3>
+</section>
+
+<section class="slide">
+  <h3>load file again and again :P</h3>
+  <pre id="app" class="sh_javascript">
+function CodeStream(file) { // Not a real Stream !!
+  this.file = file;
+  this.cache = '';
+  events.EventEmitter.call(this);
+  this.readCode();
+}
+
+util.inherits(CodeStream, events.EventEmitter);
+
+CodeStream.prototype.readCode = function() {
+  fs.readFile(this.file, 'utf8', function(err, data) {
+    if (err) {
+      return console.error(err);
+    }
+    if (data !== this.cache) {
+      this.emit('code', data);
+      this.cache = data;
+    }
+    setTimeout(function() {
+      this.readCode();
+    }.bind(this), 500);
+  }.bind(this));
+};
+</pre>
+</section>
+
+<section class="slide">
+  <h1>matter btwn <strong>Diff</strong> & <strong>volatile</strong></h1>
+</section>
+
+<section class="slide">
+  <h2>volatile sends without ACK</h2>
+  <ul>
+    <li>send <strong>+ foo</strong> with success</li>
+    <li>send <strong>- foo</strong> but  &nbsp; fail</li>
+    <li>send <strong>+ bar</strong> with success</li>
+  </ul>
+  <pre class="sh_javascript left">
+    // expected
+    bar
+  </pre>
+  <pre class="sh_javascript right">
+    // actual
+    foo
+    bar</pre>
+  <p>but we need <strong>volatile</strong> in realtime world</p>
+</section>
+
+<section class="slide">
+  <h1>bottole neck</h1>
+</section>
+
+<section class="slide">
+  <h2>At first, my slide was Creasy Heavy</h2>
+  <h3>don't know what's wrong ..</h3>
+  <ul>
+    <li></li>
+    <li>waste ton of memory</li>
+    <li>because library doesn't support such needs</li>
+    <li>(supports only one time)</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Syntacs Higlight</h2>
+  <h3>sh.js</h3>
+  <ul>
+    <li>re-higlight every event</li>
+    <li>waste ton of memory</li>
+    <li>because library doesn't support such needs</li>
+    <li>(supports only one time)</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>CUP or I/O</h2>
+  <h3>very important poin in Node.js & Realtime scene</h3>
+  <ul class="left">
+    <li>Send all data & display that everytime</li>
+    <li>Send diff & apply that everytime</li>
+    <li></li>
+    <li></li>
+  </ul>
+</section>
+
+
+<section class="slide frame">
+  <h3><small>official <a href="http://socket.io" target="_blank">http://socket.io</a> translated <a href="http://jxck.github.com/socket.io/" target="_blank">http://jxck.github.com/socket.io/</a></small></h3>
+  <iframe id="socketio" src="http://jxck.github.com/socket.io/">socket.io translated</iframe>
+</section>
+
+<section class="slide">
+  <h3>layout.jade &amp; index.jade</h3>
+<pre id="layout" class="sh_javascript left">
+// layout.jade
+!!!
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/stylesheets/style.css")
+    script(src="http://code.jquery.com/jquery-1.6.4.js")
+    script(src="/socket.io/socket.io.js")
+    script(src="/javascripts/client.js")
+  body!= body
+</pre>
+<pre id="index" class="sh_javascript right">
+// index.jade
+h1= title
+p Welcome to #{title}
+p
+  input(id="msg", type="text", name="msg")
+  input(id="ok", type="button", value="ok")
+ul#display
+</pre>
+</section>
+
+<section class="slide">
+  <h3>sever.js &amp; client.js</h3>
+<pre id="socketserver" class="sh_javascript left">
+// server.js
+var app = require('./app'),
+    io = require('socket.io');
+
+io.sockets.on('connect', function(socket) {
+  socket.on('msg send', function(data) {
+    socket.emit('msg push', data);
+    socket.broadcast.emit('msg push', data);
+  });
+});
+</pre>
+<pre id="client" class="sh_javascript right">
+// Client
+var socket = io.connect();
+
+$(function() {
+  var $msg = $('#msg')
+  ,   $ok = $('#ok')
+  ,   $display = $('#display')
+  ;
+
+  $ok.click(function() {
+    socket.emit('msg send', $msg.val());
+  });
+
+  socket.on('msg push', function(data) {
+    var $li = $('&lt;li&gt;').text(data);
+    $display.append($li);
+  });
+});
+</pre>
+</section>
+
+<section class="slide frame">
+  <h3><small> <a href="http://www.waveprotocol.org/whitepapers/operational-transform" target="_blank">http://www.waveprotocol.org/whitepapers/operational-transform</a></small></h3>
+  <iframe id="wot" src="http://www.waveprotocol.org/whitepapers/operational-transform">Google Wave Operational Transformation</iframe>
+</section>
+
+<section class="slide">
+  <h2>DataBase ?</h2>
+  <h3>Almost of All you want</h3>
+  <ul>
+    <li>MongoDB</li>
+    <li>CouchDB</li>
+    <li>Redis</li>
+    <li>MySQL</li>
+    <li>PostgreSQL</li>
+    <li>etc</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>how to test?</h2>
+  <h3>lots of testing framework</h3>
+  <ul>
+    <li>Jasmine</li>
+    <li>NodeUnit</li>
+    <li>Expresso</li>
+    <li>Vows</li>
+    <li>etc</li>
+  </ul>
+</section>
+
+<section class="slide frame">
+  <h3><small>Talk about test <a href="http://www.slideshare.net/slideshow/embed_code/9845589" target="_blank">http://slidesha.re/test_it_nodejs</a></small></h3>
+  <iframe src="http://www.slideshare.net/slideshow/embed_code/9845589"><a href="http://www.slideshare.net/slideshow/embed_code/9845589">Test It - slideshare</a></iframe>
+</section>
+
+<section class="slide">
+  <h2>Utility</h2>
+  <h3>supports your develop</h3>
+  <ul>
+    <li>node-inspector</li>
+    <li>node-dev</li>
+    <li>jake/cake</li>
+    <li>etc</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>In production</h2>
+  <h3>You may use in future</h3>
+  <ul>
+    <li>forever</li>
+    <li>Cluster</li>
+    <li>node-http-proxy</li>
+    <li>node-redis</li>
+    <li>hook.io</li>
+    <li>etc</li>
+  </ul>
+</section>
+
+<section class="slide frame">
+  <h3><small>node.js modules <a href="http://toolbox.no.de/" target="_blank">http://toolbox.no.de/</a></small></h3>
+  <iframe src="http://toolbox.no.de/">http://toolbox.no.de/</iframe>
+</section>
+
+<section class="slide">
+  <h2>Hosting ?</h2>
+  <h3>Node on the Cloud</h3>
+  <ul>
+    <li>Joyent</li>
+    <li>Heroku</li>
+    <li>Cloud Foundary</li>
+    <li>DotCloud</li>
+    <li><strong>NEW</strong> <a href="https://node-ninja.com/">Node-Ninja</a></li>
+    <li>etc</li>
+  </ul>
+</section>
+
+<section class="slide frame">
+  <h3><small>RVP-pattern <a href="http://blog.nodejitsu.com/scaling-isomorphic-javascript-code" target="_blank">http://bit.ly/nodejitsu_rvp</a></small></h3>
+  <iframe src="http://blog.nodejitsu.com/scaling-isomorphic-javascript-code">http://blog.nodejitsu.com/scaling-isomorphic-javascript-code</iframe>
+</section>
+
+<section class="slide frame">
+  <h3><small>DIRT architecture <a href="http://video.nextconf.eu/v.ihtml?token=a3cdf75cdde3916884257e40b6de45d0&photo%5fid=1914374" target="_blank">http://bit.ly/node_digs_dirt</a></small></h3>
+  <iframe src="http://video.nextconf.eu/v.ihtml?token=a3cdf75cdde3916884257e40b6de45d0&photo%5fid=1914374" frameborder="0" border="0" scrolling="no"></iframe>
+</section>
+
+<section class="slide frame">
+  <h2>Node.js Book(japanese)</h2>
+  <h1>comming soon ;)</h1>
+</section>
+
+<section class="slide">
+  <h1>anyone.on<br />('uncaughtQuestion?');</h1>
+</section>
+
+<section class="slide">
+  <h1>May the Node be with you</h1>
+</section>
+
+<section class="slide">
+  <h1>Jxck.on('end');<p class="small"><span class="mono">// thank you ;) </span></p></h1>
+</section>
+
+<section class="slide">
+  <h2>review - send the msg</h2>
+  <p>(at conference, everyone wrote <strong>"socket.emit('review', 'something')"</strong> to browser-console and it broadcasts to everyone)</p>
+  <ul id="review">
+    <li>they</li>
+    <li>pushed</li>
+    <li>'hoge'</li>
+    <li>or</li>
+    <li>'XXXX'</li>
+    <li>like</li>
+    <li>this :p</li>
+  </ul>
+</section>
+
+<!-- Other extension HTML snippets go here, at the bottom of the deck container. -->
+<p class="deck-status">
+  <span class="deck-status-current"></span>
+  /
+  <span class="deck-status-total"></span>
+  <span class="deck-status-viewer">(0)</span>
+</p>
+
+<!-- Update these paths to point to the correct files. -->
+<script src="../public/javascripts/jquery-1.6.4.min.js"></script>
+
+
+<!-- Add any other extension JS files here -->
+<!-- <script src="../public/javascripts/deck.core.js"></script> -->
+<!-- <script src="../public/extensions/hash/deck.hash.js"></script> -->
+<!-- <script src="../public/extensions/menu/deck.menu.js"></script> -->
+<!-- <script src="../public/extensions/status/deck.status.js"></script> -->
+<script src="../public/javascripts/deck.compiled.js"></script>
+
+
+<script src="../public/javascripts/sh_main.min.js"></script>
+<script src="../public/javascripts/sh_javascript.min.js"></script>
+<script src="../public/javascripts/sh_sh.min.js"></script>
+<!-- <script src="../public/javascripts/diff_match_patch.js"></script> -->
+<script src="/socket.io/socket.io.js"></script>
+<!-- <script src="lib/diff_launch.js"></script> -->
+<script src="../public/javascripts/client.js"></script>
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+  $(function() {
+    sh_highlightDocument('lang/', '.js');
+    sh_highlightDocument('lang/', '.shell');
+    $.deck('.slide');
+  });
+</script>
+</body>
+</html>
