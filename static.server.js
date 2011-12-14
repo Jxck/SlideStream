@@ -41,7 +41,7 @@ app.configure('production', function() {
 
 // Routes
 app.get('/', function(req, res) {
-  res.redirect('/nodefest2011.html');
+  res.redirect('/slides/nodeacademy3.html');
 });
 
 app.get('/admin', function(req, res) {
@@ -58,7 +58,7 @@ app.post('/admin', function(req, res) {
       pass(req.body.pass) === config.secret.pass) {
     req.session.admin = true;
   }
-  res.redirect('/nodefest2011.html');
+  res.redirect('/');
 });
 
 //if(require.main === module) {
