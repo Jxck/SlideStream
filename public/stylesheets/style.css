@@ -50,6 +50,22 @@ section.slide ul li {
     padding: 0.04em;
 }
 
+section.slide dl {
+    font-size: 150%;
+}
+
+section.slide dl dt {
+    padding: 0.04em;
+    margin-top: 0.4em;
+    color: orange;
+}
+
+section.slide dl dd {
+    padding: 0.04em;
+    margin-top: 0.2em;
+    margin-left: 1em;
+}
+
 section.slide strong {
     font-family: monospace;
     color: #f0a;
@@ -112,7 +128,9 @@ section.slide tr {
     text-align: center;
 }
 
-
+.orange {
+    color: orange;
+}
 
 #icon {
     font-family: Chalkboard, comic sans MS;

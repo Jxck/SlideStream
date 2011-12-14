@@ -1,5 +1,5 @@
-var log = console.log,
-    io = require('socket.io'),
+log = console.log;
+var io = require('socket.io'),
     parseCookie = require('connect').utils.parseCookie,
     app = require('./static.server.js').app,
     sessionStore = require('./static.server.js').sessionStore,

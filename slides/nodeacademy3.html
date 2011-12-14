@@ -73,6 +73,7 @@
   <h2>What is SlideStream ?</h2>
   <h3>Realtime Streambased Slide Tool</h3>
   <ul>
+    <li><a href="https://github.com/Jxck/SlideStream">https://github.com/Jxck/SlideStream</a></li>
     <li>sync slide paging</li>
     <li>realtime coding(codestream)</li>
     <li>realtime executing(shellstream)</li>
@@ -295,6 +296,15 @@ CodeStream.prototype.readCode = function() {
 </section>
 
 <section class="slide">
+  <h2>practice</h2>
+  <ul>
+    <li>important for realtime is <strong>looks like realtime</strong></li>
+    <li>simple is fast, fast is realtime</li>
+    <li>Domain Specific</li>
+  </ul>
+</section>
+
+<section class="slide">
   <h1>matter btwn Diff & volatile</h1>
 </section>
 
@@ -318,9 +328,9 @@ CodeStream.prototype.readCode = function() {
 </section>
 
 <section class="slide">
-  <h2>Send all Everytime > Diff + Logic</h2>
-  <h3>if you send diff with volatile</h3>
+  <h2>practice</h2>
   <ul>
+    <li>if you send diff with volatile</li>
     <li>you need some logic like F*ckin <strong>TRANSACTION</strong> !</li>
     <li>That's CPU heavy</li>
     <li>That's <a href="http://www.slideshare.net/sh1mmer/multitiered-node-architectures-jsconf-2011">Event-Loop harassment Pan-da</a></li>
@@ -386,14 +396,14 @@ render.prototype.higlightBash = function() {
 </section>
 
 <section class="slide">
-  <h2>CUP or I/O</h2>
+  <h2>practice</h2>
   <h3>very important poin in Node.js & Realtime scene</h3>
   <ul>
     <li>almost of all large Logic is CPU Heavy</li>
     <li>Stops Single Process</li>
     <li>I/O is async</li>
     <li>Solve that with I/O if you can</li>
-    <li>balance of IO Heavy / CPU Heavy</li>
+    <li>balance of <strong>IO Heavy / CPU Heavy</strong></li>
   </ul>
 </section>
 
@@ -402,9 +412,28 @@ render.prototype.higlightBash = function() {
   <h3>With Nodejs_jp & all of First Server</h3>
   <ul>
     <li>Single Node Process + Redis only</li>
-    <li>500~ connection to Slide at a Time</li>
+    <li>500~1000 connection to Slide at a Time</li>
     <li>Do the demo for Nodefest2011</li>
   </ul>
+</section>
+
+<section class="slide">
+  <h2>stress test</h2>
+  <img src="/public/images/13.png" class="right">
+  <img src="/public/images/14.png" class="left">
+</section>
+
+<section class="slide">
+  <h1>stream base app</h1>
+</section>
+
+<section class="slide">
+  <h2>stream is interface on data flow</h2>
+  <ul>
+    <li><a href="http://d.hatena.ne.jp/Jxck/20111204/1322966453">about Stream API of Node.js</a>(Node.js advent calendar 4th)</li>
+    <li>flatiron</li>
+    <li>socketstream</li>
+    <li><a href="https://gist.github.com/1241393">future of stream</a></li>
 </section>
 
 <section class="slide">
@@ -417,20 +446,6 @@ render.prototype.higlightBash = function() {
 
 <section class="slide">
   <h1>Jxck.on('end');<p class="small"><span class="mono">// thank you ;) </span></p></h1>
-</section>
-
-<section class="slide">
-  <h2>review - send the msg</h2>
-  <p>(at conference, everyone wrote <strong>"socket.emit('review', 'something')"</strong> to browser-console and it broadcasts to everyone)</p>
-  <ul id="review">
-    <li>they</li>
-    <li>pushed</li>
-    <li>'hoge'</li>
-    <li>or</li>
-    <li>'XXXX'</li>
-    <li>like</li>
-    <li>this :p</li>
-  </ul>
 </section>
 
 <!-- Other extension HTML snippets go here, at the bottom of the deck container. -->

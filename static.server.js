@@ -44,6 +44,10 @@ app.get('/', function(req, res) {
   res.redirect('/slides/nodeacademy3.html');
 });
 
+app.get('/about-slidestream', function(req, res) {
+  res.redirect('/slides/about-slidestream.html');
+});
+
 app.get('/admin', function(req, res) {
   res.send('<form method="POST" action="/admin">'
            + '<input type="text" name="user"/>'

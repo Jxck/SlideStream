@@ -154,6 +154,6 @@ $(function() {
   $('pre.half').height(section_height / 2.7);
   $('pre.full').height(section_height - h2_height / 2);
   $('pre.auto').height('auto');
-  $('#app').height(section_height * 0.7);
+//  $('#app').height(section_height * 0.7);
   $('#routes').height(section_height * 0.2);
 });
