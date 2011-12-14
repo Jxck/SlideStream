@@ -71,9 +71,9 @@
 
 <section class="slide">
   <h2>What is SlideStream ?</h2>
-  <h3>Realtime Streambased Slide tool</h3>
+  <h3>Realtime Streambased Slide Tool</h3>
   <ul>
-    <li>moving sync slide paging</li>
+    <li>sync slide paging</li>
     <li>realtime coding(codestream)</li>
     <li>realtime executing(shellstream)</li>
     <li>based on <a href="http://imakewebthings.github.com/deck.js">deck.js</a></li>
@@ -81,16 +81,21 @@
 </section>
 
 <section class="slide">
-  <h1>Steal the TTY</h1>
+  <h1>Sync Slide Paging</h1>
 </section>
 
 <section class="slide">
-  <h1>How to sync slide paging ?</h1>
+  <h2>Sync Slide Paging</h2>
+  <h3></h3>
+  <ul>
+    <li>speaker change page, viewer will sync that realtime</li>
+    <li>viewers change doesn't broadcast</li>
+  </ul>
 </section>
 
 <section class="slide">
   <h2>Authentication/Authorization</h2>
-  <pre class="sh_javascript left">
+  <pre class="sh_javascript left auto">
 // 1. Authentication in Express
 app.post('/admin', function(req, res) {
   req.session.admin = false;
@@ -125,7 +130,7 @@ io.set('authorization', function(handshakeData, callback) {
   }
 });
   </pre>
-  <pre class="sh_javascript left">
+  <pre class="sh_javascript left auto">
 // 3. Authorization in Socket.IO checking handshake data
 // move slide only by admin
 socket.on('go', function(to) {
@@ -133,7 +138,7 @@ socket.on('go', function(to) {
   if (!socket.handshake.session.admin) return false;
   socket.broadcast.emit('go', to);
 });
-  </pre>
+</pre>
 </section>
 
 <section class="slide">
@@ -148,21 +153,21 @@ socket.on('go', function(to) {
 
 <section class="slide">
   <h2>Security Hole in crossdomain app</h2>
-<pre class="sh_javascript right">
+<pre class="sh_javascript right auto">
 // lazy broadcasting server
 socket.on('review', function(data) {
   socket.volatile.emit('review', data);
   socket.volatile.broadcast.emit('review', data);
 });
 </pre>
-<pre class="sh_javascript left">
+<pre class="sh_javascript left auto">
 // client
 socket.on('review', function(data) {
   var $li = $('&lt;li&gt;').text(data);
   $('#review').append($li);
 });
 </pre>
-<pre class="sh_javascript">
+<pre class="sh_javascript auto">
 // you can send dirty data to every client
 // from your console
 var socket = io.connect(/* path to server */);
@@ -176,7 +181,37 @@ socket.emit('review', 'm@(^_^) pugya~~~');
 </section>
 
 <section class="slide">
+  <h1>Steal the TTY</h1>
+</section>
+
+<section class="slide">
+  <h2>all what I want is..</h2>
+  <image src="/public/images/tty.png">tty.png</image>
+</section>
+
+<section class="slide">
+  <h2>But, It has a lot of problem</h2>
+  <h3>If I steal that & broadcast input, then...</h3>
+  <ul>
+    <li>need browser side <strong>zsh</strong></li>
+    <li>need browser side <strong>Emacs</strong></li>
+    <li>hard to use <strong>volatile</strong></li>
+  </ul>
+  <h3>Consider another way..</h3>
+</section>
+
+<section class="slide">
   <h1>How to display console ?</h1>
+</section>
+
+<section class="slide">
+  <h2>Readline is standard module</h2>
+  <h3>Search usecase of tty, and found this</h3>
+  <ul>
+    <li>for original prompt</li>
+    <li>get a input in a line</li>
+    <li>use in your Inataller or so (maybe)</li>
+  </ul>
 </section>
 
 <section class="slide">
@@ -207,6 +242,17 @@ rl.prompt();
   <h1>How to display Editor ?</h1>
 </section>
 
+<section class="slide">
+  <h2>Steal the tty needs client side Emacs</h2>
+  <h3>get a output of emacs needs emacs</h3>
+  <ul>
+    <li>Steal the Emacs Buffer ?(difficult)</li>
+    <li>Save everytime, and read file(easy)</li>
+    <li>ctl-x-s & watchFile?(no)</li>
+  </ul>
+  <p>Don't do that with <strong>Node</strong>, Yes <strong>Emacs</strong></p>
+</section>
+
 <style>
   #asb {
     margin-top: 30%;
@@ -219,6 +265,7 @@ rl.prompt();
 </section>
 
 <section class="slide">
+  <h2>fs.watchFile() is too slow for realtime</h2>
   <h3>load file again and again :P</h3>
   <pre id="app" class="sh_javascript">
 function CodeStream(file) { // Not a real Stream !!
@@ -248,7 +295,7 @@ CodeStream.prototype.readCode = function() {
 </section>
 
 <section class="slide">
-  <h1>matter btwn <strong>Diff</strong> & <strong>volatile</strong></h1>
+  <h1>matter btwn Diff & volatile</h1>
 </section>
 
 <section class="slide">
@@ -258,15 +305,27 @@ CodeStream.prototype.readCode = function() {
     <li>send <strong>- foo</strong> but  &nbsp; fail</li>
     <li>send <strong>+ bar</strong> with success</li>
   </ul>
-  <pre class="sh_javascript left">
+  <pre class="sh_javascript left auto">
     // expected
     bar
   </pre>
-  <pre class="sh_javascript right">
+  <pre class="sh_javascript right auto">
     // actual
     foo
     bar</pre>
   <p>but we need <strong>volatile</strong> in realtime world</p>
+  <p>see more about volatile is <a href="http://d.hatena.ne.jp/Jxck/20110730/1312042603">here</a></p>
+</section>
+
+<section class="slide">
+  <h2>Send all Everytime > Diff + Logic</h2>
+  <h3>if you send diff with volatile</h3>
+  <ul>
+    <li>you need some logic like F*ckin <strong>TRANSACTION</strong> !</li>
+    <li>That's CPU heavy</li>
+    <li>That's <a href="http://www.slideshare.net/sh1mmer/multitiered-node-architectures-jsconf-2011">Event-Loop harassment Pan-da</a></li>
+  </ul>
+  <p>simple is best</p>
 </section>
 
 <section class="slide">
@@ -274,19 +333,19 @@ CodeStream.prototype.readCode = function() {
 </section>
 
 <section class="slide">
-  <h2>At first, my slide was Creasy Heavy</h2>
+  <h2>At first, my slide was Crazy Heavy</h2>
   <h3>don't know what's wrong ..</h3>
   <ul>
-    <li></li>
     <li>waste ton of memory</li>
-    <li>because library doesn't support such needs</li>
-    <li>(supports only one time)</li>
+    <li>doubt server process</li>
+    <li>doubt network traffic</li>
   </ul>
+  <p>but they seems fine..</p>
 </section>
 
 <section class="slide">
   <h2>Syntacs Higlight</h2>
-  <h3>sh.js</h3>
+  <h3><a href="http://shjs.sourceforge.net/">sh.js</a></h3>
   <ul>
     <li>re-higlight every event</li>
     <li>waste ton of memory</li>
@@ -329,171 +388,23 @@ render.prototype.higlightBash = function() {
 <section class="slide">
   <h2>CUP or I/O</h2>
   <h3>very important poin in Node.js & Realtime scene</h3>
-  <ul class="left">
-    <li>Send all data & display that everytime</li>
-    <li>Send diff & apply that everytime</li>
-    <li></li>
-    <li></li>
-  </ul>
-</section>
-
-
-<section class="slide frame">
-  <h3><small>official <a href="http://socket.io" target="_blank">http://socket.io</a> translated <a href="http://jxck.github.com/socket.io/" target="_blank">http://jxck.github.com/socket.io/</a></small></h3>
-  <iframe id="socketio" src="http://jxck.github.com/socket.io/">socket.io translated</iframe>
-</section>
-
-<section class="slide">
-  <h3>layout.jade &amp; index.jade</h3>
-<pre id="layout" class="sh_javascript left">
-// layout.jade
-!!!
-html
-  head
-    title= title
-    link(rel="stylesheet", href="/stylesheets/style.css")
-    script(src="http://code.jquery.com/jquery-1.6.4.js")
-    script(src="/socket.io/socket.io.js")
-    script(src="/javascripts/client.js")
-  body!= body
-</pre>
-<pre id="index" class="sh_javascript right">
-// index.jade
-h1= title
-p Welcome to #{title}
-p
-  input(id="msg", type="text", name="msg")
-  input(id="ok", type="button", value="ok")
-ul#display
-</pre>
-</section>
-
-<section class="slide">
-  <h3>sever.js &amp; client.js</h3>
-<pre id="socketserver" class="sh_javascript left">
-// server.js
-var app = require('./app'),
-    io = require('socket.io');
-
-io.sockets.on('connect', function(socket) {
-  socket.on('msg send', function(data) {
-    socket.emit('msg push', data);
-    socket.broadcast.emit('msg push', data);
-  });
-});
-</pre>
-<pre id="client" class="sh_javascript right">
-// Client
-var socket = io.connect();
-
-$(function() {
-  var $msg = $('#msg')
-  ,   $ok = $('#ok')
-  ,   $display = $('#display')
-  ;
-
-  $ok.click(function() {
-    socket.emit('msg send', $msg.val());
-  });
-
-  socket.on('msg push', function(data) {
-    var $li = $('&lt;li&gt;').text(data);
-    $display.append($li);
-  });
-});
-</pre>
-</section>
-
-<section class="slide frame">
-  <h3><small> <a href="http://www.waveprotocol.org/whitepapers/operational-transform" target="_blank">http://www.waveprotocol.org/whitepapers/operational-transform</a></small></h3>
-  <iframe id="wot" src="http://www.waveprotocol.org/whitepapers/operational-transform">Google Wave Operational Transformation</iframe>
-</section>
-
-<section class="slide">
-  <h2>DataBase ?</h2>
-  <h3>Almost of All you want</h3>
   <ul>
-    <li>MongoDB</li>
-    <li>CouchDB</li>
-    <li>Redis</li>
-    <li>MySQL</li>
-    <li>PostgreSQL</li>
-    <li>etc</li>
+    <li>almost of all large Logic is CPU Heavy</li>
+    <li>Stops Single Process</li>
+    <li>I/O is async</li>
+    <li>Solve that with I/O if you can</li>
+    <li>balance of IO Heavy / CPU Heavy</li>
   </ul>
 </section>
 
 <section class="slide">
-  <h2>how to test?</h2>
-  <h3>lots of testing framework</h3>
+  <h2>stress test</h2>
+  <h3>With Nodejs_jp & all of First Server</h3>
   <ul>
-    <li>Jasmine</li>
-    <li>NodeUnit</li>
-    <li>Expresso</li>
-    <li>Vows</li>
-    <li>etc</li>
+    <li>Single Node Process + Redis only</li>
+    <li>500~ connection to Slide at a Time</li>
+    <li>Do the demo for Nodefest2011</li>
   </ul>
-</section>
-
-<section class="slide frame">
-  <h3><small>Talk about test <a href="http://www.slideshare.net/slideshow/embed_code/9845589" target="_blank">http://slidesha.re/test_it_nodejs</a></small></h3>
-  <iframe src="http://www.slideshare.net/slideshow/embed_code/9845589"><a href="http://www.slideshare.net/slideshow/embed_code/9845589">Test It - slideshare</a></iframe>
-</section>
-
-<section class="slide">
-  <h2>Utility</h2>
-  <h3>supports your develop</h3>
-  <ul>
-    <li>node-inspector</li>
-    <li>node-dev</li>
-    <li>jake/cake</li>
-    <li>etc</li>
-  </ul>
-</section>
-
-<section class="slide">
-  <h2>In production</h2>
-  <h3>You may use in future</h3>
-  <ul>
-    <li>forever</li>
-    <li>Cluster</li>
-    <li>node-http-proxy</li>
-    <li>node-redis</li>
-    <li>hook.io</li>
-    <li>etc</li>
-  </ul>
-</section>
-
-<section class="slide frame">
-  <h3><small>node.js modules <a href="http://toolbox.no.de/" target="_blank">http://toolbox.no.de/</a></small></h3>
-  <iframe src="http://toolbox.no.de/">http://toolbox.no.de/</iframe>
-</section>
-
-<section class="slide">
-  <h2>Hosting ?</h2>
-  <h3>Node on the Cloud</h3>
-  <ul>
-    <li>Joyent</li>
-    <li>Heroku</li>
-    <li>Cloud Foundary</li>
-    <li>DotCloud</li>
-    <li><strong>NEW</strong> <a href="https://node-ninja.com/">Node-Ninja</a></li>
-    <li>etc</li>
-  </ul>
-</section>
-
-<section class="slide frame">
-  <h3><small>RVP-pattern <a href="http://blog.nodejitsu.com/scaling-isomorphic-javascript-code" target="_blank">http://bit.ly/nodejitsu_rvp</a></small></h3>
-  <iframe src="http://blog.nodejitsu.com/scaling-isomorphic-javascript-code">http://blog.nodejitsu.com/scaling-isomorphic-javascript-code</iframe>
-</section>
-
-<section class="slide frame">
-  <h3><small>DIRT architecture <a href="http://video.nextconf.eu/v.ihtml?token=a3cdf75cdde3916884257e40b6de45d0&photo%5fid=1914374" target="_blank">http://bit.ly/node_digs_dirt</a></small></h3>
-  <iframe src="http://video.nextconf.eu/v.ihtml?token=a3cdf75cdde3916884257e40b6de45d0&photo%5fid=1914374" frameborder="0" border="0" scrolling="no"></iframe>
-</section>
-
-<section class="slide frame">
-  <h2>Node.js Book(japanese)</h2>
-  <h1>comming soon ;)</h1>
 </section>
 
 <section class="slide">
