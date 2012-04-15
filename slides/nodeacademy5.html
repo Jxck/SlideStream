@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Node Academy | "value of realtime"</title>
+  <meta name="viewport" content="width=1024, user-scalable=no">
+
+  <!-- Replace path with correct path to deck.core.css. -->
+  <link rel="stylesheet" href="../public/stylesheets/deck.core.css" type="text/css">
+
+  <!-- Any other extension CSS files go here. -->
+  <link rel="stylesheet" id="style-theme-link" href="../public/themes/style/neon.css">
+  <link rel="stylesheet" id="transition-theme-link" href="../public/themes/transition/horizontal-slide.css">
+
+  <link rel="stylesheet" id="shjs-link" href="../public/stylesheets/sh_style.css">
+
+  <link rel="stylesheet" href="../public/stylesheets/style.css" type="text/css">
+  <link rel="stylesheet" id="transition-theme-link" href="../public/extensions/status/deck.status.css">
+  <link rel="stylesheet" id="transition-theme-link" href="../public/extensions/menu/deck.menu.css">
+  <!-- Replace path with correct path to Modernizr file. -->
+  <script src="../public/javascripts/modernizr.custom.js"></script>
+</head>
+<body class="deck-container">
+
+<!-- Create any number of elements with class slide within the container -->
+<style>
+#uri { font-size: 300%; }
+</style>
+<section class="slide">
+  <h1 id="uri"><a href="http://bit.ly/v-of-r">http://bit.ly/v-of-r</a></h1>
+</section>
+
+<section class="slide">
+  <h1>The success story of SlideStream<p class="small">@nodefest2011</p></h1>
+</section>
+
+<section class="slide">
+  <!-- Slide content HTML goes here! -->
+  <p id="icon">Jack</p>
+</section>
+
+<section class="slide">
+  <h2>about me</h2>
+  <h3>Jxck</h3>
+  <ul>
+    <li>id: <strong>Jxck</strong></li>
+    <li>group: #nodejs_jp</li>
+    <li>twitter: <a href="http://twitter.com/Jxck_">Jxck_</a></li>
+    <li>blog: <a href="http://d.hatena.ne.jp/Jxck">http://d.hatena.ne.jp/Jxck</a></li>
+    <li>tumblr: <a href="http://jxck.tumblr.com/">http://jxck.tumblr.com/</a></li>
+    <li>love: music</li>
+    <li>writing node.js book now</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h1>東京Node学園祭2011</h1>
+</section>
+
+<style>
+  #nodefest2011 {
+    background-color: white;
+  }
+</style>
+<section class="slide frame">
+  <h3><small><a href="http://nodefest.jp/2011" target="_blank">http://nodefest.jp/2011</a></small></h3>
+  <iframe id="nodefest2011" src="http://nodefest.jp/2011">http://nodefest.jp/2011</iframe>
+</section>
+
+<section class="slide">
+  <h2>about Nodefest2011</h2>
+  <ul>
+    <li><strong>東京Node学園祭2011</strong></li>
+    <li>2011年10月29日</li>
+    <li>Yahoo! JAPAN</li>
+    <li>チケット <span class="orange">200</span> 枚完売</li>
+    <li>スタッフ+関係者 <span class="orange">40</span> 人強</li>
+    <li>ニコ生視聴者 約 <span class="orange">700</span> 人</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Session in nodefest</h2>
+  <ul>
+    <li>Node.js の作者 <span class="orange">Ryan</span></li>
+    <li>Socket.IO の作者 <span class="orange">Guillermo</span></li>
+    <li>企業の導入事例</li>
+    <li>LT (公募)</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Session in nodefest</h2>
+  <ul>
+    <li>Node.js の作者 <span class="orange">Ryan</span></li>
+    <li>Socket.IO の作者 <span class="orange">Guillermo</span></li>
+    <li>企業の導入事例</li>
+    <li>LT (公募)</li>
+    <li><strong>初心者向けセッション(Jxck)</strong></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h1>My Session</h1>
+</section>
+
+<section class="slide">
+  <h2>Session for beginner?</h2>
+  <ul>
+    <li>経験者ばかりとは限らない</li>
+    <li>一方 <span class="orange">"初心者向け"</span> は飽きてる人も多い</li>
+    <li><strong>どうしたら、全ての人に満足してもらえるか?</strong></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h1>経験者も興味が持てる、初心者向けセッション?</h1>
+</section>
+
+<section class="slide">
+  <h2>Session for all level</h2>
+  <dl>
+    <dt>初心者向け</dt><dd>Node.js のライブコーディング</dd>
+    <dt>経験者向け</dt><dd>Node.js を使った新しいスライドの魅せ方</dd>
+  </dl>
+</section>
+
+<section class="slide">
+  <h1>SlideStream</h1>
+</section>
+
+<section class="slide">
+  <h2>Realtime Coding</h2>
+  <pre id="app" class="sh_javascript left">
+  </pre>
+  <pre id="result" class="sh_javascript right">
+  </pre>
+</section>
+
+<style>
+  #big { color: white; font-size: 7em; }
+</style>
+<section class="slide">
+  <h1 id="big">Realtime User Experience</h1>
+</section>
+
+<section class="slide">
+  <h2>SlideStream のアーキテクチャ</h2>
+  <h3>Node.js + Socket.IO</h3>
+  <img src="../public/images/slidestream.png"></img>
+</section>
+
+<section class="slide">
+  <h2>SlideStream の実装</h2>
+  <ul>
+    <li><span class="orange">WebSocket</span> をフルに使った、リアルタイムな表現</li>
+    <li>ローカルとクラウドを連携した<span class="orange">プロセス間通信</span></li>
+    <li><span class="orange">リアルタイム Web</span>の知見を踏まえた、パフォーマンス/セキュリティ対応</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>懸念点</h2>
+  <ul>
+    <li>接続負荷(会場+ニコ生)</li>
+    <li>ネットワーク状況(帯域 + WebSocket)</li>
+    <li>セキュリティ(セッションの妨害)</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>ストレステスト</h2>
+  <h3>コミュニティと First Server 社協力のもと</h3>
+  <ul>
+    <li>単一 <span class="orange">Node</span> プロセス + Redis</li>
+    <li>同時に <span class="orange">500~1000</span> の接続を実施</li>
+    <li>接続下で Nodefest2011 のデモを実施</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>stress test</h2>
+  <img src="/public/images/13.png" class="right">
+  <img src="/public/images/14.png" class="left">
+</section>
+
+<section class="slide">
+  <h1>Response</h1>
+</section>
+
+<style>
+.tweets {
+}
+.tweets dt,
+.tweets dd {
+  font-size: 70%;
+}
+.tweets dd strong {
+  font-size: 130%;
+}
+</style>
+<section class="slide">
+  <h2>Viewer Responce</h2>
+  <h3>Node.js セッションの感想</h3>
+  <dl class="tweets">
+    <dt><a href="http://twitter.com/hachi_eiji/status/130142662555742208">hachi_eiji</a></dt>
+    <dd>コード<strong>わかりやすい</strong>なー #nodefest</dd>
+
+    <dt><a href="http://twitter.com/knsmr/status/130146956055027712">knsmr</a></dt>
+    <dd>Express + Socket.io <strong>おもしろい</strong>っていうか、こんなにカンタンだったのか。双方向にemitすりゃいいのね。すごい #nodefest</dd>
+
+    <dt><a href="http://twitter.com/ichiro_j/status/130142858584920064">ichiro_j</a></dt>
+    <dd><strong>なるほど</strong>＞node.js の sinatra ライクなフレームワーク http://t.co/HtFLsO71 #nodefest</dd>
+  </dl>
+</section>
+
+<section class="slide">
+  <h2>Viewer Responce</h2>
+  <h3>SlideStream への感想</h3>
+  <dl class="tweets">
+    <dt><a href="http://twitter.com/niccolli/status/130140910095826944">nicolli</a></dt>
+    <dd>ターミナルのなかみが同時に表示されるだけでどよめく。<strong>すげえ。</strong> #nodefest</dd>
+
+    <dt><a href="http://twitter.com/cimadai/status/130140755900637184">cimadai</a></dt>
+    <dd>すごすぎて<strong>感動</strong>がとまらない #nodefest</dd>
+
+    <dt><a href="http://twitter.com/xrekkusu/status/130141003133894656">xrekkusu</a></dt>
+    <dd>まじ<strong>謎の技術</strong>や・・・ #nodefest</dd>
+
+    <dt><a href="http://twitter.com/jmblog/status/130148079130255360">jmblog</a></dt>
+    <dd>node はプレゼンの仕方すら変えてしまうのか…<strong>恐ろしい子</strong>！ #nodefes</dd>
+  </dl>
+</section>
+
+<section class="slide">
+  <h2>Viewer Responce</h2>
+  <h3>上級者の感想</h3>
+  <dl class="tweets">
+    <dt><a href="http://twitter.com/naoya_ito/status/130147024204075008">naoya_ito</a></dt>
+    <dd>@Jxck 後半、<strong>実践的ポイント</strong>だったり今 Noder の周りでなにがおこってるかわかっておもしろかったです。後半みたいな話もっとしてほしいー #nodefest</dd>
+
+    <dt><a href="http://twitter.com/t_wada/status/146930543416709120">t_wada</a></dt>
+    <dd>@Jxck_ の発表、非常に面白かった。ノウハウのないところに取り組んだ経験者ならではの泥臭い工夫や学びもあり、<strong>静かな感動があった</strong>。聴けてよかった。</dd>
+
+    <dt><a href="http://twitter.com/jedschmidt/status/130146552328110080">jedschmidt</a></dt>
+    <dd id="ryan_comment">overhearing at #nodefest: <br><strong>"this is like the coolest demo i've ever seen."</strong><br> (@ryah on @Jxck_'s live coding)</dd>
+  </dl>
+</section>
+
+<section class="slide">
+  <h1>経験者も興味が持てる、初心者向けセッション!!</h1>
+</section>
+
+<section class="slide">
+  <h2>フォローアップ</h2>
+  <h3><a href="http://atnd.org/events/22415">東京 Node 学園</a>で、 SlideStream のセッション</h3>
+  <ul>
+    <li>アーキテクチャ</li>
+    <li>プラクティス</li>
+    <li>考察</li>
+  </ul>
+  <p>の共有</p>
+  <p>実装／パフォーマンスだけでなく、<strong>セキュリティ</strong>についても言及しているのは、世界でもまだ少ない。</p>
+</section>
+
+<section class="slide frame">
+  <h3><small><a href="http://d.hatena.ne.jp/Jxck/20111226/1324905662" target="_blank">http://d.hatena.ne.jp/Jxck/20111226/1324905662</a></small></h3>
+  <iframe id="realtime-entry" src="http://d.hatena.ne.jp/Jxck/20111226/1324905662">Realtime Web Practice Output</iframe>
+</section>
+
+<section class="slide">
+  <h2>発展</h2>
+  <h3>Hybrid Architecture</h3>
+  <img src="../public/images/RailsNodejs.png"></img>
+</section>
+
+<section class="slide frame">
+  <h3><small><a href="http://d.hatena.ne.jp/Jxck/20111223/1324659260" target="_blank">Stream.IO</a></small></h3>
+  <iframe src="http://d.hatena.ne.jp/Jxck/20111223/1324659260">http://d.hatena.ne.jp/Jxck/20111223/1324659260</iframe>
+</section>
+
+<section class="slide">
+  <h1>まとめ</h1>
+</section>
+
+<style>
+  #big { color: white; font-size: 7em; }
+</style>
+<section class="slide">
+  <h1 id="big">Realtime User Experience</h1>
+</section>
+
+<section class="slide">
+  <h1>経験者も興味が持てる、初心者向けセッション!!</h1>
+</section>
+
+<section class="slide">
+  <h1>End or Question</h1>
+</section>
+
+<!-- Other extension HTML snippets go here, at the bottom of the deck container. -->
+<p class="deck-status">
+  <span class="deck-status-current"></span>
+  /
+  <span class="deck-status-total"></span>
+  <span class="deck-status-viewer">(0)</span>
+</p>
+
+<!-- Update these paths to point to the correct files. -->
+<script src="../public/javascripts/jquery-1.6.4.min.js"></script>
+
+
+<!-- Add any other extension JS files here -->
+<!-- <script src="../public/javascripts/deck.core.js"></script> -->
+<!-- <script src="../public/extensions/hash/deck.hash.js"></script> -->
+<!-- <script src="../public/extensions/menu/deck.menu.js"></script> -->
+<!-- <script src="../public/extensions/status/deck.status.js"></script> -->
+<script src="../public/javascripts/deck.compiled.js"></script>
+
+
+<script src="../public/javascripts/sh_main.min.js"></script>
+<script src="../public/javascripts/sh_javascript.min.js"></script>
+<script src="../public/javascripts/sh_sh.min.js"></script>
+<!-- <script src="../public/javascripts/diff_match_patch.js"></script> -->
+<script src="/socket.io/socket.io.js"></script>
+<!-- <script src="lib/diff_launch.js"></script> -->
+<script src="../public/javascripts/client.js"></script>
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+  $(function() {
+    sh_highlightDocument('lang/', '.js');
+    sh_highlightDocument('lang/', '.shell');
+    $.deck('.slide');
+  });
+</script>
+</body>
+</html>
