@@ -146,14 +146,4 @@ socket.on('connect', function() {
 });
 
 $(function() {
-  var section_height = $('section').height();
-  var h2_height = $('h2').height();
-  var h3_height = $('h3').height();
-  $('iframe').height(section_height - h3_height);
-  $('pre.sh_javascript, pre.sh_sh').height(section_height - h2_height * 2);
-  $('pre.half').height(section_height / 2.7);
-  $('pre.full').height(section_height - h2_height / 2);
-  $('pre.auto').height('auto');
-//  $('#app').height(section_height * 0.7);
-  $('#routes').height(section_height * 0.2);
 });
