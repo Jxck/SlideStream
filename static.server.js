@@ -41,7 +41,7 @@ app.configure('production', function() {
 
 // Routes
 app.get('/', function(req, res) {
-  res.redirect('index.html');
+  res.redirect('/index.html');
 });
 
 app.get('/admin', function(req, res) {
