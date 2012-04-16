@@ -27,11 +27,11 @@
 #uri { font-size: 300%; }
 </style>
 <section class="slide">
-  <h1 id="uri"><a href="http://bit.ly/v-of-r">http://bit.ly/v-of-r</a></h1>
+  <h1 id="uri"><a href="http://jxck.node-ninja.com/slides/nodeacademy5.html">http://jxck.node-ninja.com/</br>slides/nodeacademy5.html</a></h1>
 </section>
 
 <section class="slide">
-  <h1>About Meteor<p class="small">@node academy 5</p></h1>
+  <h1>Shallow inside Meteor<p class="small">@node academy 5</p></h1>
 </section>
 
 <section class="slide">
@@ -87,21 +87,105 @@
   <h2>installing</h2>
   <pre class="sh_sh" id="install">$ curl install.meteor.com | /bin/sh</pre>
   <ul>
-    <li><span class="orange">WebSocket</span></li>
-    <li><span class="orange">Pub/Sub</span></li>
-    <li><span class="orange">Reactive Programming</span></li>
-    <li><span class="orange">Full Stack</span></li>
+    <li>64bit Linux/Unix only</li>
+    <li>Downloads Package include all Binaly(no build)</li>
+    <li>/usr/local/meteor</li>
+    <li>add PATH</li>
   </ul>
 </section>
 
 <section class="slide">
-  <h2>Key Word for this Session</h2>
+  <h2>meteor command</h2>
+  <pre class="sh_sh" id="install">
+$ meteor -h
+Usage: meteor [--version] [--help] <command> [<args>]
+With no arguments, 'meteor' runs the project in the current
+directory in local development mode. You can run it from the root
+directory of the project or from any subdirectory.
+
+Use 'meteor create <name>' to create a new Meteor project.
+Commands:
+   run        [default] Run this project in local development mode
+   create     Create a new project
+   update     Upgrade to the latest version of Meteor
+   add        Add a package to this project
+   remove     Remove a package from this project
+   list       List available packages
+   bundle     Pack this project up into a tarball
+   mongo      Connect to the Mongo database for the specified site
+   deploy     Deploy this project to Meteor
+   logs       Show logs for specified site
+   reset      Reset the project state. Erases the local database.
+
+See 'meteor help <command>' for details on a command.
+ </pre>
+  <p>change ulimit & delegate to /usr/local/meteor/app/meteor/meteor.js</p>
+</section>
+
+<section class="slide">
+  <h2>meteor command(run)</h2>
+  <h3>/usr/local/meteor/app/meteor/run.js</h3>
   <ul>
-    <li><span class="orange">WebSocket</span></li>
-    <li><span class="orange">Pub/Sub</span></li>
-    <li><span class="orange">Reactive Programming</span></li>
-    <li><span class="orange">Full Stack</span></li>
+    <li>check MONGO_URL</li>
+    <li>spawn childprocess</li>
+    <li>solve dependencies.json?</li>
+    <li>looks able to monitoring</li>
   </ul>
+  <p>lots of comment like "should this ~~~ ?" :( </p>
+</section>
+
+<section class="slide">
+  <h2>meteor command(deploy)</h2>
+  <h3>/usr/local/meteor/app/meteor/deploy.js</h3>
+  <ul>
+    <li>deploy to meteor.deploy.com after <strong>bundle</strong></li>
+    <li>using RPC</li>
+  </ul>
+  <p>RPC even able to mongo, log, etc</p>
+</section>
+
+<section class="slide">
+  <h2>meteor command(bunlde)</h2>
+  <h3>/usr/local/meteor/app/meteor/bundle.js</h3>
+  <ul>
+    <li>render html with <strong>handlebars</strong></li>
+    <li>concat <strong>packages</strong></li>
+    <li>compless with <strong>uglify.js</strong></li>
+    <li>bundled package is <strong>NOMAL NODE.js PROJECT</strong></li>
+    <li>U can deploy this to your own server</li>
+  </ul>
+  <p class="orange">set MONGO_URL & hit main.js</p>
+</section>
+
+<section class="slide">
+  <h2>meteor packages</h2>
+  <h3>/usr/local/meteor/packages</h3>
+  <ul>
+    <li>autopublish(built in meteor object)</li>
+    <li>livedata / mongo-livedata</li>
+    <li>liveui</li>
+    <li>meteor</li>
+    <li>stream</li>
+  </ul>
+  <p class="orange">thease are awsome!!</p>
+</section>
+
+<section class="slide">
+  <h2>importance at Meteor</h2>
+  <h3></h3>
+  <ul>
+    <li>fiber</li>
+    <li>reactive</li>
+    <li>hot code push</li>
+    <li>conflict</li>
+    <li>
+  </ul>
+  <p>Simpler API, less feature than Socket.IO</p>
+</section>
+
+<section class="slide">
+  <h1>OK, so what is Meteor?</h1>
+  <h3>these packages makes Meteor..</h3>
 </section>
 
 <style>
@@ -140,23 +224,46 @@ span.white {
 </section>
 
 <section class="slide">
-  <h2>Session for all level</h2>
-  <dl>
-    <dt>初心者向け</dt><dd>Node.js のライブコーディング</dd>
-    <dt>経験者向け</dt><dd>Node.js を使った新しいスライドの魅せ方</dd>
-  </dl>
+  <h2>Reactive</h2>
+  <h3>change the state with depended state change</h3>
+  <ul>
+    <li>autosubscribe dose publish/subscribe</li>
+    <li>change the data in mongo, send to all client</li>
+    <li>change the binded html, rerender</li>
+    <li>so all html are in js</li>
+  </ul>
+  <p>bind by selector like Angular.js way(no data-bind attr like derby.js)</p>
 </section>
 
 <section class="slide">
-  <h1>SlideStream</h1>
+  <h2>data</h2>
+  <ul>
+    <li>All API is in Meteor & isomolphic(db agnostic)</li>
+    <li>Client has in memory cache, copy of master</li>
+    <li>subscribe masters change and sync</li>
+    <li>I,U,D change to local, send master, callback to client</li>
+    <li>conflict => <strong>last-writer-win</strong></li>
+  </ul>
+  <p>You can use any DB but Mongo is better, memory cache has Mongo API</p>
 </section>
 
 <section class="slide">
-  <h2>Realtime Coding</h2>
-  <pre id="app" class="sh_javascript left">
-  </pre>
-  <pre id="result" class="sh_javascript right">
-  </pre>
+  <h2>awsome at meteor</h2>
+  <ul>
+    <li>easy install</li>
+    <li>easy reactive</li>
+    <li>easy isomolphic</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>worried about meteor..</h2>
+  <ul>
+    <li>packege dependencies</li>
+    <li>debuggable?</li>
+    <li>maintainable?</li>
+    <li>bug enougth to maze</li>
+  </ul>
 </section>
 
 <style>
@@ -164,156 +271,6 @@ span.white {
 </style>
 <section class="slide">
   <h1 id="big">Realtime User Experience</h1>
-</section>
-
-<section class="slide">
-  <h2>SlideStream のアーキテクチャ</h2>
-  <h3>Node.js + Socket.IO</h3>
-  <img src="../public/images/slidestream.png"></img>
-</section>
-
-<section class="slide">
-  <h2>SlideStream の実装</h2>
-  <ul>
-    <li><span class="orange">WebSocket</span> をフルに使った、リアルタイムな表現</li>
-    <li>ローカルとクラウドを連携した<span class="orange">プロセス間通信</span></li>
-    <li><span class="orange">リアルタイム Web</span>の知見を踏まえた、パフォーマンス/セキュリティ対応</li>
-  </ul>
-</section>
-
-<section class="slide">
-  <h2>懸念点</h2>
-  <ul>
-    <li>接続負荷(会場+ニコ生)</li>
-    <li>ネットワーク状況(帯域 + WebSocket)</li>
-    <li>セキュリティ(セッションの妨害)</li>
-  </ul>
-</section>
-
-<section class="slide">
-  <h2>ストレステスト</h2>
-  <h3>コミュニティと First Server 社協力のもと</h3>
-  <ul>
-    <li>単一 <span class="orange">Node</span> プロセス + Redis</li>
-    <li>同時に <span class="orange">500~1000</span> の接続を実施</li>
-    <li>接続下で Nodefest2011 のデモを実施</li>
-  </ul>
-</section>
-
-<section class="slide">
-  <h2>stress test</h2>
-  <img src="/public/images/13.png" class="right">
-  <img src="/public/images/14.png" class="left">
-</section>
-
-<section class="slide">
-  <h1>Response</h1>
-</section>
-
-<style>
-.tweets {
-}
-.tweets dt,
-.tweets dd {
-  font-size: 70%;
-}
-.tweets dd strong {
-  font-size: 130%;
-}
-</style>
-<section class="slide">
-  <h2>Viewer Responce</h2>
-  <h3>Node.js セッションの感想</h3>
-  <dl class="tweets">
-    <dt><a href="http://twitter.com/hachi_eiji/status/130142662555742208">hachi_eiji</a></dt>
-    <dd>コード<strong>わかりやすい</strong>なー #nodefest</dd>
-
-    <dt><a href="http://twitter.com/knsmr/status/130146956055027712">knsmr</a></dt>
-    <dd>Express + Socket.io <strong>おもしろい</strong>っていうか、こんなにカンタンだったのか。双方向にemitすりゃいいのね。すごい #nodefest</dd>
-
-    <dt><a href="http://twitter.com/ichiro_j/status/130142858584920064">ichiro_j</a></dt>
-    <dd><strong>なるほど</strong>＞node.js の sinatra ライクなフレームワーク http://t.co/HtFLsO71 #nodefest</dd>
-  </dl>
-</section>
-
-<section class="slide">
-  <h2>Viewer Responce</h2>
-  <h3>SlideStream への感想</h3>
-  <dl class="tweets">
-    <dt><a href="http://twitter.com/niccolli/status/130140910095826944">nicolli</a></dt>
-    <dd>ターミナルのなかみが同時に表示されるだけでどよめく。<strong>すげえ。</strong> #nodefest</dd>
-
-    <dt><a href="http://twitter.com/cimadai/status/130140755900637184">cimadai</a></dt>
-    <dd>すごすぎて<strong>感動</strong>がとまらない #nodefest</dd>
-
-    <dt><a href="http://twitter.com/xrekkusu/status/130141003133894656">xrekkusu</a></dt>
-    <dd>まじ<strong>謎の技術</strong>や・・・ #nodefest</dd>
-
-    <dt><a href="http://twitter.com/jmblog/status/130148079130255360">jmblog</a></dt>
-    <dd>node はプレゼンの仕方すら変えてしまうのか…<strong>恐ろしい子</strong>！ #nodefes</dd>
-  </dl>
-</section>
-
-<section class="slide">
-  <h2>Viewer Responce</h2>
-  <h3>上級者の感想</h3>
-  <dl class="tweets">
-    <dt><a href="http://twitter.com/naoya_ito/status/130147024204075008">naoya_ito</a></dt>
-    <dd>@Jxck 後半、<strong>実践的ポイント</strong>だったり今 Noder の周りでなにがおこってるかわかっておもしろかったです。後半みたいな話もっとしてほしいー #nodefest</dd>
-
-    <dt><a href="http://twitter.com/t_wada/status/146930543416709120">t_wada</a></dt>
-    <dd>@Jxck_ の発表、非常に面白かった。ノウハウのないところに取り組んだ経験者ならではの泥臭い工夫や学びもあり、<strong>静かな感動があった</strong>。聴けてよかった。</dd>
-
-    <dt><a href="http://twitter.com/jedschmidt/status/130146552328110080">jedschmidt</a></dt>
-    <dd id="ryan_comment">overhearing at #nodefest: <br><strong>"this is like the coolest demo i've ever seen."</strong><br> (@ryah on @Jxck_'s live coding)</dd>
-  </dl>
-</section>
-
-<section class="slide">
-  <h1>経験者も興味が持てる、初心者向けセッション!!</h1>
-</section>
-
-<section class="slide">
-  <h2>フォローアップ</h2>
-  <h3><a href="http://atnd.org/events/22415">東京 Node 学園</a>で、 SlideStream のセッション</h3>
-  <ul>
-    <li>アーキテクチャ</li>
-    <li>プラクティス</li>
-    <li>考察</li>
-  </ul>
-  <p>の共有</p>
-  <p>実装／パフォーマンスだけでなく、<strong>セキュリティ</strong>についても言及しているのは、世界でもまだ少ない。</p>
-</section>
-
-<section class="slide frame">
-  <h3><small><a href="http://d.hatena.ne.jp/Jxck/20111226/1324905662" target="_blank">http://d.hatena.ne.jp/Jxck/20111226/1324905662</a></small></h3>
-  <iframe id="realtime-entry" src="http://d.hatena.ne.jp/Jxck/20111226/1324905662">Realtime Web Practice Output</iframe>
-</section>
-
-<section class="slide">
-  <h2>発展</h2>
-  <h3>Hybrid Architecture</h3>
-  <img src="../public/images/RailsNodejs.png"></img>
-</section>
-
-<section class="slide frame">
-  <h3><small><a href="http://d.hatena.ne.jp/Jxck/20111223/1324659260" target="_blank">Stream.IO</a></small></h3>
-  <iframe src="http://d.hatena.ne.jp/Jxck/20111223/1324659260">http://d.hatena.ne.jp/Jxck/20111223/1324659260</iframe>
-</section>
-
-<section class="slide">
-  <h1>まとめ</h1>
-</section>
-
-<style>
-  #big { color: white; font-size: 7em; }
-</style>
-<section class="slide">
-  <h1 id="big">Realtime User Experience</h1>
-</section>
-
-<section class="slide">
-  <h1>経験者も興味が持てる、初心者向けセッション!!</h1>
 </section>
 
 <section class="slide">
