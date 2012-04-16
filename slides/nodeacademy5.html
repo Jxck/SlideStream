@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Node Academy | "value of realtime"</title>
+  <title>Node Academy 5 | "About Meteor"</title>
   <meta name="viewport" content="width=1024, user-scalable=no">
 
   <!-- Replace path with correct path to deck.core.css. -->
@@ -31,7 +31,7 @@
 </section>
 
 <section class="slide">
-  <h1>The success story of SlideStream<p class="small">@nodefest2011</p></h1>
+  <h1>About Meteor<p class="small">@node academy 5</p></h1>
 </section>
 
 <section class="slide">
@@ -54,67 +54,89 @@
 </section>
 
 <section class="slide">
-  <h1>東京Node学園祭2011</h1>
+  <h1>Meteor ?</h1>
+</section>
+
+<section class="slide frame">
+  <h3><small><a href="http://meteor.com" target="_blank">http://meteor.com</a></small></h3>
+  <iframe id="meteor" src="http://meteor.com">http://meteor.com</iframe>
 </section>
 
 <style>
-  #nodefest2011 {
-    background-color: white;
-  }
+#about_meteor ul {
+  font-size: 1.2em;
+}
 </style>
-<section class="slide frame">
-  <h3><small><a href="http://nodefest.jp/2011" target="_blank">http://nodefest.jp/2011</a></small></h3>
-  <iframe id="nodefest2011" src="http://nodefest.jp/2011">http://nodefest.jp/2011</iframe>
-</section>
-
-<section class="slide">
-  <h2>about Nodefest2011</h2>
+<section id="about_meteor" class="slide">
+  <h2>about Meteor</h2>
+  <h3>A new <strong>Way</strong> to build apps</h3>
   <ul>
-    <li><strong>東京Node学園祭2011</strong></li>
-    <li>2011年10月29日</li>
-    <li>Yahoo! JAPAN</li>
-    <li>チケット <span class="orange">200</span> 枚完売</li>
-    <li>スタッフ+関係者 <span class="orange">40</span> 人強</li>
-    <li>ニコ生視聴者 約 <span class="orange">700</span> 人</li>
+    <li>Pure JavaScript.</li>
+    <li>Live page updates.</li>
+    <li>Clean, powerful data synchronization.</li>
+    <li>Latency compensation.</li>
+    <li>Hot Code Pushes.</li>
+    <li>Sensitive code runs in a privileged environment.</li>
+    <li>Fully self-contained application bundles.</li>
+    <li>Interoperability.</li>
+    <li>Smart Packages.</li>
   </ul>
 </section>
 
 <section class="slide">
-  <h2>Session in nodefest</h2>
+  <h2>installing</h2>
+  <pre class="sh_sh" id="install">$ curl install.meteor.com | /bin/sh</pre>
   <ul>
-    <li>Node.js の作者 <span class="orange">Ryan</span></li>
-    <li>Socket.IO の作者 <span class="orange">Guillermo</span></li>
-    <li>企業の導入事例</li>
-    <li>LT (公募)</li>
+    <li><span class="orange">WebSocket</span></li>
+    <li><span class="orange">Pub/Sub</span></li>
+    <li><span class="orange">Reactive Programming</span></li>
+    <li><span class="orange">Full Stack</span></li>
   </ul>
 </section>
 
 <section class="slide">
-  <h2>Session in nodefest</h2>
+  <h2>Key Word for this Session</h2>
   <ul>
-    <li>Node.js の作者 <span class="orange">Ryan</span></li>
-    <li>Socket.IO の作者 <span class="orange">Guillermo</span></li>
-    <li>企業の導入事例</li>
-    <li>LT (公募)</li>
-    <li><strong>初心者向けセッション(Jxck)</strong></li>
+    <li><span class="orange">WebSocket</span></li>
+    <li><span class="orange">Pub/Sub</span></li>
+    <li><span class="orange">Reactive Programming</span></li>
+    <li><span class="orange">Full Stack</span></li>
   </ul>
 </section>
 
+<style>
+span.white {
+  color: #FFFFFF;
+}
+</style>
 <section class="slide">
-  <h1>My Session</h1>
+  <h1>Full Stack <span class="white">for</span> Reactive Programming <span class="white">by</span> pub/sub <span class="white">based on</span> WebSocket</h1>
 </section>
 
 <section class="slide">
-  <h2>Session for beginner?</h2>
+  <h2>Web Socket in Meteor</h2>
+  <h3>Using <a href="https://github.com/sockjs/sockjs-client">Sock.js</a></h3>
   <ul>
-    <li>経験者ばかりとは限らない</li>
-    <li>一方 <span class="orange">"初心者向け"</span> は飽きてる人も多い</li>
-    <li><strong>どうしたら、全ての人に満足してもらえるか?</strong></li>
+    <li>WebSocket<small>(connectable from standard WS api)</small></li>
+    <li>Fallback to other transport without Flash</li>
+    <li>Pass through Proxy</li>
+    <li>Cross Browser</li>
+    <li>Client for Multi Language</li>
   </ul>
+  <p>Simpler API, less feature than Socket.IO</p>
 </section>
 
 <section class="slide">
-  <h1>経験者も興味が持てる、初心者向けセッション?</h1>
+  <h2>Pub/Sub</h2>
+  <h3><a></a></h3>
+  <ul>
+    <li>WebSocket<small>(connectable from standard WS api)</small></li>
+    <li>Fallback to other transport without Flash</li>
+    <li>Pass through Proxy</li>
+    <li>Cross Browser</li>
+    <li>Client for Multi Language</li>
+  </ul>
+  <p>Simpler API, less feature than Socket.IO</p>
 </section>
 
 <section class="slide">
@@ -331,6 +353,7 @@
   $(function() {
     sh_highlightDocument('lang/', '.js');
     sh_highlightDocument('lang/', '.shell');
+    $('#install').height('1em');
     $.deck('.slide');
   });
 </script>
