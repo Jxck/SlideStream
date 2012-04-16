@@ -41,11 +41,7 @@ app.configure('production', function() {
 
 // Routes
 app.get('/', function(req, res) {
-  res.redirect('/slides/nodeacademy3.html');
-});
-
-app.get('/value-of-realtime.html', function(req, res) {
-  res.redirect('/slides/value-of-realtime.html');
+  res.redirect('index.html');
 });
 
 app.get('/admin', function(req, res) {
