@@ -84,6 +84,116 @@
 </section>
 
 <section class="slide">
+  <h2>Status</h2>
+  <ul>
+    <li><strong>GPL</strong>(contact us for other Lisence)</li>
+    <li>Not LoadMap but Mission</li>
+    <li>Under Rapid Dev</li>
+    <li>a lot of Starplayer inside</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Fiber</h2>
+  <ul>
+    <li><a href="https://github.com/laverdet/node-fibers">node-fibers</a> on npm</li>
+    <li>thread per request</li>
+    <li>no callback</li>
+    <li>server side only</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Data</h2>
+  <ul>
+    <li>All API is isomorphic</li>
+    <li>Location Transparency</li>
+    <li><strong>Client inMemory Cache</strong></li>
+    <li>Write DDP for other DB</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Client Cache</h2>
+  <ul>
+    <li>Copy part of Master</li>
+    <li>Default is Mongo API</li>
+    <li>Auto sync to Master</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Data Flow(<span class="orange"> s/privillage/permission/ </span>)</h2>
+  <img src="/public/images/meteor.jpg"></img>
+</section>
+
+<section class="slide">
+  <h2>Template</h2>
+  <ul>
+    <li><span class="orange">&lt;head&gt;&lt;body&gt;</span> are concat to html</li>
+    <li><span class="orange">&lt;template&gt;</span> is convert to <strong>JS function</strong></li>
+    <li>String HTML Rendering Base(not DOM Munipulate Base)</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Data bind</h2>
+  <ul>
+    <li>by <strong>Selector</strong>(like Angular.js)</li>
+    <li>not by Attributes(like data-bind="" on derby.js)
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Hot Code Push</h2>
+  <ul>
+    <li><strong>Realtime Hot Reloading</strong></li>
+    <li>change App => bulild JS => send client => update client</li>
+    <li>Automatically Update both side</li>
+  </ul>
+</section>
+
+<style>
+#reactive h3 {
+  margin-bottom: 0.2em;
+}
+#reactive ul {
+  margin-top: 0em;
+  margin-bottom: 0.2em;
+}
+</style>
+<section class="slide">
+  <h2>Reactive</h2>
+  <div id="reactive">
+  <h3><strong>reactive context</strong></h3>
+  <ul>
+    <li>Meteor.ui.render, Meteor.ui.chunk</li>
+    <li>Meteor.autosubscribe</li>
+    <li>Templates</li>
+  </ul>
+  <h3><strong>data source</strong></h3>
+  <ul>
+    <li>Session</li>
+    <li>Collections</li>
+    <li>Meteor.status</li>
+  </ul>
+  <p>also you can <span class="orange">hook</span> via Meteor.deps</p>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Template Engine</h2>
+  <ul>
+    <li>Default is <a href="http://handlebarsjs.com/">Handlebar</a></li>
+    <li>able to use anything returns renderd string</li>
+    <li>(future: precompile)</li>
+    <li>statics on /public /client are serve</li>
+  </ul>
+</section>
+
+
+
+<section class="slide">
   <h2>installing</h2>
   <pre class="sh_sh" id="install">$ curl install.meteor.com | /bin/sh</pre>
   <ul>
@@ -93,6 +203,7 @@
     <li>add PATH</li>
   </ul>
 </section>
+
 
 <section class="slide">
   <h2>meteor command</h2>
@@ -266,11 +377,15 @@ span.white {
   </ul>
 </section>
 
+<section class="slide">
+  <p>What is the most important in Meteor is...<p>
+</section>
+
 <style>
   #big { color: white; font-size: 7em; }
 </style>
 <section class="slide">
-  <h1 id="big">Realtime User Experience</h1>
+  <h1 id="big">THEY GOT "meteor.com" DOMAIN</h1>
 </section>
 
 <section class="slide">
