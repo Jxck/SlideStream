@@ -27,7 +27,7 @@
 #uri { font-size: 300%; }
 </style>
 <section class="slide">
-  <h1 id="uri"><a href="http://jxck.node-ninja.com/slides/nodeacademy5.html">http://jxck.node-ninja.com/</br>slides/nodeacademy5.html</a></h1>
+  <h1 id="uri"><a href="http://jxck.node-ninja.com/">http://jxck.node-ninja.com/</a></h1>
 </section>
 
 <section class="slide">
@@ -137,8 +137,8 @@ span.white {
   <ul>
     <li>autosubscribe dose publish/subscribe</li>
     <li>change the data in mongo, send to all client</li>
-    <li>change the binded html, rerender</li>
-    <li>so all html are in js</li>
+    <li>change the <strong>binded html</strong>, rerender</li>
+    <li>all html are in js</li>
   </ul>
   <p>bind by selector like angular.js way(no data-bind attr like derby.js)</p>
 </section>
@@ -150,13 +150,14 @@ span.white {
     <li>nessesary binary(mongo, node)</li>
     <li>depended package</li>
     <li>server for deploy</li>
-    <li>Really Really ALL IN ONE</li>
+    <li><strong>COMPLEATLY ALL IN ONE</strong></li>
   </ul>
 </section>
 
 <section class="slide">
   <h2>importance at Meteor</h2>
   <ul>
+    <li>Isomorphic</li>
     <li>Fiber</li>
     <li>Template</li>
     <li>Reactive</li>
@@ -167,10 +168,29 @@ span.white {
 </section>
 
 <section class="slide">
+  <h2>Isomorphic</h2>
+  <ul>
+    <li>/client is client side script</li>
+    <li>is_client, is_server flg</li>
+  </ul>
+<pre class="sh_javascript">
+if (Meteor.is_client) {
+  // for client
+  Template.hello.events = {};
+}
+
+if (Meteor.is_server) {
+  // for server
+  Meteor.startup(function() {});
+}
+</pre>
+</section>
+
+<section class="slide">
   <h2>Fiber</h2>
   <ul>
     <li><a href="https://github.com/laverdet/node-fibers">node-fibers</a> on npm</li>
-    <li>thread per request</li>
+    <li><strong>thread per request</strong></li>
     <li>no callback</li>
     <li>server side only</li>
   </ul>
@@ -203,7 +223,7 @@ span.white {
 <section class="slide">
   <h2>Client Cache</h2>
   <ul>
-    <li>Copy part of Master</li>
+    <li>Copy part of Master data</li>
     <li>Default is Mongo API</li>
     <li>Auto sync to Master</li>
   </ul>
@@ -296,7 +316,7 @@ span.white {
   <pre class="sh_sh" id="install">$ curl install.meteor.com | /bin/sh</pre>
   <ul>
     <li>64bit Linux/Unix only</li>
-    <li>Downloads Package include all Binaly(no build)</li>
+    <li>Downloads Package include <strong>all Binaly</strong>(no build)</li>
     <li>/usr/local/meteor</li>
     <li>add PATH</li>
   </ul>
@@ -364,6 +384,22 @@ See 'meteor help <command>' for details on a command.
     <li>U can deploy this to your own server</li>
   </ul>
   <p class="orange">set MONGO_URL &amp; hit main.js</p>
+</section>
+
+<section class="slide">
+  <h2>bundled html</h2>
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;link rel="stylesheet" href="/da39a3ee5e6b4b0d3255bfef95601890afd80709.css"&gt;
+  &lt;title&gt;leaderboard&lt;/title&gt;
+  &lt;script type="text/javascript" src="/09faf43cc8e8695bf7307c4c1dd9d2a9fd71c4c9.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
 </section>
 
 <section class="slide">
