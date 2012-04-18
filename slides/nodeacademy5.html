@@ -62,15 +62,25 @@
   <iframe id="meteor" src="http://meteor.com">http://meteor.com</iframe>
 </section>
 
+<section class="slide">
+  <h2>Status</h2>
+  <ul>
+    <li><strong>GPL</strong>(contact us for other Lisence)</li>
+    <li>Not LoadMap but Mission</li>
+    <li>Under Rapid Dev</li>
+    <li>a lot of Starplayer inside</li>
+  </ul>
+</section>
+
 <style>
-#about_meteor ul {
+#about_meteor {
   font-size: 1.2em;
 }
 </style>
-<section id="about_meteor" class="slide">
+<section class="slide">
   <h2>about Meteor</h2>
   <h3>A new <strong>Way</strong> to build apps</h3>
-  <ul>
+  <ul id="about_meteor">
     <li>Pure JavaScript.</li>
     <li>Live page updates.</li>
     <li>Clean, powerful data synchronization.</li>
@@ -83,13 +93,76 @@
   </ul>
 </section>
 
+
 <section class="slide">
-  <h2>Status</h2>
+  <h1>OK, so what is Meteor?</h1>
+  <h3>these makes Meteor</h3>
+</section>
+
+<style>
+span.white {
+  color: #FFFFFF;
+}
+</style>
+<section class="slide">
+  <p>I think...</p>
+  <h1>Full Stack <span class="white">for</span> Reactive Programming <span class="white">by</span> pub/sub <span class="white">based on</span> WebSocket</h1>
+</section>
+
+<section class="slide">
+  <h2>Web Socket in Meteor</h2>
+  <h3>Using <a href="https://github.com/sockjs/sockjs-client">Sock.js</a></h3>
   <ul>
-    <li><strong>GPL</strong>(contact us for other Lisence)</li>
-    <li>Not LoadMap but Mission</li>
-    <li>Under Rapid Dev</li>
-    <li>a lot of Starplayer inside</li>
+    <li>WebSocket<small>(connectable from standard WS api)</small></li>
+    <li>Fallback to other transport without Flash</li>
+    <li>Pass through Proxy</li>
+    <li>Cross Browser</li>
+    <li>Client for Multi Language</li>
+  </ul>
+  <p>Simpler API, less feature than Socket.IO</p>
+</section>
+
+<section class="slide">
+  <h2>Pub/Sub</h2>
+  <ul>
+    <li>Server Publishes change of Data</li>
+    <li>Client Subscribe that too</li>
+    <li>WebSockets make it realtime(include server side push)</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Reactive</h2>
+  <h3>change the state with depended state change</h3>
+  <ul>
+    <li>autosubscribe dose publish/subscribe</li>
+    <li>change the data in mongo, send to all client</li>
+    <li>change the binded html, rerender</li>
+    <li>so all html are in js</li>
+  </ul>
+  <p>bind by selector like angular.js way(no data-bind attr like derby.js)</p>
+</section>
+
+<section class="slide">
+  <h2>Full Stack</h2>
+  <h3>meteor includes all of</h3>
+  <ul>
+    <li>nessesary binary(mongo, node)</li>
+    <li>depended package</li>
+    <li>server for deploy</li>
+    <li>Really Really ALL IN ONE</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>importance at Meteor</h2>
+  <ul>
+    <li>Fiber</li>
+    <li>Template</li>
+    <li>Reactive</li>
+    <li>Hot Code Push</li>
+    <li>Conflict</li>
+    <li>Package</li>
   </ul>
 </section>
 
@@ -103,6 +176,19 @@
   </ul>
 </section>
 
+<!--
+<section class="slide">
+  <h2>data</h2>
+  <ul>
+    <li>All API is in Meteor isomolphic(db agnostic)</li>
+    <li>Client has in memory cache, copy of master</li>
+    <li>subscribe masters change and sync</li>
+    <li>I,U,D change to local, send master, callback to client</li>
+    <li>conflict =&gt; <strong>last-writer-win</strong></li>
+  </ul>
+</section>
+-->
+
 <section class="slide">
   <h2>Data</h2>
   <ul>
@@ -111,6 +197,7 @@
     <li><strong>Client inMemory Cache</strong></li>
     <li>Write DDP for other DB</li>
   </ul>
+  <p>You can use any DB but Mongo is better, memory cache has Mongo API</p>
 </section>
 
 <section class="slide">
@@ -148,7 +235,7 @@
   <h2>Hot Code Push</h2>
   <ul>
     <li><strong>Realtime Hot Reloading</strong></li>
-    <li>change App => bulild JS => send client => update client</li>
+    <li>change App =&gt; bulild JS =&gt; send client =&gt; update client</li>
     <li>Automatically Update both side</li>
   </ul>
 </section>
@@ -191,7 +278,18 @@
   </ul>
 </section>
 
+<section class="slide">
+  <h2>Packages</h2>
+  <ul>
+    <li><strong>no npm</strong>
+    <li>available at /usr/local/meteor/packages</li>
+    <li>able to add what you like(in the future?)</li>
+  </ul>
+</section>
 
+<section class="slide">
+  <h1>Dive into Meteor</h1>
+</section>
 
 <section class="slide">
   <h2>installing</h2>
@@ -230,7 +328,7 @@ Commands:
 
 See 'meteor help <command>' for details on a command.
  </pre>
-  <p>change ulimit & delegate to /usr/local/meteor/app/meteor/meteor.js</p>
+  <p>change ulimit &amp; delegate to /usr/local/meteor/app/meteor/meteor.js</p>
 </section>
 
 <section class="slide">
@@ -265,7 +363,7 @@ See 'meteor help <command>' for details on a command.
     <li>bundled package is <strong>NOMAL NODE.js PROJECT</strong></li>
     <li>U can deploy this to your own server</li>
   </ul>
-  <p class="orange">set MONGO_URL & hit main.js</p>
+  <p class="orange">set MONGO_URL &amp; hit main.js</p>
 </section>
 
 <section class="slide">
@@ -281,99 +379,34 @@ See 'meteor help <command>' for details on a command.
   <p class="orange">thease are awsome!!</p>
 </section>
 
-<section class="slide">
-  <h2>importance at Meteor</h2>
-  <h3></h3>
-  <ul>
-    <li>fiber</li>
-    <li>reactive</li>
-    <li>hot code push</li>
-    <li>conflict</li>
-    <li>
-  </ul>
-  <p>Simpler API, less feature than Socket.IO</p>
-</section>
 
 <section class="slide">
-  <h1>OK, so what is Meteor?</h1>
-  <h3>these packages makes Meteor..</h3>
-</section>
-
-<style>
-span.white {
-  color: #FFFFFF;
-}
-</style>
-<section class="slide">
-  <h1>Full Stack <span class="white">for</span> Reactive Programming <span class="white">by</span> pub/sub <span class="white">based on</span> WebSocket</h1>
-</section>
-
-<section class="slide">
-  <h2>Web Socket in Meteor</h2>
-  <h3>Using <a href="https://github.com/sockjs/sockjs-client">Sock.js</a></h3>
-  <ul>
-    <li>WebSocket<small>(connectable from standard WS api)</small></li>
-    <li>Fallback to other transport without Flash</li>
-    <li>Pass through Proxy</li>
-    <li>Cross Browser</li>
-    <li>Client for Multi Language</li>
-  </ul>
-  <p>Simpler API, less feature than Socket.IO</p>
-</section>
-
-<section class="slide">
-  <h2>Pub/Sub</h2>
-  <h3><a></a></h3>
-  <ul>
-    <li>WebSocket<small>(connectable from standard WS api)</small></li>
-    <li>Fallback to other transport without Flash</li>
-    <li>Pass through Proxy</li>
-    <li>Cross Browser</li>
-    <li>Client for Multi Language</li>
-  </ul>
-  <p>Simpler API, less feature than Socket.IO</p>
-</section>
-
-<section class="slide">
-  <h2>Reactive</h2>
-  <h3>change the state with depended state change</h3>
-  <ul>
-    <li>autosubscribe dose publish/subscribe</li>
-    <li>change the data in mongo, send to all client</li>
-    <li>change the binded html, rerender</li>
-    <li>so all html are in js</li>
-  </ul>
-  <p>bind by selector like Angular.js way(no data-bind attr like derby.js)</p>
-</section>
-
-<section class="slide">
-  <h2>data</h2>
-  <ul>
-    <li>All API is in Meteor & isomolphic(db agnostic)</li>
-    <li>Client has in memory cache, copy of master</li>
-    <li>subscribe masters change and sync</li>
-    <li>I,U,D change to local, send master, callback to client</li>
-    <li>conflict => <strong>last-writer-win</strong></li>
-  </ul>
-  <p>You can use any DB but Mongo is better, memory cache has Mongo API</p>
-</section>
-
-<section class="slide">
-  <h2>awsome at meteor</h2>
+  <h2>awsome at meteor :)</h2>
   <ul>
     <li>easy install</li>
-    <li>easy reactive</li>
+    <li><strong>easy reactive</strong></li>
     <li>easy isomolphic</li>
+    <li>easy deploy &amp; publish</li>
   </ul>
 </section>
 
 <section class="slide">
-  <h2>worried about meteor..</h2>
+  <h2>worried about meteor.. :(</h2>
   <ul>
-    <li>packege dependencies</li>
+    <li>package dependencies</li>
+    <li>package versioning(direct writing in source)</li>
     <li>debuggable?</li>
     <li>maintainable?</li>
-    <li>bug enougth to maze</li>
+    <li>black box &amp; big enougth to be stray cat's</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>My own opinion</h2>
+  <ul>
+    <li>Architecture is very meditated</li>
+    <li>We can learn a lot from meteor</li>
+    <li>But It's too anxiety to use in production from now on</li>
   </ul>
 </section>
 
@@ -389,7 +422,15 @@ span.white {
 </section>
 
 <section class="slide">
-  <h1>End or Question</h1>
+  <h1>anyone.on<br />('uncaughtQuestion?');</h1>
+</section>
+
+<section class="slide">
+  <h1>May the Node be with you</h1>
+</section>
+
+<section class="slide">
+  <h1>Jxck.on('end');<p class="small"><span class="mono">// thank you ;) </span></p></h1>
 </section>
 
 <!-- Other extension HTML snippets go here, at the bottom of the deck container. -->
@@ -425,7 +466,11 @@ span.white {
   $(function() {
     sh_highlightDocument('lang/', '.js');
     sh_highlightDocument('lang/', '.shell');
+
+    var section_height = $('section').height();
+    var h3_height = $('h3').height();
     $('#install').height('1em');
+    $('iframe').height(section_height - h3_height);
     $.deck('.slide');
   });
 </script>
