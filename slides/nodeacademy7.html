@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Node Academy 7 | "Stream Stream Stream !!!"</title>
+  <meta name="viewport" content="width=1024, user-scalable=no">
+
+  <!-- Replace path with correct path to deck.core.css. -->
+  <link rel="stylesheet" href="../public/stylesheets/deck.core.css" type="text/css">
+
+  <!-- Any other extension CSS files go here. -->
+  <link rel="stylesheet" id="style-theme-link" href="../public/themes/style/neon.css">
+  <link rel="stylesheet" id="transition-theme-link" href="../public/themes/transition/horizontal-slide.css">
+
+  <link rel="stylesheet" id="shjs-link" href="../public/stylesheets/sh_style.css">
+
+  <link rel="stylesheet" href="../public/stylesheets/style.css" type="text/css">
+  <link rel="stylesheet" id="transition-theme-link" href="../public/extensions/status/deck.status.css">
+  <link rel="stylesheet" id="transition-theme-link" href="../public/extensions/menu/deck.menu.css">
+  <!-- Replace path with correct path to Modernizr file. -->
+  <script src="../public/javascripts/modernizr.custom.js"></script>
+</head>
+<body class="deck-container">
+
+<!-- Create any number of elements with class slide within the container -->
+<style>
+#uri { font-size: 300%; }
+</style>
+<section class="slide">
+  <h1 id="uri"><a href="http://jxck.node-ninja.com/">http://jxck.node-ninja.com/</a></h1>
+</section>
+
+<section class="slide">
+  <h1>Stream Stream Stream !!!<p class="small">@node academy 7</p></h1>
+</section>
+
+<section class="slide">
+  <!-- Slide content HTML goes here! -->
+  <p id="icon">Jack</p>
+</section>
+
+<section class="slide">
+  <h2>about me</h2>
+  <h3>Jxck</h3>
+  <ul>
+    <li>id: <strong>Jxck</strong></li>
+    <li>group: #nodejs_jp</li>
+    <li>twitter: <a href="http://twitter.com/Jxck_">Jxck_</a></li>
+    <li>github: <a href="http://github.com/Jxck">http://github.com/Jxck</a></li>
+    <li>blog: <a href="http://d.hatena.ne.jp/Jxck">http://d.hatena.ne.jp/Jxck</a></li>
+    <li>tumblr: <a href="http://jxck.tumblr.com/">http://jxck.tumblr.com/</a></li>
+    <li>love: music</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h1>Stream Stream Stream !!!</h1>
+</section>
+
+<style>
+#stream-motivation {
+  color: #fff;
+}
+</style>
+<section class="slide">
+  <h2>Stream</h2>
+  <p><a href="http://nodejs.org/docs/latest/api/stream.html#stream_stream">http://nodejs.org/docs/latest/api/stream.html#stream_stream</a></p>
+
+<pre id="stream-motivation">A stream is an abstract <strong>interface</strong> implemented by various objects in Node.
+For example a request to an HTTP server is a stream, as is stdout.
+Streams are <strong>readable</strong>, <strong>writable</strong>, or <strong>both</strong>. All streams are instances of <strong>EventEmitter</strong>
+You can load up the Stream base class by doing <strong>require('stream')</strong>.</pre>
+</section>
+
+
+<section class="slide">
+  <h2>Basic</h2>
+  <p>Inherit stream on your own <del>class</del> function and implement api.</p>
+<pre class="sh_javascript">
+var Stream = require('stream')
+  , util = require('util')
+  ;
+
+function MyStream() {
+  Stream.call(this);
+  // cont...
+}
+
+util.inherits(MyStream, Stream);
+
+MyStream.prototype.API = ....
+</pre>
+<p>actually this inherits make your <del>class</del> function able to pipe</p>
+</section>
+
+<section class="slide">
+  <h2>Stream Type</h2>
+  <ul>
+    <li>Readable Stream</li>
+    <li>Writable Stream</li>
+    <li>Filter Stream</li>
+    <li>Duplex Stream</li>
+  </ul>
+</section>
+
+<style>
+#readable-api{
+  font-size: 1.2em;
+}
+</style>
+<section class="slide">
+  <h2>Readable Stream API</h2>
+  <ul id="readable-api">
+    <li>Event: 'data'</li>
+    <li>Event: 'end'</li>
+    <li>Event: 'error'</li>
+    <li>Event: 'close'</li>
+    <li>stream.readable</li>
+    <li>stream.setEncoding([encoding])</li>
+    <li>stream.pause()</li>
+    <li>stream.resume()</li>
+    <li>stream.destroy()</li>
+    <li>stream.pipe(destination, [options]) // inhert from lib/stream</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Readable Stream</h2>
+  <ul>
+    <li>process.stdin</li>
+    <li>fs.ReadStream</li>
+    <li>http.ServerRequest</li>
+  </ul>
+<pre class="sh_javascript">
+// ReadableStream: process.stdin
+process.stdin.resume();
+process.stdin.on('data', function(data) {
+  console.log(data.toString());
+});
+</pre>
+</section>
+
+<style>
+#writable-api{
+  font-size: 1.2em;
+}
+</style>
+<section class="slide">
+  <h2>Writable Stream API</h2>
+  <ul id="writable-api">
+    <li>Event: 'drain'</li>
+    <li>Event: 'error'</li>
+    <li>Event: 'close'</li>
+    <li>Event: 'pipe'</li>
+    <li>stream.writable</li>
+    <li>stream.write(string, [encoding], [fd])</li>
+    <li>stream.write(buffer)</li>
+    <li>stream.end()</li>
+    <li>stream.end(string, encoding)</li>
+    <li>stream.end(buffer)</li>
+    <li>stream.destroy()</li>
+    <li>stream.destroySoon()</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Writable Stream</h2>
+  <ul>
+    <li>process.stdout</li>
+    <li>fs.WriteStream</li>
+    <li>http.ServerResponse</li>
+  </ul>
+<pre class="sh_javascript">
+// WritableStream: process.stdout
+var words = ['a', 'b', 'c'];
+words.forEach(function(data) {
+  process.stdout.write(data + '\n');
+});
+</pre>
+</section>
+
+<section class="slide">
+  <h2>Pipe()</h2>
+  <h3>$ readable | writable</h3>
+<pre class="sh_javascript">// standard concept
+Readable.on('data', function(data) {
+  Writable.write(data);
+}
+</pre>
+<pre class="sh_javascript">
+// Regulate Read and Write IO gap
+// restart reading
+Readable.resume();
+Readable.on('data', function(data) {
+  if (Writable.write(data) === false) { // buffer is full
+    // stap
+    Readable.pause();
+  }
+});
+// ready for write
+Writable.on('drain', function() {
+  // restart
+  Readable.resume();
+});
+</pre>
+<pre class="sh_javascript">// make it method
+Readable.pipe(Writable);
+</pre>
+</section>
+
+<style>
+  #stream-image {
+    height: 80%;
+  }
+</style>
+<section class="slide">
+  <h2>Stream</h2>
+  <img id="stream-image" src="/public/images/stream-image.jpg"></img>
+</section>
+
+<section class="slide">
+  <h2>Filter Stream</h2>
+  <h3>Stream which Readable and Writable(write when emits data)</h3>
+  <ul>
+    <li>zlib.Gunzip</li>
+    <li>zlib.Deflate</li>
+  </ul>
+<pre class="sh_javascript">process.stdin
+  .pipe(zlib.createDeflate())
+  .pipe(zlib.createGzip())
+  .pipe(fs.createWriteStream('/tmp/deflate.gzip'));
+</pre>
+<pre class="sh_javascript">fs.createReadStream('/tmp/deflate.gzip')
+  .pipe(zlib.createGunzip())
+  .pipe(zlib.createInflate())
+  .pipe(process.stdout);
+</pre>
+</section>
+
+<section class="slide">
+  <h2>Duplex Stream</h2>
+  <h3>Stream which Readable and Writable</h3>
+  <ul>
+    </li>net.Socket</li>
+    </li>tls.CleartextStream</li>
+  </ul>
+<pre class="sh_javascript">var net = require('net');
+
+net.createServer(function(socket) {
+  socket.write('data from server');
+  socket.on('data', function(data) {
+    console.log(data.toString());
+  });
+}).listen(3000);
+</pre>
+</section>
+
+<style>
+#link-list dt {
+  color: #fff;
+  margin-top: 0;
+}
+
+#link-list dd {
+  color: #fff;
+  font-size: 0.8em;
+  padding-top: 0;
+  margin-top: 0;
+}
+</style>
+<section class="slide">
+  <h2>Links</h2>
+  <dl id="link-list">
+    <dt>blog</dt>
+      <dd><a href="http://d.hatena.ne.jp/Jxck/20111204/1322966453">http://d.hatena.ne.jp/Jxck/20111204/1322966453</a></dd>
+    <dt>A spec for streams</dt>
+      <dd><a href="https://gist.github.com/1241393">https://gist.github.com/1241393</a></dd>
+    <dt>Stream2</dt>
+      <dd><a href="https://github.com/joyent/node/pull/1681">https://github.com/joyent/node/pull/1681</a></dd>
+    <dt>Stream tweaks proposal</dt>
+      <dd><a href="https://gist.github.com/3117184">https://gist.github.com/3117184</a> and <a href="https://groups.google.com/forum/?fromgroups=#!topic/nodejs-dev/djqqFhrObB8">Google Group</a></dd>
+    <dt>readable-stream(@izc)</dt>
+      <dd><a href="https://github.com/isaacs/readable-stream">https://github.com/isaacs/readable-stream</a></dd>
+</section>
+
+<style>
+#lib-list dt {
+  color: #fff;
+  margin-top: 0;
+}
+
+#lib-list dd {
+  font-size: 0.8em;
+  padding-top: 0;
+  margin-top: 0;
+}
+</style>
+<section class="slide">
+  <h2>Useful Libs</h2>
+  <dl id="lib-list">
+    <dt>JSONStream</dt>
+      <dd><a href="https://github.com/dominictarr/JSONStream">https://github.com/dominictarr/JSONStream</a></dd>
+    <dt>event-stream</dt>
+      <dd><a href="https://github.com/dominictarr/event-stream">https://github.com/dominictarr/event-stream</a></dd>
+    <dt>through</dt>
+      <dd><a href="https://github.com/dominictarr/through">https://github.com/dominictarr/through</a></dd>
+    <dt>emit-stream</dt>
+      <dd><a href="https://github.com/substack/emit-stream">https://github.com/substack/emit-stream</a></dd>
+    <dt>shoe</dt>
+      <dd><a href="https://github.com/substack/shoe">https://github.com/substack/shoe</a></dd>
+  </dl>
+</section>
+
+<section class="slide">
+  <h1>stream-handbook</h1>
+  <h3><a href="https://github.com/substack/stream-handbook">https://github.com/substack/stream-handbook</a></h3>
+</section>
+
+<section class="slide">
+  <h1>anyone.on<br />('uncaughtQuestion?');</h1>
+</section>
+
+<section class="slide">
+  <h1>May the Node be with you</h1>
+</section>
+
+<section class="slide">
+  <h1>Jxck.on('end');<p class="small"><span class="mono">// thank you ;) </span></p></h1>
+</section>
+
+<!-- Other extension HTML snippets go here, at the bottom of the deck container. -->
+<p class="deck-status">
+  <span class="deck-status-current"></span>
+  /
+  <span class="deck-status-total"></span>
+  <span class="deck-status-viewer">(0)</span>
+</p>
+
+<!-- Update these paths to point to the correct files. -->
+<script src="../public/javascripts/jquery-1.6.4.min.js"></script>
+
+
+<!-- Add any other extension JS files here -->
+<!-- <script src="../public/javascripts/deck.core.js"></script> -->
+<!-- <script src="../public/extensions/hash/deck.hash.js"></script> -->
+<!-- <script src="../public/extensions/menu/deck.menu.js"></script> -->
+<!-- <script src="../public/extensions/status/deck.status.js"></script> -->
+<script src="../public/javascripts/deck.compiled.js"></script>
+
+
+<script src="../public/javascripts/sh_main.min.js"></script>
+<script src="../public/javascripts/sh_javascript.min.js"></script>
+<script src="../public/javascripts/sh_sh.min.js"></script>
+<!-- <script src="../public/javascripts/diff_match_patch.js"></script> -->
+<script src="/socket.io/socket.io.js"></script>
+<!-- <script src="lib/diff_launch.js"></script> -->
+<script src="../public/javascripts/client.js"></script>
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+  $(function() {
+    sh_highlightDocument('lang/', '.js');
+    sh_highlightDocument('lang/', '.shell');
+
+    var section_height = $('section').height();
+    var h3_height = $('h3').height();
+    $('#install').height('1em');
+    $('iframe').height(section_height - h3_height);
+    $.deck('.slide');
+  });
+</script>
+</body>
+</html>
