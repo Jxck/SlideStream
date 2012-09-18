@@ -219,8 +219,26 @@ Readable.pipe(Writable);
 </section>
 
 <section class="slide">
+  <h2>More</h2>
+  <h3>Stream which Readable and Writable</h3>
+  <ul>
+    <li>Filter Stream</li>
+    <li>Duplex Stream</li>
+  </ul>
+</section>
+
+<style>
+  #filter-image {
+    height: 80%;
+  }
+</style>
+<section class="slide">
   <h2>Filter Stream</h2>
-  <h3>Stream which Readable and Writable(write when emits data)</h3>
+  <img id="filter-image" src="/public/images/filter-image.jpg"></img>
+</section>
+
+<section class="slide">
+  <h2>Filter Stream</h2>
   <ul>
     <li>zlib.Gunzip</li>
     <li>zlib.Deflate</li>
@@ -237,12 +255,21 @@ Readable.pipe(Writable);
 </pre>
 </section>
 
+<style>
+  #duplex-image {
+    height: 80%;
+  }
+</style>
 <section class="slide">
   <h2>Duplex Stream</h2>
-  <h3>Stream which Readable and Writable</h3>
+  <img id="duplex-image" src="/public/images/duplex-image.jpg"></img>
+</section>
+
+<section class="slide">
+  <h2>Duplex Stream</h2>
   <ul>
-    </li>net.Socket</li>
-    </li>tls.CleartextStream</li>
+    <li>net.Socket</li>
+    <li>tls.CleartextStream</li>
   </ul>
 <pre class="sh_javascript">var net = require('net');
 
