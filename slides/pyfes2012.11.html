@@ -248,6 +248,14 @@ new WebSocket('hostname', <strong>['chat', 'superchat']</strong>);
   </ul>
 </section>
 
+<style>
+  #links {
+    margin-top: 4%;
+  }
+  p.links {
+    margin: 0 0 0 0;
+  }
+</style>
 <section class="slide">
   <h2>in Socket.IO@1.0</h2>
   <h4><strong>before</strong></h4>
@@ -260,7 +268,10 @@ new WebSocket('hostname', <strong>['chat', 'superchat']</strong>);
     <li>XHR</li>
     <li>upgrade to WebSocket, flash</li>
   </ul>
-  <p><a href="https://speakerdeck.com/3rdeden/realtimeconf-dot-oct-dot-2012">WebSuckets@realtime.conf</a></p>
+  <div id="links">
+    <p class="links"><a href="https://speakerdeck.com/3rdeden/realtimeconf-dot-oct-dot-2012">WebSuckets@realtime.conf</a></p>
+    <p class="links"><a href="http://d.hatena.ne.jp/Jxck/20121107/1352304801">Engine.IO to Socket.IO</a></p>
+  </div>
 </section>
 
 <section class="slide">
@@ -310,6 +321,15 @@ See also <a href="http://trac.tools.ietf.org/wg/httpbis/trac/report/21">Tickets<
     <li>Header Compression</li>
     <li>Server Push</li>
     <li><a href="http://spdycheck.org/">spdycheck</a></li>
+    <li><a href="http://www.devthought.com/2012/03/10/chrome-spdy-indicator/">spdy-indicator</a></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>SPDY friendly</h2>
+  <ul>
+    <li>same origin contents</li>
+    <li>large, many contents</li>
   </ul>
 </section>
 
