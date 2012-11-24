@@ -230,13 +230,21 @@ new WebSocket('hostname', <strong>['chat', 'superchat']</strong>);
   </ul>
 </section>
 
+<style>
+  #nginx ul {
+    font-size: 80%;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+</style>
 <section class="slide">
   <h2>Realworld</h2>
   <h3>Intermediaris</h3>
-  <ul>
-    <li>Nginx</li>
-    <li>Amazon ELB</li>
-    <li>Personal Firewall</li>
+  <ul id="nginx">
+    <li>Nginx<ul><li><a href="https://github.com/yaoweibin/nginx_tcp_proxy_module">nginx_tcp_proxy_module</a></li></ul></li>
+    <li>Amazon ELB<ul><li><a href="http://d.hatena.ne.jp/Jxck/20120228/1330444857">websocket on ELB</a></li></ul></li>
+    <li>Personal Firewall<ul><li><a href="https://github.com/LearnBoost/socket.io/wiki/Socket.IO-and-firewall-software">Socket.IO and Firewall</a></li></ul></li>
   </ul>
 </section>
 
@@ -252,6 +260,7 @@ new WebSocket('hostname', <strong>['chat', 'superchat']</strong>);
     <li>XHR</li>
     <li>upgrade to WebSocket, flash</li>
   </ul>
+  <p><a href="https://speakerdeck.com/3rdeden/realtimeconf-dot-oct-dot-2012">WebSuckets@realtime.conf</a></p>
 </section>
 
 <section class="slide">
