@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SDPY/WebSocket Study 2013.3 | SPDY on Go</title>
+  <meta name="viewport" content="width=1024, user-scalable=no">
+
+  <!-- Replace path with correct path to deck.core.css. -->
+  <link rel="stylesheet" href="../public/stylesheets/deck.core.css" type="text/css">
+
+  <!-- Any other extension CSS files go here. -->
+  <link rel="stylesheet" id="style-theme-link" href="../public/themes/style/neon.css">
+  <link rel="stylesheet" id="transition-theme-link" href="../public/themes/transition/horizontal-slide.css">
+
+  <link rel="stylesheet" id="shjs-link" href="../public/stylesheets/sh_style.css">
+
+  <link rel="stylesheet" href="../public/stylesheets/style.css" type="text/css">
+  <link rel="stylesheet" id="transition-theme-link" href="../public/extensions/status/deck.status.css">
+  <link rel="stylesheet" id="transition-theme-link" href="../public/extensions/menu/deck.menu.css">
+  <!-- Replace path with correct path to Modernizr file. -->
+  <script src="../public/javascripts/modernizr.custom.js"></script>
+</head>
+<body class="deck-container">
+
+<!-- Create any number of elements with class slide within the container -->
+<style>
+#uri { font-size: 300%; }
+</style>
+<section class="slide">
+  <h1 id="uri"><a href="http://jxck.node-ninja.com/">http://jxck.node-ninja.com/</a></h1>
+</section>
+
+<section class="slide">
+  <h1>SPDY on Go<p class="small">@SDPY/WebSocket Study (仮) 2013.3</p></h1>
+</section>
+
+<section class="slide">
+  <!-- Slide content HTML goes here! -->
+  <p id="icon">Jack</p>
+</section>
+
+<section class="slide">
+  <h2>about me</h2>
+  <h3>Jxck</h3>
+  <ul>
+    <li>id: <strong>Jxck</strong></li>
+    <li>twitter: <a href="http://twitter.com/Jxck_">Jxck_</a></li>
+    <li>github: <a href="http://github.com/Jxck">http://github.com/Jxck</a></li>
+    <li>blog: <a href="http://d.hatena.ne.jp/Jxck">http://d.hatena.ne.jp/Jxck</a></li>
+    <li>tumblr: <a href="http://jxck.tumblr.com/">http://jxck.tumblr.com/</a></li>
+    <li>qiita: <a href="http://qiita.com/users/Jxck_">http://qiita.com/users/Jxck_</a></li>
+    <li>love: <strong>music :)</strong></li>
+  </ul>
+</section>
+
+<section class="slide frame">
+  <h3><small>次世代 Web セッション <a href="http://www.cross-party.com/programs/?p=138" target="_blank">http://www.cross-party.com/programs/?p=138</a></small></h3>
+  <iframe src="http://www.cross-party.com/programs/?p=138">http://www.cross-party.com/programs/?p=138</iframe>
+</section>
+
+<style>
+  #images {
+    clear: both;
+    padding: 10%;
+  }
+  #node-book {
+    float: right;
+  }
+  #webdbpress {
+    float: left;
+  }
+</style>
+<section class="slide">
+  <h2>Publish</h2>
+  <div id="images">
+   <a href="http://www.amazon.co.jp/dp/4774153206/"><img id="webdbpress" src="/public/images/webdbpress-vol71.jpg"></img></a>
+   <a href="http://www.amazon.co.jp/gp/product/4048703676"><img id="node-book" src="/public/images/node-book.jpg"></img></a>
+  </div>
+</section>
+
+<section class="slide">
+  <h1><img id="gopher" src="/public/images/go/bumper.png"></img></h1>
+</section>
+
+<section class="slide">
+  <h2>Go by Google</h2>
+  <strong>Go is a new, general-purpose programming language.</strong>
+  <ul>
+    <li>Easy to Build</li>
+    <li>Static Typed</li>
+    <li>Concurrency Model Support</li>
+    <li>GC</li>
+    <li>Buttery Included</li>
+    <li>LL like Syntax</li>
+  </ul>
+</section>
+
+<style>
+  #spdy {
+    width: 400%;
+  }
+</style>
+<section class="slide">
+  <h1><img id="spdy" src="/public/images/spdy-ws/spdy.png"></img></h1>
+</section>
+
+<style>
+#websocket-header{
+  color: #fff;
+}
+</style>
+<section class="slide">
+  <h2>Header</h2>
+  <p><a href="http://tools.ietf.org/html/rfc6455#section-1.2">http://tools.ietf.org/html/rfc6455#section-1.2</a></p>
+<pre id="websocket-header">
+GET /chat HTTP/1.1
+Host: server.example.com
+<strong>Upgrade</strong>: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+Origin: http://example.com
+Sec-WebSocket-Extensions: x-webkit-deflate-frame
+Sec-WebSocket-Protocol: chat, superchat
+Sec-WebSocket-Version: <strong>13</strong>
+</pre>
+<span>sharing port, cookie with http</span>
+</section>
+
+<style>
+#websocket-frame{
+  color: #fff;
+  font-size: 70%;
+  font-family: monospace;
+}
+</style>
+<section class="slide">
+  <h2>Frame</h2>
+  <p><a href="http://tools.ietf.org/html/rfc6455#section-5.2">http://tools.ietf.org/html/rfc6455#section-5.2</a></p>
+
+<pre id="websocket-frame"> 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-------+-+-------------+-------------------------------+
+|<strong>F</strong>|R|R|R| opcode|M| <strong>Payload len</strong> |    Extended payload length    |
+|<strong>I</strong>|S|S|S|  (4)  |A|     (<strong>7</strong>)     |             (<strong>16/64</strong>)           |
+|<strong>N</strong>|V|V|V|       |S|             |   (if payload len==126/127)   |
+| |1|2|3|       |K|             |                               |
++-+-+-+-+-------+-+-------------+ - - - - - - - - - - - - - - - +
+|     Extended payload length continued, if payload len == 127  |
++ - - - - - - - - - - - - - - - +-------------------------------+
+|                               |Masking-key, if MASK set to 1  |
++-------------------------------+-------------------------------+
+| Masking-key (continued)       |          Payload Data         |
++-------------------------------- - - - - - - - - - - - - - - - +
+:                     Payload Data continued ...                :
++ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
+|                     Payload Data continued ...                |
++---------------------------------------------------------------+</pre>
+<span>continuous flag, 3 type of payload length</span>
+</section>
+
+<section class="slide">
+  <h2>Resources</h2>
+  <ul>
+    <li><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a></li>
+    <li><a href="http://d.hatena.ne.jp/Jxck/20120725/1343174392">WebSocket サーバの実装とプロトコル解説</a></li>
+    <li><a href="https://plus.google.com/103969044621963378195/posts/af6Fg972tGQ">The WebSocket Protocol (RFC 6455) の歴史</a></li>
+  </ul>
+</section>
+
+<!-------------extensions--------------------->
+<section class="slide">
+  <h1>WebSocket Extensions</h1>
+</section>
+
+<style>
+#websocket-extensions{
+  color: #fff;
+}
+</style>
+<section class="slide">
+  <h2>Extensions</h2>
+  <p><a href="http://tools.ietf.org/html/rfc6455#section-9">http://tools.ietf.org/html/rfc6455#section-9</a></p>
+
+<pre id="websocket-extensions">
+GET /chat HTTP/1.1
+Host: server.example.com
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+Origin: http://example.com
+<strong>Sec-WebSocket-Extensions</strong>: x-webkit-deflate-frame
+Sec-WebSocket-Protocol: chat, superchat
+Sec-WebSocket-Version: 13
+</pre>
+</section>
+
+<style>
+  #mux li ul {
+    font-size: 80%;
+  }
+</style>
+<section class="slide">
+  <h2>Extensions</h2>
+  <ul id="mux">
+    <li><a href="http://tools.ietf.org/wg/hybi/draft-ietf-hybi-websocket-multiplexing/">websocket-multiplexing</a>
+      <ul>
+        <li>"mux"</li>
+        <li>multi channel over single physical connection</li>
+      </ul>
+    </li>
+    <li><a href="http://tools.ietf.org/wg/hybi/draft-ietf-hybi-permessage-compression/">permessage-compression</a>
+      <ul>
+        <li>"permessage-compress"</li>
+        <li>default defrate</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+<!-------------subprotocol-------------------->
+<section class="slide">
+  <h1>WebSocket Subprotocol</h1>
+</section>
+
+<style>
+#websocket-subprotocol{
+  color: #fff;
+}
+</style>
+<section class="slide">
+  <h2>Subprotocol</h2>
+  <p><a href="http://tools.ietf.org/html/rfc6455#section-1.9">http://tools.ietf.org/html/rfc6455#section-1.9</a></p>
+
+<pre id="websocket-extensions">
+GET /chat HTTP/1.1
+Host: server.example.com
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+Origin: http://example.com
+Sec-WebSocket-Extensions: x-webkit-deflate-frame
+<strong>Sec-WebSocket-Protocol</strong>: chat, superchat
+Sec-WebSocket-Version: 13
+</pre>
+<pre>
+new WebSocket('hostname', <strong>['chat', 'superchat']</strong>);
+</pre>
+</section>
+
+<section class="slide">
+  <h2>Subprotocol</h2>
+  <h3><a href="http://www.iana.org/assignments/websocket/websocket.xml#subprotocol-name">WebSocket Subprotocol Name Registry (IANA)</a></h3>
+  <ul>
+    <li><a href="http://wamp.ws/spec">WAMP</a></li>
+    <li>SOAP</li>
+    <li>STOMP</li>
+    <li>MBWS</li>
+  </ul>
+</section>
+
+<style>
+  #nginx ul {
+    font-size: 80%;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+</style>
+<section class="slide">
+  <h2>Realworld</h2>
+  <h3>Intermediaris</h3>
+  <ul id="nginx">
+    <li>Nginx<ul><li><a href="https://github.com/yaoweibin/nginx_tcp_proxy_module">nginx_tcp_proxy_module</a></li></ul></li>
+    <li>Amazon ELB<ul><li><a href="http://d.hatena.ne.jp/Jxck/20120228/1330444857">websocket on ELB</a></li></ul></li>
+    <li>Personal Firewall<ul><li><a href="https://github.com/LearnBoost/socket.io/wiki/Socket.IO-and-firewall-software">Socket.IO and Firewall</a></li></ul></li>
+  </ul>
+</section>
+
+<style>
+  #links {
+    margin-top: 4%;
+  }
+  p.links {
+    margin: 0 0 0 0;
+  }
+</style>
+<section class="slide">
+  <h2>in Socket.IO@1.0</h2>
+  <h4><strong>before</strong></h4>
+  <ul>
+    <li>WebSocket</li>
+    <li>fallback to flash, XHR etc</li>
+  </ul>
+  <h4><strong>after</strong></h4>
+  <ul>
+    <li>XHR</li>
+    <li>upgrade to WebSocket, flash</li>
+  </ul>
+  <div id="links">
+    <p class="links"><a href="https://speakerdeck.com/3rdeden/realtimeconf-dot-oct-dot-2012">WebSuckets@realtime.conf</a></p>
+    <p class="links"><a href="http://d.hatena.ne.jp/Jxck/20121107/1352304801">Engine.IO to Socket.IO</a></p>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>Tools</h2>
+  <ul>
+    <li><a href="http://websocketstest.com/">websocketstest</a></li>
+    <li><a href="http://wsping.jit.su/">wsping</a></li>
+    <li><a href="https://github.com/einaros/ws#wscat-against-echowebsocketorg">wscat</a></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Book</h2>
+  <ul>
+    <li><a href="http://www.apress.com/9781430247401">The Definitive Guide to HTML5 WebSocket</a></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h1>HTTP2.0</h1>
+</section>
+
+<section class="slide">
+  <h2>HTTP/2.0 Deliverables</h2>
+  <pre>We're also chartered to work on a replacement for how HTTP is expressed "on the wire." This effort is known as "HTTP/2.0", although it is not a ground-up rewrite of the protocol.
+
+The basis of the work is <a href="http://tools.ietf.org/html/draft-mbelshe-httpbis-spdy-00">SPDY</a>. However, we will be collecting issues against this document, as well as confirming consensus over individual portions.
+
+See also <a href="http://trac.tools.ietf.org/wg/httpbis/trac/report/21">Tickets</a> related to HTTP/2.0.</pre>
+</section>
+
+<section class="slide">
+  <h2>Draft</h2>
+  <ul>
+    <li><a href="http://tools.ietf.org/html/draft-mbelshe-httpbis-spdy">SPDY</a></li>
+    <li><a href="http://tools.ietf.org/html/draft-montenegro-httpbis-speed-mobility">HTTP Speed+Mobility(S+M)</a></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>SPDY</h2>
+  <ul>
+    <li>TLS</li>
+    <li><strong>NPN(next protocol negotiation)</strong></li>
+    <li>Multiplexing</li>
+    <li>Binary Frame</li>
+    <li>Header Compression</li>
+    <li>Server Push</li>
+    <li><a href="http://spdycheck.org/">spdycheck</a></li>
+    <li><a href="http://www.devthought.com/2012/03/10/chrome-spdy-indicator/">spdy-indicator</a></li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>SPDY friendly</h2>
+  <ul>
+    <li>same origin contents</li>
+    <li>large, many contents</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>SPDY push</h2>
+  <ul>
+    <li>sending contents to cache</li>
+    <li>&#8800; websocket push</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>HTTP Speed+Mobility(S+M)</h2>
+  <ul>
+    <li>upgrade from HTTP1.1</li>
+    <li><strong>Over WebSocket</strong></li>
+    <li>optional TLS</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>HTTP to HTTP2 ?</h2>
+  <ul>
+    <li>HTTP1.1 upgrade</li>
+    <li>DNS SRV record</li>
+    <li>http2://...</li>
+  </ul>
+</section>
+
+<style>
+  section.goriki img {
+    margin-bottom: 0;
+  }
+  p.center {
+    text-align: center;
+    font-size: 120%;
+    color: white;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  p.center strong {
+    font-size: 200%;
+    font-family: serif;
+  }
+</style>
+<section class="slide goriki">
+  <p class="center">深刻な</p>
+  <img id="goriki" src="/public/images/spdy-ws/goriki.jpg"></img>
+  <p class="center"><strong>Go力</strong>不足</p>
+</section>
+
+<section class="slide frame">
+  <h3><small>Go Conference 2013 spring <a href="http://connpass.com/event/1906/" target="_blank">http://connpass.com/event/1906/</a></small></h3>
+  <iframe src="http://connpass.com/event/1906/">http://connpass.com/event/1906/</iframe>
+</section>
+
+<section class="slide frame">
+  <h3><small>電車でGo! <a href="http://connpass.com/event/2108/" target="_blank">http://connpass.com/event/2108/</a></small></h3>
+  <iframe src="http://connpass.com/event/2108/">http://connpass.com/event/2108/</iframe>
+</section>
+
+<section class="slide">
+  <h1>END</h1>
+</section>
+
+<!-- Other extension HTML snippets go here, at the bottom of the deck container. -->
+<p class="deck-status">
+  <span class="deck-status-current"></span>
+  /
+  <span class="deck-status-total"></span>
+  <span class="deck-status-viewer">(0)</span>
+</p>
+
+<!-- Update these paths to point to the correct files. -->
+<script src="../public/javascripts/jquery-1.6.4.min.js"></script>
+
+
+<!-- Add any other extension JS files here -->
+<!-- <script src="../public/javascripts/deck.core.js"></script> -->
+<!-- <script src="../public/extensions/hash/deck.hash.js"></script> -->
+<!-- <script src="../public/extensions/menu/deck.menu.js"></script> -->
+<!-- <script src="../public/extensions/status/deck.status.js"></script> -->
+<script src="../public/javascripts/deck.compiled.js"></script>
+
+
+<script src="../public/javascripts/sh_main.min.js"></script>
+<script src="../public/javascripts/sh_javascript.min.js"></script>
+<script src="../public/javascripts/sh_sh.min.js"></script>
+<!-- <script src="../public/javascripts/diff_match_patch.js"></script> -->
+<script src="/socket.io/socket.io.js"></script>
+<!-- <script src="lib/diff_launch.js"></script> -->
+<script src="../public/javascripts/client.js"></script>
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+  $(function() {
+    sh_highlightDocument('lang/', '.js');
+    sh_highlightDocument('lang/', '.shell');
+
+    var section_height = $('section').height();
+    var h3_height = $('h3').height();
+    $('#install').height('1em');
+    $('iframe').height(section_height - h3_height);
+    $.deck('.slide');
+  });
+</script>
+</body>
+</html>
